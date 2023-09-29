@@ -1,4 +1,5 @@
 import React from 'react';
+import '../components/loginArea.css';
 export function loginArea () {
 return(
 <div className="sidebar__personal">

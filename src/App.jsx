@@ -1,21 +1,13 @@
-// <!DOCTYPE html>
-// <html lang="ru">
-//   <head>
-//     <meta charset="UTF-8" />
-//     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-//     <link rel="stylesheet" href="css/style.css" />
-//     <title>Skypro</title>
-//   </head>
 import React from 'react';
 import './App.css';
-import {playerControls} from "./components/player"
-import { navMenu } from './components/navigation'
-import {search} from './components/search'
-import {filter} from './components/filter'
-import {loginArea} from './components/loginArea'
-import {playListContent} from './components/playListContent'
+import {playerControls} from "./components/player";
+import { navMenu } from './components/navigation';
+import {search} from './components/search';
+import {filter} from './components/filter';
+import {loginArea} from './components/loginArea';
+import {PlayListContent} from './components/PlayListContent';
 import { volumeContent } from './components/volumeContent';
+
 function App() {
 return (
   <div className="wrapper">
@@ -45,8 +37,12 @@ return (
                 </div>
               </div>
               {/* ---Компонент плейлиста */}
-              {playListContent()}
+              <div className="content__playlist playlist">
+               <PlayListContent trackName="Dino" trackAuthor="Ivanov" album="sprin" trackTime="4.12" />
+
+
               {/* ---Компонент плейлиста конец*/}
+              </div>
             </div>
           </div>
           <div className="main__sidebar sidebar">
@@ -139,6 +135,8 @@ return (
       </div>
     </div>
   
-)
+);
 }
+
+
 export default App;

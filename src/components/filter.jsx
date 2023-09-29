@@ -1,4 +1,5 @@
 import React from 'react';
+import '../components/filter.css';
 export function filter(){
 return(
     <div className="centerblock__filter filter">
