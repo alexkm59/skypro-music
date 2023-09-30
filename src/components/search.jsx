@@ -1,4 +1,5 @@
 import React from 'react';
+import '../components/search.css';
 export function search () {
 return(
     <div className="centerblock__search search">

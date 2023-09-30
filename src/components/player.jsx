@@ -1,4 +1,5 @@
 import React from 'react';
+import '../components/player.css';
 export function playerControls() {
     return(
     <div className="player__controls">

@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import {playerControls} from "./components/player";
-import { navMenu } from './components/navigation';
+import {navMenu} from './components/navigation';
 import {search} from './components/search';
 import {filter} from './components/filter';
 import {loginArea} from './components/loginArea';
-import {PlayListContent} from './components/PlayListContent';
-import { volumeContent } from './components/volumeContent';
-
+// import {PlayListContent} from './components/PlayListContent';
+import {volumeContent} from './components/volumeContent';
+import PlayListContent from './components/playListContent';
 function App() {
 return (
   <div className="wrapper">
@@ -38,9 +38,16 @@ return (
               </div>
               {/* ---Компонент плейлиста */}
               <div className="content__playlist playlist">
-               <PlayListContent trackName="Dino" trackAuthor="Ivanov" album="sprin" trackTime="4.12" />
-
-
+               <PlayListContent trackName="Guilt" trackAuthor="Nero" album="Weloome Reality" trackTime="4.44" />
+               <PlayListContent trackName="Elektro" trackAuthor="Dynoro, Outwork, Mr. Gee" album="Elektro" trackTime="2.22" />
+               <PlayListContent trackName="I’m Fire" trackAuthor="Ali Bakgor" album="I’m Fire" trackTime="2.22" />
+               <PlayListContent trackName="Non Stop" trackAuthor="Стоункат, Psychopath" album="Weloome Reality" trackTime="4.12" />
+               <PlayListContent trackName="Run Run" trackAuthor="Jaded, Will Clarke, AR/CO" album="Run Run" trackTime="2.54" />
+               <PlayListContent trackName="Eyes on Fire" trackAuthor="Blue Foundation, Zeds Dead" album="Eyes on Fire" trackTime="5.20" />
+               <PlayListContent trackName="Mucho Bien" trackAuthor="HYBIT, Mr. Black, Offer Nissim, Hi Profile" album="Mucho Bien" trackTime="3.41" />
+               <PlayListContent trackName="Knives n Cherries" trackAuthor="minthaze" album="Captivating" trackTime="1.48" />
+               <PlayListContent trackName="How Deep Is Your Love" trackAuthor="Calvin Harris, Disciples" album="How Deep Is Your Love" trackTime="3.32" />
+               <PlayListContent trackName="Morena" trackAuthor="Tom Boxer" album="Soundz Made in Romania" trackTime="3.36" />
               {/* ---Компонент плейлиста конец*/}
               </div>
             </div>

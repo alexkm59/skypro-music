@@ -1,4 +1,5 @@
 import React from 'react';
+import '../components/volumeContent.css';
 export function volumeContent(){
 return(
     <div className="volume__content">

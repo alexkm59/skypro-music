@@ -1,8 +1,9 @@
 import React from 'react';
-export function PlayListContent ({ trackName, trackAuthor, album, trackTime}) {
+import '../components/playListContent.css';
+function PlayListContent (props) {
 return(
     // <div className="content__playlist playlist">
-                
+    // { trackName, trackAuthor, album, trackTime}
                 <div className="playlist__item">
                   <div className="playlist__track track">
                     <div className="track__title">
@@ -12,20 +13,20 @@ return(
                         </svg>
                       </div>
                       <div className="track__title-text">
-                        <a className="track__title-link" href="http://">{trackName} <span className="track__title-span"></span></a>
+                        <a className="track__title-link" href="http://">{props.trackName} <span className="track__title-span"></span></a>
                       </div>
                     </div>
                     <div className="track__author">
-                      <a className="track__author-link" href="http://">{trackAuthor}</a>
+                      <a className="track__author-link" href="http://">{props.trackAuthor}</a>
                     </div>
                     <div className="track__album">
-                      <a className="track__album-link" href="http://">{album}</a>
+                      <a className="track__album-link" href="http://">{props.album}</a>
                     </div>
                     <div className="track__time">
                       <svg className="track__time-svg" alt="time">
                         <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
                       </svg>
-                      <span className="track__time-text">{trackTime}</span>
+                      <span className="track__time-text">{props.trackTime}</span>
                     </div>
                   </div>
                 </div>
@@ -544,3 +545,4 @@ return(
 )
 
 }
+export default PlayListContent

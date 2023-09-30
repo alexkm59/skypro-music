@@ -1,5 +1,6 @@
 
 import React from 'react';
+import '../components/navigation.css';
 export function navMenu() {
 return(
     <nav className="main__nav nav">  
