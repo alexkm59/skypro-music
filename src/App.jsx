@@ -8,6 +8,7 @@ import {loginArea} from './components/loginArea';
 // import {PlayListContent} from './components/PlayListContent';
 import {volumeContent} from './components/volumeContent';
 import PlayListContent from './components/playListContent';
+import Sidebar from './components/sidebar';
 function App() {
 return (
   <div className="wrapper">
@@ -58,33 +59,11 @@ return (
             {/* ---Компонент логирования конец*/}
             <div className="sidebar__block">
               <div className="sidebar__list">
-                <div className="sidebar__item">
-                  <a className="sidebar__link" href="#">
-                    <img
-                      className="sidebar__img"
-                      src="img/playlist01.png"
-                      alt="day's playlist"
-                    />
-                  </a>
-                </div>
-                <div className="sidebar__item">
-                  <a className="sidebar__link" href="#">
-                    <img
-                      className="sidebar__img"
-                      src="img/playlist02.png"
-                      alt="day's playlist"
-                    />
-                  </a>
-                </div>
-                <div className="sidebar__item">
-                  <a className="sidebar__link" href="#">
-                    <img
-                      className="sidebar__img"
-                      src="img/playlist03.png"
-                      alt="day's playlist"
-                    />
-                  </a>
-                </div>
+                {/* ---Компонент сайдбар начало */}
+                <Sidebar img="img/playlist01.png"/>
+                <Sidebar img="img/playlist02.png"/>
+                <Sidebar img="img/playlist03.png"/>
+                {/* ---Компонент сайдбар конец */}
               </div>
             </div>
           </div>

@@ -558,7 +558,7 @@ body {
   align-items: center;
 }
 
-.sidebar__item {
+/* .sidebar__item {
   width: 250px;
   height: 150px;
 }
@@ -575,7 +575,7 @@ body {
 .sidebar__img {
   width: 100%;
   height: auto;
-}
+} */
 
 .bar {
   position: absolute;
