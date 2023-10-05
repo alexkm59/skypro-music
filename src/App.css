@@ -747,7 +747,7 @@ body {
   align-items: center;
 }
 
-.track-play__image {
+/* .track-play__image {
   width: 51px;
   height: 51px;
   background-color: #313131;
@@ -803,7 +803,7 @@ body {
   font-size: 13px;
   line-height: 24px;
   color: #ffffff;
-}
+} */
 
 .track-play__like-dis {
   display: -webkit-box;
