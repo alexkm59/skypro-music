@@ -51,15 +51,7 @@ if (isVisible === false){
           </li>
         </ul>
       </div>
-    </nav>
-    
-                
-              
-             
-              
+    </nav>         
     )
-
 }
-
-
 }
