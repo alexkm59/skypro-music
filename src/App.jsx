@@ -3,7 +3,7 @@ import './App.css';
 import {playerControls} from "./components/player";
 import {navMenu} from './components/navigation';
 import {search} from './components/search';
-import Filter from './components/filter';
+import {Filter} from './components/filter';
 import {loginArea} from './components/loginArea';
 // import {PlayListContent} from './components/PlayListContent';
 import {volumeContent} from './components/volumeContent';

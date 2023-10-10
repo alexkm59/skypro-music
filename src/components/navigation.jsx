@@ -2,6 +2,24 @@
 import React from 'react';
 import { useState } from 'react';
 import '../components/navigation.css';
+import {styled} from 'styled-components';
+
+const StyledMainNav = styled.nav`
+    width: 244px;
+    background-color: #181818;
+    padding: 20px 0 20px 36px;
+`
+// const Styled = styled.div``
+
+const StyledNavLogo = styled.div`
+    width: 113.33px;
+    height: 43px;
+    padding: 13px 0 13px 0;
+    background-color: transparent;
+    margin-bottom: 20px;
+`
+
+
 export function navMenu() {
 
   const [isVisible, setVisible] = useState(false);
@@ -12,10 +30,10 @@ export function navMenu() {
   
 if (isVisible === false){
   return(
-    <nav className="main__nav nav">  
-            <div className="nav__logo logo">
+    <StyledMainNav>  
+            <StyledNavLogo>
               <img className="logo__image" src="img/logo.png" alt="logo" />
-            </div> 
+            </StyledNavLogo> 
             
             <div className="nav__burger burger" onClick={navMenuClick}> 
             
@@ -23,10 +41,10 @@ if (isVisible === false){
               <span className="burger__line"></span>
               <span className="burger__line"></span>
             </div>
-</nav>)
+</StyledMainNav>)
 } else{
   return(
-        <nav className="main__nav nav">
+        <StyledMainNav>
       <div className="nav__logo logo">
         <img className="logo__image" src="img/logo.png" alt="logo" />
       </div>
@@ -51,7 +69,7 @@ if (isVisible === false){
           </li>
         </ul>
       </div>
-    </nav>         
+    </StyledMainNav>         
     )
 }
 }

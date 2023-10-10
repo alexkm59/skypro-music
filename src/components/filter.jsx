@@ -46,7 +46,7 @@ function FilterList(activeFilter){
 
 }
 
-export function Filter(){
+ export function Filter(){
 
   const  [activeFilter, setActiveFilter] = useState();
   
@@ -73,4 +73,5 @@ export function Filter(){
 )
 
 }
+
 export default Filter
