@@ -3,11 +3,13 @@ import './App.css';
 import {playerControls} from "./components/player";
 import {navMenu} from './components/navigation';
 import {search} from './components/search';
-import {filter} from './components/filter';
+import Filter from './components/filter';
 import {loginArea} from './components/loginArea';
 // import {PlayListContent} from './components/PlayListContent';
 import {volumeContent} from './components/volumeContent';
 import PlayListContent from './components/playListContent';
+import Sidebar from './components/sidebar';
+import TrackPlayInfo from './components/trackPlay';
 function App() {
 return (
   <div className="wrapper">
@@ -23,7 +25,7 @@ return (
             
             <h2 className="centerblock__h2">Треки</h2>
             {/* ---Компонент фильтра  */}
-            {filter()}
+            {Filter()}
             {/* ---Компонент фильтра конец */}
             <div className="centerblock__content">
               <div className="content__title playlist-title">
@@ -58,33 +60,11 @@ return (
             {/* ---Компонент логирования конец*/}
             <div className="sidebar__block">
               <div className="sidebar__list">
-                <div className="sidebar__item">
-                  <a className="sidebar__link" href="#">
-                    <img
-                      className="sidebar__img"
-                      src="img/playlist01.png"
-                      alt="day's playlist"
-                    />
-                  </a>
-                </div>
-                <div className="sidebar__item">
-                  <a className="sidebar__link" href="#">
-                    <img
-                      className="sidebar__img"
-                      src="img/playlist02.png"
-                      alt="day's playlist"
-                    />
-                  </a>
-                </div>
-                <div className="sidebar__item">
-                  <a className="sidebar__link" href="#">
-                    <img
-                      className="sidebar__img"
-                      src="img/playlist03.png"
-                      alt="day's playlist"
-                    />
-                  </a>
-                </div>
+                {/* ---Компонент сайдбар начало */}
+                <Sidebar img="img/playlist01.png"/>
+                <Sidebar img="img/playlist02.png"/>
+                <Sidebar img="img/playlist03.png"/>
+                {/* ---Компонент сайдбар конец */}
               </div>
             </div>
           </div>
@@ -97,9 +77,14 @@ return (
                 {/* --- Замена плеера на компонент ---- */}
                   {playerControls()}               
                 {/*--- Замена плеера конец ----*/}
+                
                 <div className="player__track-play track-play">
-                  <div className="track-play__contain">
-                    <div className="track-play__image">
+                  {/* --- Компонент проигрываемого трека начало */}
+                  <TrackPlayInfo author="Ты та..." album="Баста" />
+                  
+                  {/* <div className="track-play__contain">
+                  
+                  <div className="track-play__image">
                       <svg className="track-play__svg" alt="music">
                         <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
                       </svg>
@@ -112,8 +97,10 @@ return (
                     <div className="track-play__album">
                       <a className="track-play__album-link" href="http://">Баста</a>
                     </div>
-                  </div>
-
+                  
+                  </div> */}
+{/* --- Компонент проигрываемого трека конец */}
+                 
                   <div className="track-play__like-dis">
                     <div className="track-play__like _btn-icon">
                       <svg className="track-play__like-svg" alt="like">
