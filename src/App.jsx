@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.css';
-import {playerControls} from "./components/player";
-import {navMenu} from './components/navigation';
+import {PlayerControls} from "./components/Player/player";
+import {navMenu} from './components/navigation/navigation';
 import {search} from './components/search';
-import {Filter} from './components/filter';
-import {loginArea} from './components/loginArea';
-// import {PlayListContent} from './components/PlayListContent';
+import {Filter} from './components/filter/filter';
+import {loginArea} from './components/LoginArea/loginArea';
 import {volumeContent} from './components/volumeContent';
 import PlayListContent from './components/playListContent';
 import Sidebar from './components/sidebar';
@@ -75,7 +74,7 @@ return (
             <div className="bar__player-block">
               <div className="bar__player player">
                 {/* --- Замена плеера на компонент ---- */}
-                  {playerControls()}               
+                  {PlayerControls()}               
                 {/*--- Замена плеера конец ----*/}
                 
                 <div className="player__track-play track-play">
