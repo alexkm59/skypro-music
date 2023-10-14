@@ -2,13 +2,13 @@ import React from 'react';
 import './App.css';
 import {PlayerControls} from "./components/Player/player";
 import {navMenu} from './components/navigation/navigation';
-import {search} from './components/search';
+import {search} from './components/search/search';
 import {Filter} from './components/filter/filter';
 import {loginArea} from './components/LoginArea/loginArea';
-import {volumeContent} from './components/volumeContent';
-import PlayListContent from './components/playListContent';
-import Sidebar from './components/sidebar';
-import TrackPlayInfo from './components/trackPlay';
+import {volumeContent} from './components/volumeContent/volumeContent';
+import {PlayListContent} from './components/PlayListContent/playListContent';
+import {Sidebar} from './components/sidebar/sidebar';
+import {TrackPlayInfo} from './components/trackPlay/trackPlay';
 function App() {
 return (
   <div className="wrapper">
