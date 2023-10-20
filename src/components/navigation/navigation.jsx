@@ -2,6 +2,7 @@
 import React from 'react';
 import { useState } from 'react';
 import * as Styled from './navigation.styled'
+import {Link} from 'react-router-dom';
 
 export function navMenu() {
 
@@ -40,10 +41,15 @@ if (isVisible === false){
             <Styled.MenuLink href="#">Главное</Styled.MenuLink>
           </Styled.MenuItem>
           <Styled.MenuItem >
-            <Styled.MenuLink href="#">Мой плейлист</Styled.MenuLink>
+          <Link to="/favorites">
+          <Styled.MenuLink>Мой плейлист</Styled.MenuLink>
+          </Link> 
+            
           </Styled.MenuItem>
           <Styled.MenuItem >
-            <Styled.MenuLink href="../signin.html">Войти</Styled.MenuLink>
+          <Link to="/"> 
+            <Styled.MenuLink >Войти</Styled.MenuLink>
+            </Link>  
           </Styled.MenuItem>
         </Styled.MenuList>
       </Styled.NavMenu>

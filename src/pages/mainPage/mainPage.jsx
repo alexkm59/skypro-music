@@ -11,7 +11,7 @@ import {Sidebar} from '../../components/sidebar/sidebar';
 import {TrackPlayInfo} from '../../components/trackPlay/trackPlay';
 
 
-export function MinePage() {
+export const MinePage =() => {
    
      return (
 
@@ -65,9 +65,9 @@ export function MinePage() {
             <div className="sidebar__block">
               <div className="sidebar__list">
                 {/* ---Компонент сайдбар начало */}
-                <Sidebar img="img/playlist01.png"/>
-                <Sidebar img="img/playlist02.png"/>
-                <Sidebar img="img/playlist03.png"/>
+                <Sidebar img="img/playlist01.png" id="1"/>
+                <Sidebar img="img/playlist02.png" id="2"/>
+                <Sidebar img="img/playlist03.png" id="3"/>
                 {/* ---Компонент сайдбар конец */}
               </div>
             </div>

@@ -1,10 +1,10 @@
 import React from 'react';
-
+import * as S from './notFound.styled';
 
 export const NotFound = ()  => {
 return (
-<div>
+<S.notFoundPage>
     <h1>Page was not found 404</h1>
-</div>
+</S.notFoundPage>
 )
 }
