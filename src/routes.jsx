@@ -17,8 +17,15 @@ export const AppRoutes = ({token}) => {
         <MinePage />
       </ProtectedRoute>
       } />
-      <Route path="/favorites" element={<Favorites />} />
-      <Route path="/category/:id" element={<Category />} />
+      <Route path="/favorites" element={<ProtectedRoute isAllowed ={Boolean(token)}>
+      <Favorites />
+      </ProtectedRoute>
+      } />
+      <Route path="/category/:id" element={<ProtectedRoute isAllowed ={Boolean(token)}>
+      <Category />
+      </ProtectedRoute>
+     } />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

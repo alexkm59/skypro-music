@@ -24,8 +24,6 @@ return (
   <div className="wrapper">
     <AppRoutes token={token} />
     
-     {/* {token ? MinePage() : LoginPage()} */}
-  
   </div>
   
 
