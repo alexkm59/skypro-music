@@ -11,9 +11,9 @@ import {ProtectedRoute} from './components/protected-route';
 export const AppRoutes = ({token}) => {
   return (
     <Routes>
-      <Route path="/" element={<LoginPage />} />
+      <Route path="/login" element={<LoginPage />} />
       <Route path="/registration" element={<RegistrationPage />} />
-      <Route path="/main" element={<ProtectedRoute isAllowed ={Boolean(token)}>
+      <Route path="/" element={<ProtectedRoute isAllowed ={Boolean(token)}>
         <MinePage />
       </ProtectedRoute>
       } />

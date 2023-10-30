@@ -38,7 +38,10 @@ if (isVisible === false){
       <Styled.NavMenu>
         <Styled.MenuList>
           <Styled.MenuItem >
-            <Styled.MenuLink href="#">Главное</Styled.MenuLink>
+           <Link to="/">
+           <Styled.MenuLink>Главное</Styled.MenuLink>
+           </Link> 
+            
           </Styled.MenuItem>
           <Styled.MenuItem >
           <Link to="/favorites">
@@ -47,7 +50,7 @@ if (isVisible === false){
             
           </Styled.MenuItem>
           <Styled.MenuItem >
-          <Link to="/"> 
+          <Link to="/login">
             <Styled.MenuLink >Войти</Styled.MenuLink>
             </Link>  
           </Styled.MenuItem>
