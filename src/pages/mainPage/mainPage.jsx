@@ -1,5 +1,5 @@
 
-import React from 'react';
+import {React, useState, useEffect} from 'react';
 import {PlayerControls} from "../../components/Player/player";
 import {navMenu} from '../../components/navigation/navigation';
 import {search} from '../../components/search/search';
@@ -9,10 +9,21 @@ import {volumeContent} from '../../components/volumeContent/volumeContent';
 import {PlayListContent} from '../../components/PlayListContent/playListContent';
 import {Sidebar} from '../../components/sidebar/sidebar';
 import {TrackPlayInfo} from '../../components/trackPlay/trackPlay';
+import {getPlayList} from '../../api'
 
-
-export const MinePage =() => {
+export const MinePage =(currentTrack, setCurrentTrack) => {
    
+const [allTracks, setAllTracks] = useState ([]);
+
+useEffect(()=>{
+  getPlayList().then((lists)=>{
+    console.log(lists);
+    setAllTracks(lists);
+    
+  });
+}, []);
+
+
      return (
 
 
@@ -44,7 +55,25 @@ export const MinePage =() => {
               </div>
               {/* ---Компонент плейлиста */}
               <div className="content__playlist playlist">
-               <PlayListContent trackName="Guilt" trackAuthor="Nero" album="Weloome Reality" trackTime="4.44" />
+               
+               {allTracks.map((oneTrack) => {
+               return(
+              <PlayListContent 
+              
+              oneClick = {()=> setCurrentTrack(oneTrack)}
+              key={oneTrack.id}
+              oneTrack = {oneTrack}
+              trackName={oneTrack.name} 
+              trackAuthor={oneTrack.author} 
+              album={oneTrack.album} 
+              trackTime={oneTrack.duration_in_seconds}
+              currentTrack={currentTrack}
+              setCurrentTrack={setCurrentTrack}
+              />
+               )
+               })}
+
+               {/* <PlayListContent trackName="Guilt" trackAuthor="Nero" album="Weloome Reality" trackTime="4.44" />
                <PlayListContent trackName="Elektro" trackAuthor="Dynoro, Outwork, Mr. Gee" album="Elektro" trackTime="2.22" />
                <PlayListContent trackName="I’m Fire" trackAuthor="Ali Bakgor" album="I’m Fire" trackTime="2.22" />
                <PlayListContent trackName="Non Stop" trackAuthor="Стоункат, Psychopath" album="Weloome Reality" trackTime="4.12" />
@@ -53,7 +82,7 @@ export const MinePage =() => {
                <PlayListContent trackName="Mucho Bien" trackAuthor="HYBIT, Mr. Black, Offer Nissim, Hi Profile" album="Mucho Bien" trackTime="3.41" />
                <PlayListContent trackName="Knives n Cherries" trackAuthor="minthaze" album="Captivating" trackTime="1.48" />
                <PlayListContent trackName="How Deep Is Your Love" trackAuthor="Calvin Harris, Disciples" album="How Deep Is Your Love" trackTime="3.32" />
-               <PlayListContent trackName="Morena" trackAuthor="Tom Boxer" album="Soundz Made in Romania" trackTime="3.36" />
+               <PlayListContent trackName="Morena" trackAuthor="Tom Boxer" album="Soundz Made in Romania" trackTime="3.36" /> */}
               {/* ---Компонент плейлиста конец*/}
               </div>
             </div>
@@ -79,7 +108,7 @@ export const MinePage =() => {
             <div className="bar__player-block">
               <div className="bar__player player">
                 {/* --- Замена плеера на компонент ---- */}
-                  {PlayerControls()}               
+                  {PlayerControls(currentTrack)}               
                 {/*--- Замена плеера конец ----*/}
                 
                 <div className="player__track-play track-play">
