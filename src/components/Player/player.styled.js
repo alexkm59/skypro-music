@@ -1,4 +1,6 @@
-.player__controls {
+import styled from 'styled-components';
+
+export const PlayerControls = styled.div`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -7,13 +9,9 @@
     -ms-flex-direction: row;
     flex-direction: row;
     padding: 0 27px 0 31px;
-  }
-  
-  .player__btn-prev,
-  .player__btn-play,
-  .player__btn-next,
-  .player__btn-repeat,
-  .player__btn-shuffle {
+
+`
+export const PlayerBtn = styled.div`
     padding: 5px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -21,62 +19,39 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-  }
-  
-  .player__btn-prev {
-    margin-right: 23px;
-  }
-  
-  .player__btn-prev-svg {
+    margin-right: ${(props) => (props.btnPrev ? "23px" : "0")};
+`
+export const PlayerBtnPrevSvg = styled.svg`
     width: 15px;
-    height: 14px;
-  }
-  
-  .player__btn-play {
-    margin-right: 23px;
-  }
-  
-  .player__btn-play-svg {
+    height: 14px; 
+`
+export const PlayerBtnPlaySvg = styled.svg`
     width: 22px;
     height: 20px;
     fill: #d9d9d9;
-  }
-  
-  .player__btn-next {
+`
+export const PlayerBtnNext = styled(PlayerBtn)`
     margin-right: 28px;
     fill: #a53939;
-  }
-  
-  .player__btn-next-svg {
+`
+export const PlayerBtnNextSvg = styled.svg`
     width: 15px;
     height: 14px;
     fill: inherit;
     stroke: #d9d9d9;
-  }
-  
-  .player__btn-repeat {
-    margin-right: 24px;
-  }
-  
-  .player__btn-repeat-svg {
+`
+export const PlayerBtnRepeatSvg = styled.svg`
     width: 18px;
     height: 12px;
     fill: transparent;
     stroke: #696969;
-  }
-  
-  .player__btn-shuffle {
+`
+export const PlayerBtnShuffle = styled.div`
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-  }
-  
-  .player__btn-shuffle-svg {
-    width: 19px;
-    height: 12px;
-    fill: transparent;
-    stroke: #696969;
-  }
+
+`

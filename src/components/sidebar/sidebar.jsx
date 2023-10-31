@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import '../components/sidebar.css';
+
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton';
+import * as Styled from './sidebar.styled';
+
 export function Sidebar (props) {
     const  [isLoading, setLoading] = useState(false);
     setTimeout(()=>{
@@ -8,16 +10,15 @@ export function Sidebar (props) {
     },4000)
 return(
     
-                <div className="sidebar__item">
+                <Styled.SidebarItem>
                   <SkeletonTheme baseColor="#313131" highlightColor="#fff" height={150} width={250}>
                   {/* <a className="sidebar__link" href="#"> */}
-                  {isLoading ? <a className="sidebar__link" href="#"> <img className="sidebar__img" src={props.img} alt="day's playlist"/></a> : <Skeleton/> }
+                  {isLoading ? <Styled.SidebarLink href="#"> <Styled.SidebarImg src={props.img} alt="day's playlist"/></Styled.SidebarLink> : <Skeleton/> }
                   </SkeletonTheme>
                     {/* <img className="sidebar__img" src={props.img} alt="day's playlist"/> */}
                   {/* </a> */}
-                </div>
+                </Styled.SidebarItem>
                 
 )
 
 }
-export default Sidebar
