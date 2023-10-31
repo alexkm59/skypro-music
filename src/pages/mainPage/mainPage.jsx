@@ -60,7 +60,7 @@ useEffect(()=>{
                return(
               <PlayListContent 
               
-              oneClick = {()=> setCurrentTrack(oneTrack)}
+              
               key={oneTrack.id}
               oneTrack = {oneTrack}
               trackName={oneTrack.name} 

@@ -4,7 +4,7 @@ import Skeleton, {SkeletonTheme} from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import * as Styled from './playListContent.styled';
 
-export function PlayListContent ({trackName, trackAuthor, album, trackTime, onClick}) {
+export function PlayListContent ({trackName, trackAuthor, album, trackTime, oneTrack, setCurrentTrack}) {
 
 
 
@@ -23,9 +23,9 @@ setTimeout(()=>{
                         </Styled.TrackTitleSvg> : <Skeleton/> }
                         
                       </Styled.TrackTitleImage>
-                      <div onClick={onClick} className="track__title-text">
+                      <div className="track__title-text">
                       <SkeletonTheme baseColor="#313131" highlightColor="#fff" height={20} width={356}>
-                        {isLoading ? <Styled.TrackTitleLink >{trackName} <Styled.TrackTitleSpan ></Styled.TrackTitleSpan></Styled.TrackTitleLink> : <Skeleton/> }
+                        {isLoading ? <Styled.TrackTitleLink oneClick = {()=> setCurrentTrack(oneTrack)}>{trackName} <Styled.TrackTitleSpan ></Styled.TrackTitleSpan></Styled.TrackTitleLink> : <Skeleton/> }
                         </SkeletonTheme>
                       </div>
                     </Styled.TrackTitle>

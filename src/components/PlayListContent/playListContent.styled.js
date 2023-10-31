@@ -55,7 +55,7 @@ export const TrackTitleSvg = styled.svg`
     fill: transparent;
     stroke: #4e4e4e;
 `
-export const TrackTitleLink = styled.a`
+export const TrackTitleLink = styled.div`
 font-style: normal;
     font-weight: 400;
     font-size: 16px;
