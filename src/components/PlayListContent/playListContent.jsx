@@ -5,13 +5,13 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import * as Styled from './playListContent.styled';
 import {getPlayList} from '../../api'
 
-export function PlayListContent ({setCurrentTrack, isLoading, setLoading}) {
+export function PlayListContent ({isLoading, setLoading}) {
 
 
 const [allTracks, setAllTracks] = useState ([]);
 
 useEffect(()=>{
-  setLoading(false);
+  console.log({isLoading});
   getPlayList().then((lists)=>{
     console.log(lists);
     setAllTracks(lists);
@@ -24,7 +24,7 @@ return(
   <>
   {allTracks.map((oneTrack) => {
     return(
-                  <Styled.PlaylistItem onClick={() => setCurrentTrack(oneTrack)} key={oneTrack.id}>
+                  <Styled.PlaylistItem key={oneTrack.id}>
                     <Styled.PlaylistTrack className="track">
                       <Styled.TrackTitle>
                       
@@ -36,7 +36,7 @@ return(
                         </Styled.TrackTitleImage>
                         <div className="track__title-text">
                         <SkeletonTheme baseColor="#313131" highlightColor="#fff" height={20} width={356}>
-                          {isLoading ? (<Styled.TrackTitleLink  >{oneTrack.name} <Styled.TrackTitleSpan ></Styled.TrackTitleSpan></Styled.TrackTitleLink>) : (<Skeleton/>) }
+                          {isLoading ? <Styled.TrackTitleLink  >{oneTrack.name} <Styled.TrackTitleSpan ></Styled.TrackTitleSpan></Styled.TrackTitleLink> : <Skeleton/> }
                           </SkeletonTheme>
                         </div>
                       </Styled.TrackTitle>

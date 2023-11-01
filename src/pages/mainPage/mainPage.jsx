@@ -11,7 +11,7 @@ import {Sidebar} from '../../components/sidebar/sidebar';
 import {TrackPlayInfo} from '../../components/trackPlay/trackPlay';
 
 
-export const MinePage =(currentTrack, setCurrentTrack, isLoading, setLoading) => {
+export const MinePage =({isLoading, setLoading}) => {
    
 
 
@@ -53,8 +53,7 @@ export const MinePage =(currentTrack, setCurrentTrack, isLoading, setLoading) =>
               <PlayListContent 
               isLoading={isLoading}
               setLoading={setLoading}
-              currentTrack={currentTrack}
-              setCurrentTrack={setCurrentTrack}
+              
               />
               {/* )
               })} */}
@@ -94,7 +93,7 @@ export const MinePage =(currentTrack, setCurrentTrack, isLoading, setLoading) =>
             <div className="bar__player-block">
               <div className="bar__player player">
                 {/* --- Замена плеера на компонент ---- */}
-                  {PlayerControls(currentTrack)}               
+                  {PlayerControls()}               
                 {/*--- Замена плеера конец ----*/}
                 
                 <div className="player__track-play track-play">

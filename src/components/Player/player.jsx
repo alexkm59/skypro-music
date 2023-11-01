@@ -2,9 +2,9 @@ import React from 'react';
 import * as Styled from './player.styled'
 
 
-export function PlayerControls({currentTrack}) {
+export function PlayerControls() {
 
-if (currentTrack) {
+
 
     return (
         <Styled.PlayerControls>
@@ -41,5 +41,5 @@ if (currentTrack) {
      
       
 
-}
+
                 
