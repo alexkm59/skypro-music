@@ -10,14 +10,17 @@ import Cookies from 'js-cookie'
 function App() {
 
   const [currentTrack, setCurrentTrack] = useState(null);
+  const  [isLoading, setLoading] = useState(false);
 
-const token = Cookies.get('token')
+  const token = Cookies.get('token')
 console.log(token);
  
 return (
   
   <div className="wrapper">
     <AppRoutes 
+    isLoading={isLoading}
+    setLoading={setLoading}
     currentTrack={currentTrack}
     setCurrentTrack={setCurrentTrack}
     token={token} />

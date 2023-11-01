@@ -1,5 +1,5 @@
 
-import {React, useState, useEffect} from 'react';
+import {React} from 'react';
 import {PlayerControls} from "../../components/Player/player";
 import {navMenu} from '../../components/navigation/navigation';
 import {search} from '../../components/search/search';
@@ -9,19 +9,11 @@ import {volumeContent} from '../../components/volumeContent/volumeContent';
 import {PlayListContent} from '../../components/PlayListContent/playListContent';
 import {Sidebar} from '../../components/sidebar/sidebar';
 import {TrackPlayInfo} from '../../components/trackPlay/trackPlay';
-import {getPlayList} from '../../api'
 
-export const MinePage =(currentTrack, setCurrentTrack) => {
+
+export const MinePage =(currentTrack, setCurrentTrack, isLoading, setLoading) => {
    
-const [allTracks, setAllTracks] = useState ([]);
 
-useEffect(()=>{
-  getPlayList().then((lists)=>{
-    console.log(lists);
-    setAllTracks(lists);
-    
-  });
-}, []);
 
 
      return (
@@ -56,22 +48,16 @@ useEffect(()=>{
               {/* ---Компонент плейлиста */}
               <div className="content__playlist playlist">
                
-               {allTracks.map((oneTrack) => {
-               return(
+               {/* {allTracks.map((oneTrack) => {
+               return( */}
               <PlayListContent 
-              
-              
-              key={oneTrack.id}
-              oneTrack = {oneTrack}
-              trackName={oneTrack.name} 
-              trackAuthor={oneTrack.author} 
-              album={oneTrack.album} 
-              trackTime={oneTrack.duration_in_seconds}
+              isLoading={isLoading}
+              setLoading={setLoading}
               currentTrack={currentTrack}
               setCurrentTrack={setCurrentTrack}
               />
-               )
-               })}
+              {/* )
+              })} */}
 
                {/* <PlayListContent trackName="Guilt" trackAuthor="Nero" album="Weloome Reality" trackTime="4.44" />
                <PlayListContent trackName="Elektro" trackAuthor="Dynoro, Outwork, Mr. Gee" album="Elektro" trackTime="2.22" />
