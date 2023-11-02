@@ -25,7 +25,7 @@ if(error){
     </div>
   )
 }
-console.log({setLoading});
+
 return(
   <>
   {allTracks.map((oneTrack) => {

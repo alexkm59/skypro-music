@@ -14,13 +14,13 @@ return(
   {currentTrack ? (
     <Styled.TrackPlayContain>
     <Styled.TrackPlayImage>
-      {isLoading ? <Styled.TrackPlaySvg alt="music"><use xlinkHref="img/icon/sprite.svg#icon-note"></use></Styled.TrackPlaySvg> : <Skeleton/> }
+      {!isLoading ? <Styled.TrackPlaySvg alt="music"><use xlinkHref="img/icon/sprite.svg#icon-note"></use></Styled.TrackPlaySvg> : <Skeleton/> }
     </Styled.TrackPlayImage>
     <Styled.TrackPlayAuthor>
-      {isLoading ? <Styled.TrackPlayAuthorLink href="http://">{currentTrack.author}</Styled.TrackPlayAuthorLink> : <Skeleton/> }
+      {!isLoading ? <Styled.TrackPlayAuthorLink href="http://">{currentTrack.author}</Styled.TrackPlayAuthorLink> : <Skeleton/> }
     </Styled.TrackPlayAuthor>
     <Styled.TrackPlayAlbum >
-      {isLoading ? <Styled.TrackPlayAlbumLink  href="http://">{currentTrack.album}</Styled.TrackPlayAlbumLink> : <Skeleton/> }
+      {!isLoading ? <Styled.TrackPlayAlbumLink  href="http://">{currentTrack.album}</Styled.TrackPlayAlbumLink> : <Skeleton/> }
     </Styled.TrackPlayAlbum>
 </Styled.TrackPlayContain>
 
