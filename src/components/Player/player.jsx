@@ -2,12 +2,13 @@ import React from 'react';
 import * as Styled from './player.styled'
 
 
-export function PlayerControls() {
-
+export function PlayerControls({currentTrack}) {
 
 
     return (
-        <Styled.PlayerControls>
+        <>
+        {currentTrack ? (
+            <Styled.PlayerControls>
             <Styled.PlayerBtn btnPrev={true} >
                 <Styled.PlayerBtnPrevSvg alt="prev">
                     <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
@@ -34,10 +35,18 @@ export function PlayerControls() {
                 </Styled.PlayerBtnRepeatSvg>
             </Styled.PlayerBtnShuffle>
         </Styled.PlayerControls>
-    
+
+        ) : null}
+         
+        </>
+        
         );
 
 }
+
+
+
+
      
       
 

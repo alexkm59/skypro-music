@@ -5,13 +5,13 @@ import {navMenu} from '../../components/navigation/navigation';
 import {search} from '../../components/search/search';
 import {Filter} from '../../components/filter/filter';
 import {loginArea} from '../../components/LoginArea/loginArea';
-import {volumeContent} from '../../components/volumeContent/volumeContent';
+import {VolumeContent} from '../../components/volumeContent/volumeContent';
 import {PlayListContent} from '../../components/PlayListContent/playListContent';
 import {Sidebar} from '../../components/sidebar/sidebar';
 import {TrackPlayInfo} from '../../components/trackPlay/trackPlay';
 
 
-export const MinePage =({isLoading, setLoading}) => {
+export const MinePage =({isLoading, setLoading, currentTrack, setCurrentTrack}) => {
    
 
 
@@ -53,7 +53,8 @@ export const MinePage =({isLoading, setLoading}) => {
               <PlayListContent 
               isLoading={isLoading}
               setLoading={setLoading}
-              
+              currentTrack={currentTrack}
+              setCurrentTrack={setCurrentTrack}
               />
               {/* )
               })} */}
@@ -89,16 +90,23 @@ export const MinePage =({isLoading, setLoading}) => {
         </main>
         <div className="bar">
           <div className="bar__content">
-            <div className="bar__player-progress"></div>
+            {currentTrack ? (<div className="bar__player-progress"></div>):null}
             <div className="bar__player-block">
               <div className="bar__player player">
                 {/* --- Замена плеера на компонент ---- */}
-                  {PlayerControls()}               
+                 <PlayerControls
+                 currentTrack={currentTrack}
+                 />
+                  {/* {PlayerControls}                */}
                 {/*--- Замена плеера конец ----*/}
                 
                 <div className="player__track-play track-play">
                   {/* --- Компонент проигрываемого трека начало */}
-                  <TrackPlayInfo author="Ты та..." album="Баста" />
+                  <TrackPlayInfo
+                  currentTrack={currentTrack}
+                  isLoading={isLoading}
+                  // author="Ты та..." album="Баста" 
+                  />
                   
                   {/* <div className="track-play__contain">
                   
@@ -118,26 +126,32 @@ export const MinePage =({isLoading, setLoading}) => {
                   
                   </div> */}
 {/* --- Компонент проигрываемого трека конец */}
-                 
+                 {currentTrack ? (
                   <div className="track-play__like-dis">
-                    <div className="track-play__like _btn-icon">
-                      <svg className="track-play__like-svg" alt="like">
-                        <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-                      </svg>
-                    </div>
-                    <div className="track-play__dislike _btn-icon">
-                      <svg className="track-play__dislike-svg" alt="dislike">
-                        <use
-                          xlinkHref="img/icon/sprite.svg#icon-dislike"
-                        ></use>
-                      </svg>
-                    </div>
+                  <div className="track-play__like _btn-icon">
+                    <svg className="track-play__like-svg" alt="like">
+                      <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+                    </svg>
                   </div>
+                  <div className="track-play__dislike _btn-icon">
+                    <svg className="track-play__dislike-svg" alt="dislike">
+                      <use
+                        xlinkHref="img/icon/sprite.svg#icon-dislike"
+                      ></use>
+                    </svg>
+                  </div>
+                </div>
+                 ) : null}
+                  
+
                 </div>
               </div>
               <div className="bar__volume-block volume">
                 {/* ---Компонент Volume */}
-                {volumeContent()}
+                <VolumeContent
+                currentTrack={currentTrack}
+                />
+                
                 {/* ---Компонент Volume конец*/}
               </div>
             </div>
