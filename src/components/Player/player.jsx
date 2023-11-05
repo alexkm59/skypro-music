@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import {React, useState, useRef} from 'react';
 import * as Styled from './player.styled'
 
 
@@ -7,6 +7,8 @@ export function PlayerControls({currentTrack}) {
     const [isPaused, setIsPaused] = useState (false); 
     const [isRepeated, setIsRepeated] = useState (false);
     const[isShuffled, setIsShuffled] = useState (false);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef = useRef(null);
     const setPause = ()=>{
     if (!isPaused){
         setIsPaused(true);   
@@ -33,11 +35,32 @@ const setShuffle = ()=>{
     }
 }
 
-console.log(isRepeated);
-console.log(`-->${isShuffled}`);
+const handleStart = () => {
+    audioRef.current.play();
+    setIsPlaying(true);
+  };
+
+  const handleStop = () => {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  };
+
+  const togglePlay = isPlaying ? handleStop : handleStart;
+
+ 
+// console.log(currentTrack.track_file);
+   
+
     return (
         <>
+
         {currentTrack ? (
+           
+           <>
+            <audio className='audio' controls ref={audioRef}>
+            <source src={currentTrack.track_file} type="audio/mpeg" />
+          </audio>
+
             <Styled.PlayerControls>
             <Styled.PlayerBtn btnPrev={true} >
                 <Styled.PlayerBtnPrevSvg alt="prev">
@@ -47,9 +70,9 @@ console.log(`-->${isShuffled}`);
 
 
             <Styled.PlayerBtn btnPrev={true} onClick={()=>setPause()} className="_btn">
-                <Styled.PlayerBtnPlaySvg alt="play" >
+                <Styled.PlayerBtnPlaySvg onClick={togglePlay} alt="play" >
                     {/* <use xlinkHref="img/icon/sprite.svg#icon-play"></use> */}
-                    {isPaused ? (<svg xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
+                    {!isPaused ? (<svg xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
                     <rect width="5" height="19" fill="#D9D9D9"/>
                     <rect x="10" width="5" height="19" fill="#D9D9D9"/>
                     </svg>):(<svg xmlns="http://www.w3.org/2000/svg" width="15" height="20" viewBox="0 0 15 20" fill="none">
@@ -91,7 +114,7 @@ console.log(`-->${isShuffled}`);
                 </Styled.PlayerBtnRepeatSvg>
             </Styled.PlayerBtnShuffle>
         </Styled.PlayerControls>
-
+</>
         ) : null}
          
         </>

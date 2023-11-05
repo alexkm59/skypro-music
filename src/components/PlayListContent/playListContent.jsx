@@ -44,7 +44,8 @@ return(
                         <div className="track__title-text">
 
                         <SkeletonTheme baseColor="#313131" highlightColor="#fff" height={20} width={356}>
-                          {!isLoading ? <Styled.TrackTitleLink onClick={()=> setCurrentTrack(oneTrack)} >{oneTrack.name} <Styled.TrackTitleSpan ></Styled.TrackTitleSpan></Styled.TrackTitleLink> : <Skeleton/> }
+                          {!isLoading ? <Styled.TrackTitleLink onClick={()=> setCurrentTrack(oneTrack)}
+                             >{oneTrack.name} <Styled.TrackTitleSpan ></Styled.TrackTitleSpan></Styled.TrackTitleLink> : <Skeleton/> }
                           </SkeletonTheme>
                         
                         </div>
