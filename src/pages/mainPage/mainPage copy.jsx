@@ -5,11 +5,11 @@ import {navMenu} from '../../components/navigation/navigation';
 import {search} from '../../components/search/search';
 import {Filter} from '../../components/filter/filter';
 import {loginArea} from '../../components/LoginArea/loginArea';
-// import {VolumeContent} from '../../components/volumeContent/volumeContent';
+import {VolumeContent} from '../../components/volumeContent/volumeContent';
 import {PlayListContent} from '../../components/PlayListContent/playListContent';
 import {Sidebar} from '../../components/sidebar/sidebar';
-// import {TrackPlayInfo} from '../../components/trackPlay/trackPlay';
-// import{ProgressBar} from "../../components/ProgressBar/progressBar"
+import {TrackPlayInfo} from '../../components/trackPlay/trackPlay';
+import{ProgressBar} from "../../components/ProgressBar/progressBar"
 
 export const MinePage =({isLoading, setLoading, currentTrack, setCurrentTrack}) => {
    
@@ -88,9 +88,75 @@ export const MinePage =({isLoading, setLoading, currentTrack, setCurrentTrack}) 
             </div>
           </div>
         </main>
-        
-            {currentTrack ? <PlayerControls currentTrack={currentTrack} isLoading={isLoading}/>:null}
-            
+        <div className="bar">
+          <div className="bar__content">
+            {currentTrack ? <ProgressBar currentTrack={currentTrack}/>:null}
+            <div className="bar__player-block">
+              <div className="bar__player player">
+                {/* --- Замена плеера на компонент ---- */}
+                 <PlayerControls
+                 currentTrack={currentTrack}
+                 />
+                  {/* {PlayerControls}                */}
+                {/*--- Замена плеера конец ----*/}
+                
+                <div className="player__track-play track-play">
+                  {/* --- Компонент проигрываемого трека начало */}
+                  <TrackPlayInfo
+                  currentTrack={currentTrack}
+                  isLoading={isLoading}
+                  // author="Ты та..." album="Баста" 
+                  />
+                  
+                  {/* <div className="track-play__contain">
+                  
+                  <div className="track-play__image">
+                      <svg className="track-play__svg" alt="music">
+                        <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                      </svg>
+                    </div>
+                    <div className="track-play__author">
+                      <a className="track-play__author-link" href="http://"
+                        >Ты та...</a
+                      >
+                    </div>
+                    <div className="track-play__album">
+                      <a className="track-play__album-link" href="http://">Баста</a>
+                    </div>
+                  
+                  </div> */}
+{/* --- Компонент проигрываемого трека конец */}
+                 {currentTrack ? (
+                  <div className="track-play__like-dis">
+                  <div className="track-play__like _btn-icon">
+                    <svg className="track-play__like-svg" alt="like">
+                      <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+                    </svg>
+                  </div>
+                  <div className="track-play__dislike _btn-icon">
+                    <svg className="track-play__dislike-svg" alt="dislike">
+                      <use
+                        xlinkHref="img/icon/sprite.svg#icon-dislike"
+                      ></use>
+                    </svg>
+                  </div>
+                </div>
+                 ) : null}
+                  
+
+                </div>
+              </div>
+              <div className="bar__volume-block volume">
+                {/* ---Компонент Volume */}
+                <VolumeContent
+                currentTrack={currentTrack}
+                />
+                
+                {/* ---Компонент Volume конец*/}
+              </div>
+            </div>
+          </div>
+        </div>
         <footer className="footer"></footer>
 </div>
      )

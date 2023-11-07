@@ -1,12 +1,8 @@
-import {React, useState, useRef, useEffect} from 'react';
-import * as Styled from './player.styled';
-import {VolumeContent} from '../volumeContent/volumeContent';
-import {ProgressBar} from '../ProgressBar/progressBar';
-import {TrackPlayInfo} from '../trackPlay/trackPlay';
+import {React, useState, useRef} from 'react';
+import * as Styled from './player.styled'
 
 
-
-export function PlayerControls({currentTrack, isLoading}) {
+export function PlayerControls({currentTrack}) {
 
     // const [isPaused, setIsPaused] = useState (false);
     const [isRepeated, setIsRepeated] = useState (false);
@@ -14,29 +10,15 @@ export function PlayerControls({currentTrack, isLoading}) {
     const [isPlaying, setIsPlaying] = useState(true);
     const audioRef = useRef(null);
     const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(0);
-
-    useEffect (() =>{
-    const ref = audioRef.current;
-    const timeUpdateEvent = () => {
-        if(ref.currentTime && ref.duration) {
-            setCurrentTime(ref.currentTime);
-            setDuration(ref.duration);
-        }
-        else{
-            setCurrentTime(0);
-            setDuration(0);
-        }
     
-    }
-    ref.addEventListener("timeupdate", timeUpdateEvent);
-    return () => {
-        ref.removeEventListener("timeupdate", timeUpdateEvent);
-    }
-    },[])
-
-
-
+//     const setPause = ()=>{
+//     if (!isPaused){
+//         setIsPaused(true);   
+//     }
+//     else{
+//         setIsPaused(false);
+//     }
+// }
 
 const setRepeat = ()=>{
     if (!isRepeated){
@@ -73,13 +55,21 @@ const handleStart = () => {
   
     return (
         
-        <div className="bar">
-          <div className="bar__content">
-             <ProgressBar audioRef={audioRef} duration={duration} currentTrack={currentTrack} currentTime={currentTime}/>
-            <div className="bar__player-block">
-              <div className="bar__player player">
-                {/* --- Замена плеера на компонент ---- */}
-                <audio className='audio' controls ref={audioRef} src={currentTrack.track_file} autoPlay={true} loop={isRepeated} >
+        
+        
+        
+        
+        
+        
+        
+        
+        <>
+
+        {currentTrack ? (
+           <>
+           {console.log(currentTrack.track_file)}
+            
+            <audio className='audio' controls ref={audioRef} src={currentTrack.track_file} autoPlay={true} loop={isRepeated} >
             <source  type="audio/mpeg"  />
           </audio>
 
@@ -136,69 +126,10 @@ const handleStart = () => {
                 </Styled.PlayerBtnRepeatSvg>
             </Styled.PlayerBtnShuffle>
         </Styled.PlayerControls>
-                  {/* {PlayerControls}                */}
-                {/*--- Замена плеера конец ----*/}
-                
-                <div className="player__track-play track-play">
-                  {/* --- Компонент проигрываемого трека начало */}
-                  <TrackPlayInfo
-                  currentTrack={currentTrack}
-                  isLoading={isLoading}
-                  // author="Ты та..." album="Баста" 
-                  />
-                  
-                  {/* <div className="track-play__contain">
-                  
-                  <div className="track-play__image">
-                      <svg className="track-play__svg" alt="music">
-                        <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                      </svg>
-                    </div>
-                    <div className="track-play__author">
-                      <a className="track-play__author-link" href="http://"
-                        >Ты та...</a
-                      >
-                    </div>
-                    <div className="track-play__album">
-                      <a className="track-play__album-link" href="http://">Баста</a>
-                    </div>
-                  
-                  </div> */}
-{/* --- Компонент проигрываемого трека конец */}
-                 
-                  <div className="track-play__like-dis">
-                  <div className="track-play__like _btn-icon">
-                    <svg className="track-play__like-svg" alt="like">
-                      <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-                    </svg>
-                  </div>
-                  <div className="track-play__dislike _btn-icon">
-                    <svg className="track-play__dislike-svg" alt="dislike">
-                      <use
-                        xlinkHref="img/icon/sprite.svg#icon-dislike"
-                      ></use>
-                    </svg>
-                  </div>
-                </div>
-                
-                  
-
-                </div>
-              </div>
-              <div className="bar__volume-block volume">
-                {/* ---Компонент Volume */}
-                <VolumeContent
-                currentTrack={currentTrack}
-                />
-                
-                {/* ---Компонент Volume конец*/}
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        
-    
+</>
+        ) : null}
+         
+        </>
         
         );
 
