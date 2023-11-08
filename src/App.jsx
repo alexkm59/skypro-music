@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useState} from 'react';
 import './App.css';
 import {AppRoutes} from './routes';
 import Cookies from 'js-cookie'
@@ -9,20 +9,21 @@ import Cookies from 'js-cookie'
 
 function App() {
 
-//  const [token, setToken] = useState();
+  const [currentTrack, setCurrentTrack] = useState(null);
+  const  [isLoading, setLoading] = useState(false);
 
-//  const setUserToken = () => {
-
-//  setToken(token);
-//  }
-
-const token = Cookies.get('token')
+  const token = Cookies.get('token')
 console.log(token);
  
 return (
   
   <div className="wrapper">
-    <AppRoutes token={token} />
+    <AppRoutes 
+    isLoading={isLoading}
+    setLoading={setLoading}
+    currentTrack={currentTrack}
+    setCurrentTrack={setCurrentTrack}
+    token={token} />
     
   </div>
   

@@ -2,6 +2,7 @@ import  styled  from 'styled-components';
 
 export const PlaylistItem = styled.div`
     width: 100%;
+    
     display: block;
     margin-bottom: 12px;
   `
@@ -55,7 +56,7 @@ export const TrackTitleSvg = styled.svg`
     fill: transparent;
     stroke: #4e4e4e;
 `
-export const TrackTitleLink = styled.a`
+export const TrackTitleLink = styled.div`
 font-style: normal;
     font-weight: 400;
     font-size: 16px;
