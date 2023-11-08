@@ -5,7 +5,6 @@ import {ProgressBar} from '../ProgressBar/progressBar';
 import {TrackPlayInfo} from '../trackPlay/trackPlay';
 
 
-
 export function PlayerControls({currentTrack, isLoading}) {
 
     // const [isPaused, setIsPaused] = useState (false);
@@ -15,6 +14,7 @@ export function PlayerControls({currentTrack, isLoading}) {
     const audioRef = useRef(null);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
+    const [volume, setVolume] = useState(0.4);
 
     useEffect (() =>{
     const ref = audioRef.current;
@@ -29,13 +29,17 @@ export function PlayerControls({currentTrack, isLoading}) {
         }
     
     }
+   
     ref.addEventListener("timeupdate", timeUpdateEvent);
     return () => {
         ref.removeEventListener("timeupdate", timeUpdateEvent);
     }
     },[])
 
-
+    useEffect (() =>{
+        audioRef.current.volume = volume
+},[volume])
+    
 
 
 const setRepeat = ()=>{
@@ -79,8 +83,9 @@ const handleStart = () => {
             <div className="bar__player-block">
               <div className="bar__player player">
                 {/* --- Замена плеера на компонент ---- */}
+               
                 <audio className='audio' controls ref={audioRef} src={currentTrack.track_file} autoPlay={true} loop={isRepeated} >
-            <source  type="audio/mpeg"  />
+            <source  type="audio/mpeg" />
           </audio>
 
             <Styled.PlayerControls>
@@ -149,22 +154,8 @@ const handleStart = () => {
                   
                   {/* <div className="track-play__contain">
                   
-                  <div className="track-play__image">
-                      <svg className="track-play__svg" alt="music">
-                        <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                      </svg>
-                    </div>
-                    <div className="track-play__author">
-                      <a className="track-play__author-link" href="http://"
-                        >Ты та...</a
-                      >
-                    </div>
-                    <div className="track-play__album">
-                      <a className="track-play__album-link" href="http://">Баста</a>
-                    </div>
                   
-                  </div> */}
-{/* --- Компонент проигрываемого трека конец */}
+                {/* --- Компонент проигрываемого трека конец */}
                  
                   <div className="track-play__like-dis">
                   <div className="track-play__like _btn-icon">
@@ -189,6 +180,8 @@ const handleStart = () => {
                 {/* ---Компонент Volume */}
                 <VolumeContent
                 currentTrack={currentTrack}
+                volume={volume}
+                setVolume={setVolume}
                 />
                 
                 {/* ---Компонент Volume конец*/}

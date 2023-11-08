@@ -1,13 +1,14 @@
 import {React} from 'react';
 import * as Styled from './progressBar.styled'
 
-export function ProgressBar({currentTrack, currentTime, audioRef, duration}) {
+export function ProgressBar({currentTime, audioRef, duration}) {
     
    const onChangeCurrentTime = (newTime) => {
     audioRef.current.currentTime = newTime;
+    console.log(`audioRef ${audioRef.current.currentTime}`);
    }
     
-    {console.log(currentTrack.duration_in_seconds)}  
+    
     return (
       <Styled.ProgressInput
       
@@ -17,7 +18,11 @@ export function ProgressBar({currentTrack, currentTime, audioRef, duration}) {
         
         value={currentTime}
         step={0.01}
-        onChange={(event) => onChangeCurrentTime(event.target.value)}
+        onChange={(event) => {
+        onChangeCurrentTime(event.target.value)
+        console.log(`event ${event.target.value}`);
+        }
+            }
         $color="#b672ff"
       />
     );

@@ -69,7 +69,7 @@ const handleStart = () => {
            <>
            {console.log(currentTrack.track_file)}
             
-            <audio className='audio' controls ref={audioRef} src={currentTrack.track_file} autoPlay={true} loop={isRepeated} >
+            <audio className='audio' controls ref={audioRef} src={currentTrack.track_file} autoPlay={true} loop={isRepeated} volume={} >
             <source  type="audio/mpeg"  />
           </audio>
 

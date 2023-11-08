@@ -1,6 +1,10 @@
 import React from 'react';
 import * as Styled from "./volumeContent.styled"
-export function VolumeContent({currentTrack}){
+export function VolumeContent({currentTrack, volume, setVolume}){
+
+  
+
+
 return(
 <>
 {currentTrack ? (
@@ -15,6 +19,13 @@ return(
         className="_btn"
         type="range"
         name="range"
+        min={0}
+        max={1}
+
+        value={volume}
+        step={0.01}
+        onChange={(event) => setVolume(event.target.value)}
+        
       />
     </Styled.VolumeProgress>
 </Styled.VolumeContent>
