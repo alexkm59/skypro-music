@@ -44,9 +44,21 @@ body {
   color: #ffffff;
 }
 
-/* .audio{
+.audio{
   display: none;
-} */
+}
+
+.timeLineBar{
+  width: 100px;
+  height: 24px;
+  position: relative;
+  left: 90%;
+  background: rgba(28, 28, 28, 0.5);
+  color: rgb(105, 105, 105);
+  font-weight: 400;
+  font-size: 14px;
+}
+
 .wrapper {
   width: 100%;
   min-height: 100%;

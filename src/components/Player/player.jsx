@@ -76,8 +76,12 @@ const handleStart = () => {
 
   
     return (
+        <>
         
         <div className="bar">
+        <div className="timeLineBar">
+            {(currentTime % 60) < 10 ?  (`${Math.floor(currentTime / 60)}.0${Math.floor(currentTime % 60)}/${(duration/60).toFixed(2)}`) : (`${Math.floor(currentTime / 60)}.${Math.floor(currentTime % 60)}/${(duration/60).toFixed(2)}`)}
+        </div>
           <div className="bar__content">
              <ProgressBar audioRef={audioRef} duration={duration} currentTrack={currentTrack} currentTime={currentTime}/>
             <div className="bar__player-block">
@@ -192,7 +196,7 @@ const handleStart = () => {
         
         
     
-        
+        </>
         );
 
 }
