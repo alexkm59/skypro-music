@@ -59,6 +59,10 @@ body {
   font-size: 14px;
 }
 
+.regErrors{
+  color: red;
+}
+
 .wrapper {
   width: 100%;
   min-height: 100%;
