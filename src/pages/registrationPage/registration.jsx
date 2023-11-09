@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from '../loginPage/loginPage.styled'
 import { useState, useEffect } from "react";
-import {UserRegistration} from "../../api"
+import {UserRegistrationAPI} from "../../api"
 // import {Link} from 'react-router-dom';
 
 export const RegistrationPage = ()  => {
@@ -10,47 +10,42 @@ const [userEmail, setUserEmail] = useState("");
 const [userPassword, setUserPassword] = useState("");
 const [confirmPassword, setConfirmPassword] = useState("");
 const [registrationError, setRegistrationError] = useState("");
+
 // const [isUserRegOK, setIsUserRegOK] = useState(false);
 
-
+// Установка стейтов регистрации и валидация формы регистрации
 const userRegistration = async ()=>{
     if(userEmail !== ""){
         console.log({userEmail});
     }
     else{
         setRegistrationError("Заполните почту!");
+        return
     }
     if(userPassword !== ""){
         console.log({userPassword});
     }
     else{
         setRegistrationError("Укажите пароль!");
+        return
     }
     if(userPassword === confirmPassword){
         console.log({userPassword});
     }
     else{
         setRegistrationError("Укажите идентичные пароли!");
+    return
     }
 
-    const response = await UserRegistration({userEmail, userPassword });
-    
-    if (response.status === 201) {
-        alert(`Пользователь успешно зарегистрирован`);
-    }
-    
-    if (response.status === 400) {
-        alert(`произошла ошибка: ${response.email}, ${response.password}`);
-    }
-    if (response.status === 500) {
-        alert(`Ошибка соединения с сервером. Попробуйте чутка позже.`);
-    }
-    //  setIsUserRegOK(true);
+    // отправка данных в API
+    const responce = await UserRegistrationAPI({userEmail, userPassword, setRegistrationError});
 
-     
-  
-    
+    console.log(responce);
+        
 }
+
+
+
 // Сбрасываем ошибку если пользователь меняет данные на форме или меняется режим формы
 useEffect(() => {
     setRegistrationError(null);
