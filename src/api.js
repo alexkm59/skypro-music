@@ -1,5 +1,5 @@
 
-export async function UserRegistrationAPI({userEmail, userPassword, setRegistrationError }) {
+export async function UserRegistrationAPI({userEmail, userPassword }) {
     const Response = await fetch("https://skypro-music-api.skyeng.tech/user/signup/", {
   method: "POST",
   body: JSON.stringify({
@@ -11,30 +11,10 @@ export async function UserRegistrationAPI({userEmail, userPassword, setRegistrat
     // API требует обязательного указания заголовка content-type, так апи понимает что мы посылаем ему json строчку в теле запроса
     "content-type": "application/json",
   },
-}).then((responce) => {
-  
-    if (responce.status === 400){
-          console.log(`responceStatus_${responce.status}`);
-          responce.json().then((json) => {
-            const emailError = json.email ? `email:${json.email}` : "";
-            const userNameError = json.username ? json.username : "";
-            const passwordError = json.password ? json.password : "";
-            const error = emailError+userNameError+passwordError;
-            
-            setRegistrationError(error)});
-          return
-        }
-        if (responce.status === 201){
-          console.log(`responceStatus_${responce.status}`);
-          responce.json().then((json) => {
-            console.log(`Json_201_${json}`);
-            return json});
-        }
-    
 })
 
-// const user = await Response.json();
-// return user;
+const data = await Response;
+return data;
 
 }
 
@@ -49,7 +29,6 @@ export async function getPlayList() {
         }
     }
 
-    
     
     const data = await Response.json();
     return data;
