@@ -8,14 +8,20 @@ import {Favorites} from "./pages/favoritesPage/favorites";
 import {Category} from "./pages/categoryPage/category";
 import {ProtectedRoute} from './components/protected-route';
 
-export const AppRoutes = ({token, currentTrack, setCurrentTrack, isLoading, setLoading, userToken, setUserToken}) => {
+export const AppRoutes = ({token, currentTrack, setCurrentTrack, isLoading, setLoading, userToken, setUserToken, user, setUser}) => {
+  
+  
   return (
     <Routes>
       <Route path="/login" element={<LoginPage 
       setUserToken={setUserToken}
+      user={user}
+      setUser={setUser}
       />} />
       <Route path="/registration" element={<RegistrationPage 
       setUserToken={setUserToken}
+      user={user}
+      setUser={setUser}
       />} />
       
       <Route path="/" element={<ProtectedRoute isAllowed = {Boolean(userToken)}>

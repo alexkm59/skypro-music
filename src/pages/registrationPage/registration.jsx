@@ -2,24 +2,23 @@ import React from 'react';
 import * as S from '../loginPage/loginPage.styled'
 import { useState, useEffect} from "react";
 import {UserRegistrationAPI} from "../../api"
-import {Link, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
-export const RegistrationPage = ()  => {
+export const RegistrationPage = ({user, setUser})  => {
 
 const [userEmail, setUserEmail] = useState("");
 const [userPassword, setUserPassword] = useState("");
 const [confirmPassword, setConfirmPassword] = useState("");
 const [registrationError, setRegistrationError] = useState(null);
-const [user, setUser] = useState({
-id: "",
-username: "",
-email: "",
-}
-);
+// const [user, setUser] = useState({
+// id: "",
+// username: "",
+// email: "",
+// }
+// );
 
 const navigate = useNavigate();
 
-// const [isUserRegOK, setIsUserRegOK] = useState(false);
 
 // Установка стейтов регистрации и валидация формы регистрации
 const userRegistration = ()=>{
@@ -71,9 +70,15 @@ const userRegistration = ()=>{
             }
             })
         .then((response)=> {
-            setUser(user.id = response.id)
-            setUser(user.username = response.username)
-            setUser(user.email = response.email)
+            const user = {
+                id: response.id,
+                username: response.username,
+                email: response.email,
+            }
+
+
+            setUser(user)
+           
             console.log(`user_ID_ ${user.id}`);
             console.log(`user_from_API: ${response.id}`)
             console.log(`email_from_API: ${response.email}`)
@@ -87,7 +92,6 @@ const userRegistration = ()=>{
 
    
 
-            
 
 // Сбрасываем ошибку если пользователь меняет данные на форме или меняется режим формы
 useEffect(() => {
