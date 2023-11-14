@@ -2,7 +2,10 @@ import React from 'react';
 import * as S from './loginPage.styled';
 import {Link} from 'react-router-dom';
 
-export const LoginPage = ()  => {
+export const LoginPage = ({setUserToken})  => {
+
+
+
 return (
 <S.loginPage >
     <S.loginBox>
@@ -16,10 +19,14 @@ return (
             </S.loginInput>
         </S.loginBoxInputArea>
         <S.loginBoxButton>
-            <S.loginButton>
-                <Link to="/"></Link>
+        
+        <Link to="/">
+            <S.loginButton onClick={() => {setUserToken(true)}} >
+        
                 Войти
             </S.loginButton>
+        </Link>
+
             <Link to="/registration">
             <S.registratButton>
             Зарегистрироваться
