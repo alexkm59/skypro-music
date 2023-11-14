@@ -1,15 +1,17 @@
 import React from 'react';
 import * as S from '../loginPage/loginPage.styled'
-import { useState, useEffect} from "react";
+import { useState, useEffect, useContext} from "react";
 import {UserRegistrationAPI} from "../../api"
 import {useNavigate} from 'react-router-dom';
+import {userContext} from "../../Context/auth"
 
-export const RegistrationPage = ({user, setUser})  => {
+export const RegistrationPage = ()  => {
 
 const [userEmail, setUserEmail] = useState("");
 const [userPassword, setUserPassword] = useState("");
 const [confirmPassword, setConfirmPassword] = useState("");
 const [registrationError, setRegistrationError] = useState(null);
+const [registrationLoading, setRegistrationLoading] = useState(false);
 // const [user, setUser] = useState({
 // id: "",
 // username: "",
@@ -17,11 +19,14 @@ const [registrationError, setRegistrationError] = useState(null);
 // }
 // );
 
+const {setUser} = useContext(userContext);
 const navigate = useNavigate();
-
 
 // Установка стейтов регистрации и валидация формы регистрации
 const userRegistration = ()=>{
+// Выключаем кнопку регистрации на время загрузки 
+    setRegistrationLoading(true);
+
     if(userEmail !== ""){
         console.log({userEmail});
     }
@@ -87,6 +92,8 @@ const userRegistration = ()=>{
             alert("Регистрация выполнена успешно. Сейчас можно выполнить вход. Надеюсь, вы запомнили логин и пароль.")
             navigate("/login")
         }).catch((error)=> console.log(error))
+        .finally(() => setRegistrationLoading(false))
+
          
     }
 
@@ -120,7 +127,7 @@ return (
         <S.loginBoxButton>
         
 
-            <S.loginButton onClick={() => userRegistration()}>
+            <S.loginButton disabled={true} onClick={() => userRegistration()}>
                 Зарегистрироваться
             </S.loginButton>
 

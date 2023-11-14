@@ -1,19 +1,21 @@
-import {React, useState, useEffect} from 'react';
+import {React, useState, useEffect, useContext} from 'react';
 import * as S from './loginPage.styled';
 import {Link, useNavigate} from 'react-router-dom';
 import {UserLoginAPI} from "../../api"
+import {userContext} from "../../Context/auth"
 
 
 
 
-
-export const LoginPage = ({setUserToken, user, setUser})  => {
+export const LoginPage = ({setUserToken})  => {
     
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
     const [loginError, setLoginError] = useState(null);
     
     const navigate = useNavigate();
+
+    const {setUser} = useContext(userContext);
 
 // Установка стейтов входа и валидация формы входа
 const userLogin = () => {
@@ -88,9 +90,16 @@ const userLogin = () => {
         console.log(`email_from_API: ${response.email}`)
         console.log(`user_from_API: ${response.username}`)
         console.log(`user_from_API: ${response.password}`)
+        // запись в локал сторидж
+        localStorage.setItem('currentUserId', user.id);
+        localStorage.setItem('currentUserName', user.username);
+        localStorage.setItem('currentUserEmail', user.email);
+
         alert("Вход выполнен успешно.")
+
         // Заглушка определения токена для перехода на страницу
         setUserToken(true)
+        
         navigate("/")
         
     }).catch((error)=> console.log(error))
@@ -99,16 +108,10 @@ const userLogin = () => {
 
     }
 
-   
-
-
 // Сбрасываем ошибку если пользователь меняет данные на форме или меняется режим формы
 useEffect(() => {
     setLoginError(null);
   }, [userEmail, userPassword]);
-
-
-
 
 
 return (

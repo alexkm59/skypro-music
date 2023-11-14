@@ -1,7 +1,8 @@
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import './App.css';
 import {AppRoutes} from './routes';
-import {authContext} from "./Context/auth";
+import {userContext} from "./Context/auth";
+import {useNavigate} from 'react-router-dom';
 // import Cookies from 'js-cookie'
 // import{MinePage} from './pages/mainPage/mainPage'
 // import{LoginPage} from './pages/loginPage/login'
@@ -19,16 +20,37 @@ function App() {
     email: "",
     }
     );
-  const [authenticated, setAuthenticated] = useState(false);
+    const navigate = useNavigate();
 
-  // const token = Cookies.get('token')
+
+const username = localStorage.getItem('currentUserName')
+console.log(`user from local ${username}`);
+
+    useEffect(()=>{
+      // читаем локал сторидж, если пользователь есть, то устанавливаем setUser
+  const currentUserName = localStorage.getItem('currentUserName');
+        if (currentUserName){
+            const currentUser = {
+              id: `${localStorage.getItem('currentUserId')}`,
+              username: `${localStorage.getItem('currentUserName')}`,
+              email: `${localStorage.getItem('currentUserEmail')}`, 
+          }
+   setUser(currentUser)
+   console.log(`user --> ${user}`);
+   setUserToken(true)
+    navigate("/")
+   }
+// при разлогировании нужно почистить локал сторидж
+    }, []);
+
+
 console.log(userToken);
 
 
 
  
 return (
-  <authContext.Provider value={{ authenticated, setAuthenticated}}>
+  <userContext.Provider value={{ user, setUser}}>
  <div className="wrapper">
   
   <AppRoutes 
@@ -37,15 +59,13 @@ return (
   currentTrack={currentTrack}
   setCurrentTrack={setCurrentTrack}
   // token={token}
-  user={user}
-  setUser={setUser}
   userToken = {userToken}
   setUserToken= {setUserToken}
   />
   
 </div>
 
-  </authContext.Provider>
+  </userContext.Provider>
  
   
 
