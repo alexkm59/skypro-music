@@ -10,7 +10,7 @@ export function PlayListContent ({isLoading, setLoading, currentTrack, setCurren
 
 const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
 const [error, setError] = useState (null);
-const [trackId, setTrackId] = useState ();
+const [currentTrackId, setCurrentTrackId] = useState ();
 
 useEffect(()=>{
   setLoading(true)
@@ -32,8 +32,8 @@ const handleCurrentTrackId = ({id}) => {
     // setCurrentTrackId (id);
 
     console.log(`currentTrack ID = ${id}`);
-    setTrackId (id);
-    console.log(`setCurrentTrack = ${trackId}`);
+    setCurrentTrackId (id);
+    console.log(`setCurrentTrack = ${currentTrackId}`);
 
 }
 
