@@ -14,7 +14,7 @@ function App() {
   const [currentTrack, setCurrentTrack] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [user, setUser] = useState({
     id: "",
     username: "",

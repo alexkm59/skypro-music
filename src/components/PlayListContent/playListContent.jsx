@@ -5,12 +5,12 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import * as Styled from './playListContent.styled';
 import {getPlayList} from '../../api'
 
-export function PlayListContent ({isLoading, setLoading, currentTrack, setCurrentTrack, isPlaying}) {
+export function PlayListContent ({isLoading, setLoading, currentTrack, setCurrentTrack, isPlaying, setIsPlaying}) {
 
 
 const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
 const [error, setError] = useState (null);
-const [currentTrackId, setCurrentTrackId] = useState ();
+const [trackId, setTrackId] = useState ();
 
 useEffect(()=>{
   setLoading(true)
@@ -32,8 +32,8 @@ const handleCurrentTrackId = ({id}) => {
     // setCurrentTrackId (id);
 
     console.log(`currentTrack ID = ${id}`);
-    setCurrentTrackId (id);
-    console.log(`setCurrentTrack = ${currentTrackId}`);
+    setTrackId (id);
+    console.log(`setCurrentTrack = ${trackId}`);
 
 }
 
@@ -82,6 +82,7 @@ return(
 {/* Задаем текущий трек */}
                         <SkeletonTheme baseColor="#313131" highlightColor="#fff" height={20} width={356}>
                           {!isLoading ? <Styled.TrackTitleLink  onClick={()=> {
+                            setIsPlaying (true);
                             setCurrentTrack(oneTrack);
                             
                             handleCurrentTrackId({id: oneTrack.id});
