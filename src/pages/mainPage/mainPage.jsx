@@ -11,7 +11,7 @@ import {Sidebar} from '../../components/sidebar/sidebar';
 // import {TrackPlayInfo} from '../../components/trackPlay/trackPlay';
 // import{ProgressBar} from "../../components/ProgressBar/progressBar"
 
-export const MinePage =({isLoading, setLoading, currentTrack, setCurrentTrack}) => {
+export const MinePage =({isLoading, setLoading, currentTrack, setCurrentTrack, isPlaying, setIsPlaying}) => {
    
 
 
@@ -55,6 +55,9 @@ export const MinePage =({isLoading, setLoading, currentTrack, setCurrentTrack}) 
               setLoading={setLoading}
               currentTrack={currentTrack}
               setCurrentTrack={setCurrentTrack}
+              isPlaying = {isPlaying}
+              setIsPlaying = {setIsPlaying}
+
               />
               {/* )
               })} */}
@@ -89,7 +92,7 @@ export const MinePage =({isLoading, setLoading, currentTrack, setCurrentTrack}) 
           </div>
         </main>
         
-            {currentTrack ? <PlayerControls currentTrack={currentTrack} isLoading={isLoading}/>:null}
+            {currentTrack ? <PlayerControls currentTrack={currentTrack} isLoading={isLoading} isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>:null}
             
         <footer className="footer"></footer>
 </div>

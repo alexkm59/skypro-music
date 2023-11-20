@@ -1,4 +1,17 @@
 import  styled  from 'styled-components';
+// const blinkAnimation = keyframes`
+//     0% {
+//     opacity: 0;
+//   }
+//   50% {
+//     opacity: 1;
+//   }
+//   100% {
+//     opacity: 0;
+//   }
+//   `;
+  
+
 
 export const PlaylistItem = styled.div`
     width: 100%;
@@ -112,3 +125,21 @@ font-style: normal;
     text-align: right;
     color: #696969;
 ` 
+export const BlinkingDot = styled.div`
+  width: 150px;
+  height: 15px; 
+  background-color: purple;
+  border-radius: 50%;
+  animation: dot 1s infinite;
+  @keyframes dot {
+    0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+  }
+  `

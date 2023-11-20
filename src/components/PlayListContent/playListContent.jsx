@@ -5,11 +5,12 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import * as Styled from './playListContent.styled';
 import {getPlayList} from '../../api'
 
-export function PlayListContent ({isLoading, setLoading, setCurrentTrack}) {
+export function PlayListContent ({isLoading, setLoading, currentTrack, setCurrentTrack, isPlaying}) {
 
 
 const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
 const [error, setError] = useState (null);
+const [currentTrackId, setCurrentTrackId] = useState ();
 
 useEffect(()=>{
   setLoading(true)
@@ -26,25 +27,55 @@ if(error){
   )
 }
 
+
+// useEffect(()=>{
+//   if(currentTrack !== null){
+//     setCurrentTrackId (currentTrack.id);
+//     console.log(`currentTrack ID = ${currentTrackId}`);
+//   }
+  
+    
+// }, []);
+
+
+
 return(
   <>
   {allTracks.map((oneTrack) => {
     
     return(
+      
                   <Styled.PlaylistItem key={oneTrack.id}>
-                    <Styled.PlaylistTrack className="track">
+                    <Styled.PlaylistTrack  className="track">
                       <Styled.TrackTitle>
                       
                         <Styled.TrackTitleImage >
-                          {!isLoading ? <Styled.TrackTitleSvg className="track__title-svg" alt="music">
+                          {/* {!isLoading ? <Styled.TrackTitleSvg className="track__title-svg" alt="music">
                             <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                          </Styled.TrackTitleSvg> : <Skeleton/> }
+                          </Styled.TrackTitleSvg> : <Skeleton/> } */}
+{/* isPlaying && сurrentTrack */}
+
+                          {!isLoading ? ( ( currentTrackId) ? (<Styled.BlinkingDot className="track__title-svg" alt="music">
+                            {/* <use xlinkHref="img/icon/sprite.svg#icon-note"></use> */}
+                          </Styled.BlinkingDot>) : (<Styled.TrackTitleSvg className="track__title-svg" alt="music">
+                          <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                          </Styled.TrackTitleSvg>)
+                          
+                          ) : (<Skeleton/>) }
                           
                         </Styled.TrackTitleImage>
                         <div className="track__title-text">
 
+{/* Задаем текущий трек */}
                         <SkeletonTheme baseColor="#313131" highlightColor="#fff" height={20} width={356}>
-                          {!isLoading ? <Styled.TrackTitleLink onClick={()=> setCurrentTrack(oneTrack)}
+                          {!isLoading ? <Styled.TrackTitleLink  onClick={()=> {
+                            setCurrentTrack(oneTrack)
+                            const id = oneTrack.id
+                            setCurrentTrackId(id)
+                            console.log(`oneTrack ID = ${oneTrack.id}`);
+                            console.log(`currentTrack ID = ${currentTrackId}`);
+                          }}                  
+
                              >{oneTrack.name} <Styled.TrackTitleSpan ></Styled.TrackTitleSpan></Styled.TrackTitleLink> : <Skeleton/> }
                           </SkeletonTheme>
                         

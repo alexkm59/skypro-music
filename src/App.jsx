@@ -12,8 +12,9 @@ import {useNavigate} from 'react-router-dom';
 function App() {
 
   const [currentTrack, setCurrentTrack] = useState(null);
-  const  [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [userToken, setUserToken] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [user, setUser] = useState({
     id: "",
     username: "",
@@ -61,6 +62,8 @@ return (
   // token={token}
   userToken = {userToken}
   setUserToken= {setUserToken}
+  isPlaying ={isPlaying}
+  setIsPlaying = {setIsPlaying}
   />
   
 </div>

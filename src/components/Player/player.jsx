@@ -5,12 +5,12 @@ import {ProgressBar} from '../ProgressBar/progressBar';
 import {TrackPlayInfo} from '../trackPlay/trackPlay';
 
 
-export function PlayerControls({currentTrack, isLoading}) {
+export function PlayerControls({currentTrack, isLoading, isPlaying, setIsPlaying}) {
 
     // const [isPaused, setIsPaused] = useState (false);
     const [isRepeated, setIsRepeated] = useState (false);
     const[isShuffled, setIsShuffled] = useState (false);
-    const [isPlaying, setIsPlaying] = useState(true);
+    // const [isPlaying, setIsPlaying] = useState(true);
     const audioRef = useRef(null);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -103,7 +103,7 @@ const handleStart = () => {
             <Styled.PlayerBtn btnPrev={true} onClick={()=>togglePlay()} className="_btn">
                 <Styled.PlayerBtnPlaySvg  alt="play" >
                     {/* <use xlinkHref="img/icon/sprite.svg#icon-play"></use> */}
-                    {isPlaying ? (<svg xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
+                    {!isPlaying ? (<svg xmlns="http://www.w3.org/2000/svg" width="15" height="19" viewBox="0 0 15 19" fill="none">
                     <rect width="5" height="19" fill="#D9D9D9"/>
                     <rect x="10" width="5" height="19" fill="#D9D9D9"/>
                     </svg>):(<svg xmlns="http://www.w3.org/2000/svg" width="15" height="20" viewBox="0 0 15 20" fill="none">

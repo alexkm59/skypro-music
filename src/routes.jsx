@@ -8,7 +8,7 @@ import {Favorites} from "./pages/favoritesPage/favorites";
 import {Category} from "./pages/categoryPage/category";
 import {ProtectedRoute} from './components/protected-route';
 
-export const AppRoutes = ({token, currentTrack, setCurrentTrack, isLoading, setLoading, userToken, setUserToken}) => {
+export const AppRoutes = ({token, currentTrack, setCurrentTrack, isLoading, setLoading, userToken, setUserToken, isPlaying, setIsPlaying}) => {
   
   
   return (
@@ -29,6 +29,8 @@ export const AppRoutes = ({token, currentTrack, setCurrentTrack, isLoading, setL
         setCurrentTrack={setCurrentTrack} 
         isLoading={isLoading}
         setLoading={setLoading}
+        isPlaying ={isPlaying}
+        setIsPlaying = {setIsPlaying}
          />
       </ProtectedRoute>
       } />
