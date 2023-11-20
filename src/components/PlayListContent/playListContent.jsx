@@ -27,15 +27,28 @@ if(error){
   )
 }
 
+const handleCurrentTrackId = ({id}) => {
+ 
+    // setCurrentTrackId (id);
+
+    console.log(`currentTrack ID = ${id}`);
+    setCurrentTrackId (id);
+    console.log(`setCurrentTrack = ${currentTrackId}`);
+
+}
+
 
 // useEffect(()=>{
 //   if(currentTrack !== null){
 //     setCurrentTrackId (currentTrack.id);
-//     console.log(`currentTrack ID = ${currentTrackId}`);
+//     console.log(`currentTrack ID effect = ${currentTrackId}`);
 //   }
-  
     
-// }, []);
+// }, [currentTrack]);
+
+
+ 
+    
 
 
 
@@ -55,7 +68,7 @@ return(
                           </Styled.TrackTitleSvg> : <Skeleton/> } */}
 {/* isPlaying && сurrentTrack */}
 
-                          {!isLoading ? ( ( currentTrackId) ? (<Styled.BlinkingDot className="track__title-svg" alt="music">
+                          {!isLoading ? ( isPlaying ? (<Styled.BlinkingDot className="track__title-svg" alt="music">
                             {/* <use xlinkHref="img/icon/sprite.svg#icon-note"></use> */}
                           </Styled.BlinkingDot>) : (<Styled.TrackTitleSvg className="track__title-svg" alt="music">
                           <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
@@ -69,11 +82,10 @@ return(
 {/* Задаем текущий трек */}
                         <SkeletonTheme baseColor="#313131" highlightColor="#fff" height={20} width={356}>
                           {!isLoading ? <Styled.TrackTitleLink  onClick={()=> {
-                            setCurrentTrack(oneTrack)
-                            const id = oneTrack.id
-                            setCurrentTrackId(id)
-                            console.log(`oneTrack ID = ${oneTrack.id}`);
-                            console.log(`currentTrack ID = ${currentTrackId}`);
+                            setCurrentTrack(oneTrack);
+                            
+                            handleCurrentTrackId({id: oneTrack.id});
+                            
                           }}                  
 
                              >{oneTrack.name} <Styled.TrackTitleSpan ></Styled.TrackTitleSpan></Styled.TrackTitleLink> : <Skeleton/> }
