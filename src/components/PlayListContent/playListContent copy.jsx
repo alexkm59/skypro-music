@@ -3,22 +3,14 @@ import React, {useState, useEffect} from 'react';
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import * as Styled from './playListContent.styled';
-import {getPlayList} from '../../api';
-import { useSelector } from "react-redux";
-import { playerSelector } from "../../store/selectors/index";
-import { useDispatch } from "react-redux";
-import {setCurrentTrack} from "../../store/actions/creators/index"
+import {getPlayList} from '../../api'
 
-
-
-
-export function PlayListContent ({isLoading, setLoading, isPlaying, setIsPlaying}) {
+export function PlayListContent ({isLoading, setLoading, currentTrack, setCurrentTrack, isPlaying, setIsPlaying}) {
 
 
 const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
 const [error, setError] = useState (null);
 const [currentTrackId, setCurrentTrackId] = useState ();
-const dispatch = useDispatch();
 
 useEffect(()=>{
   setLoading(true)
@@ -35,16 +27,28 @@ if(error){
   )
 }
 
+const handleCurrentTrackId = ({id}) => {
+ 
+    // setCurrentTrackId (id);
 
-const handleCurrentTrackId = (oneTrack) => {
-  
-  dispatch (setCurrentTrack(oneTrack));
-    
-
-   
+    console.log(`currentTrack ID = ${id}`);
+    setCurrentTrackId (id);
+    console.log(`setCurrentTrack = ${currentTrackId}`);
 
 }
 
+
+// useEffect(()=>{
+//   if(currentTrack !== null){
+//     setCurrentTrackId (currentTrack.id);
+//     console.log(`currentTrack ID effect = ${currentTrackId}`);
+//   }
+    
+// }, [currentTrack]);
+
+
+ 
+    
 
 
 
@@ -79,9 +83,9 @@ return(
                         <SkeletonTheme baseColor="#313131" highlightColor="#fff" height={20} width={356}>
                           {!isLoading ? <Styled.TrackTitleLink  onClick={()=> {
                             setIsPlaying (true);
-                            // setCurrentTrack(oneTrack);
+                            setCurrentTrack(oneTrack);
                             
-                            handleCurrentTrackId(oneTrack);
+                            handleCurrentTrackId({id: oneTrack.id});
                             
                           }}                  
 

@@ -3,9 +3,10 @@ import * as Styled from './player.styled';
 import {VolumeContent} from '../volumeContent/volumeContent';
 import {ProgressBar} from '../ProgressBar/progressBar';
 import {TrackPlayInfo} from '../trackPlay/trackPlay';
+import { useSelector } from "react-redux";
+import { playerSelector } from "../../store/selectors/index";
 
-
-export function PlayerControls({currentTrack, isLoading, isPlaying, setIsPlaying}) {
+export function PlayerControls({isLoading, isPlaying, setIsPlaying}) {
 
     // const [isPaused, setIsPaused] = useState (false);
     const [isRepeated, setIsRepeated] = useState (false);
@@ -15,6 +16,8 @@ export function PlayerControls({currentTrack, isLoading, isPlaying, setIsPlaying
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const [volume, setVolume] = useState(0.4);
+
+    const currentTrack = useSelector(playerSelector);
 
     useEffect (() =>{
     const ref = audioRef.current;

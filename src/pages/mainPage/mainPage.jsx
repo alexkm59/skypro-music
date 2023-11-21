@@ -10,10 +10,12 @@ import {PlayListContent} from '../../components/PlayListContent/playListContent'
 import {Sidebar} from '../../components/sidebar/sidebar';
 // import {TrackPlayInfo} from '../../components/trackPlay/trackPlay';
 // import{ProgressBar} from "../../components/ProgressBar/progressBar"
+import { useSelector } from "react-redux";
+import { playerSelector } from "../../store/selectors/index";
 
-export const MinePage =({isLoading, setLoading, currentTrack, setCurrentTrack, isPlaying, setIsPlaying}) => {
+export const MinePage =({isLoading, setLoading, isPlaying, setIsPlaying}) => {
    
-
+const currentTrack = useSelector(playerSelector);
 
 
      return (
@@ -53,8 +55,6 @@ export const MinePage =({isLoading, setLoading, currentTrack, setCurrentTrack, i
               <PlayListContent 
               isLoading={isLoading}
               setLoading={setLoading}
-              currentTrack={currentTrack}
-              setCurrentTrack={setCurrentTrack}
               isPlaying = {isPlaying}
               setIsPlaying = {setIsPlaying}
 
@@ -92,7 +92,7 @@ export const MinePage =({isLoading, setLoading, currentTrack, setCurrentTrack, i
           </div>
         </main>
         
-            {currentTrack ? <PlayerControls currentTrack={currentTrack} isLoading={isLoading} isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>:null}
+            {currentTrack ? <PlayerControls isLoading={isLoading} isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>:null}
             
         <footer className="footer"></footer>
 </div>

@@ -8,7 +8,7 @@ import {Favorites} from "./pages/favoritesPage/favorites";
 import {Category} from "./pages/categoryPage/category";
 import {ProtectedRoute} from './components/protected-route';
 
-export const AppRoutes = ({token, currentTrack, setCurrentTrack, isLoading, setLoading, userToken, setUserToken, isPlaying, setIsPlaying}) => {
+export const AppRoutes = ({token, isLoading, setLoading, userToken, setUserToken, isPlaying, setIsPlaying}) => {
   
   
   return (
@@ -25,8 +25,7 @@ export const AppRoutes = ({token, currentTrack, setCurrentTrack, isLoading, setL
       
       <Route path="/" element={<ProtectedRoute isAllowed = {Boolean(userToken)}>
         <MinePage 
-        currentTrack={currentTrack} 
-        setCurrentTrack={setCurrentTrack} 
+        
         isLoading={isLoading}
         setLoading={setLoading}
         isPlaying ={isPlaying}
