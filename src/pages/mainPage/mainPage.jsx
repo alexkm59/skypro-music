@@ -15,8 +15,9 @@ import { playerSelector } from "../../store/selectors/index";
 
 export const MinePage =({isLoading, setLoading, isPlaying, setIsPlaying}) => {
    
-const currentTrack = useSelector(playerSelector);
 
+
+const currentTrackId = useSelector(state => state.player.id);
 
      return (
 
@@ -92,7 +93,7 @@ const currentTrack = useSelector(playerSelector);
           </div>
         </main>
         
-            {currentTrack ? <PlayerControls isLoading={isLoading} isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>:null}
+            {currentTrackId ? <PlayerControls isLoading={isLoading} isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>:null}
             
         <footer className="footer"></footer>
 </div>

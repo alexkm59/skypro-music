@@ -6,10 +6,15 @@ import { playerSelector } from "../../store/selectors/index";
 export function VolumeContent({volume, setVolume}){
   
   // const currentTrack = useSelector(playerSelector);
-  // console.log(currentTrack);
+  // console.log(`---> ${currentTrack.id}`);
 
-  const currentTrackId = useSelector(state => state.player.currentTrack.content.id);
-  console.log(currentTrackId);
+  const currentTrackId = useSelector(state => state.player.id);
+ 
+
+
+
+  // const currentTrackId = useSelector(state => state.player.currentTrack.content.id);
+  // console.log(currentTrackId);
 
 return(
 <>

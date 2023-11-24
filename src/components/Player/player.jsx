@@ -5,6 +5,8 @@ import {ProgressBar} from '../ProgressBar/progressBar';
 import {TrackPlayInfo} from '../trackPlay/trackPlay';
 import { useSelector } from "react-redux";
 import { playerSelector } from "../../store/selectors/index";
+import { useDispatch } from "react-redux";
+import {setCurrentTrack} from "../../store/actions/creators/index"
 
 export function PlayerControls({isLoading, isPlaying, setIsPlaying}) {
 
@@ -17,7 +19,10 @@ export function PlayerControls({isLoading, isPlaying, setIsPlaying}) {
     const [duration, setDuration] = useState(0);
     const [volume, setVolume] = useState(0.4);
 
-    const currentTrack = useSelector(playerSelector);
+
+    const currentTrack = useSelector((state) => state.player.currentTrack.content); 
+   
+    const dispatch = useDispatch();
 
     useEffect (() =>{
     const ref = audioRef.current;
@@ -66,11 +71,15 @@ const setShuffle = ()=>{
 const handleStart = () => {
     audioRef.current.play();
     setIsPlaying(true);
+    const isPlayingTrack = true;
+    dispatch (setCurrentTrack(currentTrack.id, currentTrack, isPlayingTrack));
   };
 
   const handleStop = () => {
     audioRef.current.pause();
     setIsPlaying(false);
+    const isPlayingTrack = false;
+    dispatch (setCurrentTrack(currentTrack.id, currentTrack, isPlayingTrack));
   };
 
   const togglePlay = isPlaying ? handleStop : handleStart;
@@ -86,7 +95,7 @@ const handleStart = () => {
             {(currentTime % 60) < 10 ?  (`${Math.floor(currentTime / 60)}.0${Math.floor(currentTime % 60)}/${(duration/60).toFixed(2)}`) : (`${Math.floor(currentTime / 60)}.${Math.floor(currentTime % 60)}/${(duration/60).toFixed(2)}`)}
         </div>
           <div className="bar__content">
-             <ProgressBar audioRef={audioRef} duration={duration} currentTrack={currentTrack} currentTime={currentTime}/>
+             <ProgressBar audioRef={audioRef}  duration={duration} currentTime={currentTime}/>
             <div className="bar__player-block">
               <div className="bar__player player">
                 {/* --- Замена плеера на компонент ---- */}
@@ -156,7 +165,7 @@ const handleStart = () => {
                 <div className="player__track-play track-play">
                   {/* --- Компонент проигрываемого трека начало */}
                   <TrackPlayInfo
-                  currentTrack={currentTrack}
+                  // currentTrack={currentTrack}
                   isLoading={isLoading}
                   // author="Ты та..." album="Баста" 
                   />
@@ -188,7 +197,7 @@ const handleStart = () => {
               <div className="bar__volume-block volume">
                 {/* ---Компонент Volume */}
                 <VolumeContent
-                currentTrack={currentTrack}
+                
                 volume={volume}
                 setVolume={setVolume}
                 />

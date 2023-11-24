@@ -126,26 +126,33 @@ font-style: normal;
     color: #696969;
 ` 
 export const BlinkingDot = styled.div`
-  width: 150px;
-  height: 15px; 
-  background-color: purple;
-  border-radius: 50%;
-  animation: dot 1s infinite;
-  @keyframes dot {
-    0% {
-    opacity: 0;
+width: 16px;
+  height: 16px;
+  background-color: #b672ff;
+  border-radius: 8px;
+  display: block;
+  animation: bubble_out 0.6s ease-in-out infinite both;
+  @keyframes bubble_out {
+  0%,
+  to {
+    transform: scale(0.5);
   }
-  25% {
-    opacity: 0.5;
+  25%{
+    transform: scale(0.75);
   }
+  
   50% {
-    opacity: 1;
+    transform: scale(1);
   }
-  75% {
-    opacity: 0.5;
+  75%{
+    transform: scale(0.75);
   }
-  100% {
-    opacity: 0;
-  }
-  }
+
+}
   `
+export const PauseDot = styled.div`
+  width: 12px;
+  height: 12px;
+  background-color: #b672ff;
+  border-radius: 8px;
+  display: block;`
