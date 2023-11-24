@@ -29,12 +29,13 @@ useEffect(()=>{
   setLoading(true)
   getPlayList().then((lists)=>{
     setAllTracks(lists);
-    let trackIds = []
-    lists.forEach(function(item, i, arr){
-    trackIds.push(item.id)
+    // let trackIds = []
+    // lists.forEach(function(item, i, arr){
+    // trackIds.push(item.id)
   
-    })
-    dispatch(nextTrack(trackIds, lists))
+    // })
+
+    // dispatch(nextTrack(trackIds, lists))
 
 
   }).catch((error)=> setError(error.message)).finally(()=>setLoading(false));
@@ -52,22 +53,23 @@ if(error){
 
 const handleCurrentTrackId = (oneTrack) => {
   const isPlayingTrack = true;
-  dispatch (setCurrentTrack(oneTrack.id, oneTrack, isPlayingTrack));
-    
+  dispatch (setCurrentTrack(oneTrack.id, oneTrack, isPlayingTrack, allTracks));
+  
 }
 
 
   const setPlayItemImage = (oneTrack) => {
     
+
     if (isLoading){
       return <Skeleton/>;
     }
 
-    if((isCurrentTrackPlaying == true) && (currentTrack.id == oneTrack.id)){
+    if((isCurrentTrackPlaying == true) && (currentTrack?.id == oneTrack?.id)){
       return <Styled.BlinkingDot  alt="music"> </Styled.BlinkingDot>
        
     }
-    if((isCurrentTrackPlaying == false) && (currentTrack.id == oneTrack.id)){
+    if((isCurrentTrackPlaying == false) && (currentTrack?.id == oneTrack?.id)){
       return <Styled.PauseDot  /> 
        
     }

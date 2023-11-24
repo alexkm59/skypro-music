@@ -6,7 +6,7 @@ import {TrackPlayInfo} from '../trackPlay/trackPlay';
 import { useSelector } from "react-redux";
 import { playerSelector } from "../../store/selectors/index";
 import { useDispatch } from "react-redux";
-import {setCurrentTrack} from "../../store/actions/creators/index"
+import {nextTrack, setCurrentTrack} from "../../store/actions/creators/index"
 
 export function PlayerControls({isLoading, isPlaying, setIsPlaying}) {
 
@@ -21,7 +21,9 @@ export function PlayerControls({isLoading, isPlaying, setIsPlaying}) {
 
 
     const currentTrack = useSelector((state) => state.player.currentTrack.content); 
-   
+    const allIds = useSelector((state) => state.player.AllIds);
+
+
     const dispatch = useDispatch();
 
     useEffect (() =>{
@@ -84,7 +86,13 @@ const handleStart = () => {
 
   const togglePlay = isPlaying ? handleStop : handleStart;
 
- 
+  const handleNextTrack = () => {
+    
+    dispatch(nextTrack())
+
+  };
+
+
 
   
     return (
@@ -127,10 +135,13 @@ const handleStart = () => {
 
 
             <Styled.PlayerBtnNext >
-                <Styled.PlayerBtnNextSvg alt="next" onClick={()=> alert(`Функция пока не реализована, но скоро!`)}>
+                <Styled.PlayerBtnNextSvg alt="next" onClick={() => handleNextTrack () }>
                     <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
                 </Styled.PlayerBtnNextSvg>
             </Styled.PlayerBtnNext>
+
+
+
             <Styled.PlayerBtn btnPrev={true} onClick={()=>setRepeat()} className="_btn-icon">
                 <Styled.PlayerBtnRepeatSvg alt="repeat">
                     {/* <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use> */}

@@ -3,51 +3,45 @@ import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED } from "../ac
 // 1.
 const initialState = {
   currentTrack: {},
-  allIds: []
+  isPlayingTrack: null,
+  tracks: []
 };
 
-// 2.
 export default function playerReducer(state = initialState, action) {
   switch (action.type) {
-    // 3.
+    
     case SET_CURRENT_TRACK: {
-      // 4.
-      const { id, content, isPlayingTrack } = action.payload;
+      
+      const { id, content, isPlayingTrack, allTracks } = action.payload;
 
-      // 5.
+      
       return {
         id: id,
-       ...state, currentTrack: {content},
-       isPlayingTrack: isPlayingTrack
+       ...state, 
+       currentTrack: {content},
+       isPlayingTrack: isPlayingTrack,
+       tracks: allTracks
         };
       }
       
     case NEXT_TRACK: {
-        const { Ids, content } = action.payload;
-        const currentTrackId = 10;
-        
-        if(Ids){
-          const currentTrackIndex = Ids.indexOf(currentTrackId)
-          const newCurrentTrackIndex = Ids[currentTrackIndex + 1]
-          console.log(newCurrentTrackIndex);
-          const newCurrentTrack = content[newCurrentTrackIndex]
-        }
-        
-        
+        const currentTrackIndex = state.tracks.findIndex((track) => track.id === state.currentTrack.id)
+        console.log(`state.tracks ${state.tracks}`);
+        console.log(`state.currentTrack ${state.currentTrack}`);
+        console.log(currentTrackIndex);
+        const newTrack = state.tracks[currentTrackIndex + 1]
+        console.log(newTrack);
+      if(!newTrack){
+        return state;
+      }  
+      
         return {
          
-         ...state, 
-         
-          allIds: [...state.allIds, Ids],
-        
-      
-        
+         ...state,
+         currentTrack: newTrack
+       
           };
         }
-
-
-
-
 
       default:
         return state;
