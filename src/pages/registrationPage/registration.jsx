@@ -1,60 +1,111 @@
 import React from 'react';
 import * as S from '../loginPage/loginPage.styled'
-import { useState, useEffect } from "react";
-import {UserRegistration} from "../../api"
-// import {Link} from 'react-router-dom';
+import { useState, useEffect, useContext} from "react";
+import {UserRegistrationAPI} from "../../api"
+import {useNavigate} from 'react-router-dom';
+import {userContext} from "../../Context/auth"
 
 export const RegistrationPage = ()  => {
 
 const [userEmail, setUserEmail] = useState("");
 const [userPassword, setUserPassword] = useState("");
 const [confirmPassword, setConfirmPassword] = useState("");
-const [registrationError, setRegistrationError] = useState("");
-// const [isUserRegOK, setIsUserRegOK] = useState(false);
+const [registrationError, setRegistrationError] = useState(null);
+const [registrationLoading, setRegistrationLoading] = useState(false);
+// const [user, setUser] = useState({
+// id: "",
+// username: "",
+// email: "",
+// }
+// );
 
+const {setUser} = useContext(userContext);
+const navigate = useNavigate();
 
-const userRegistration = async ()=>{
+// Установка стейтов регистрации и валидация формы регистрации
+const userRegistration = ()=>{
+// Выключаем кнопку регистрации на время загрузки 
+    setRegistrationLoading(true);
+
     if(userEmail !== ""){
         console.log({userEmail});
     }
     else{
         setRegistrationError("Заполните почту!");
+        return
     }
     if(userPassword !== ""){
         console.log({userPassword});
     }
     else{
         setRegistrationError("Укажите пароль!");
+        return
     }
     if(userPassword === confirmPassword){
         console.log({userPassword});
     }
     else{
         setRegistrationError("Укажите идентичные пароли!");
+    return
+    }
+    
+    
+        UserRegistrationAPI({userEmail, userPassword})
+        .then((response) => {
+            console.log(response);
+            console.log(response.status);
+
+            if(response.status === 400){
+                response.json().then((regErrors)=> {
+                    console.log(`email_from_API: ${regErrors.email}`)
+                    console.log(`user_from_API: ${regErrors.username}`)
+                    console.log(`user_from_API: ${regErrors.password}`)  
+                    const emailError = regErrors.email ? regErrors.email : "";
+                    const userNameError = regErrors.username ? regErrors.username : "";
+                    const passwordError = regErrors.password ? regErrors.password : "";
+                    const error = emailError+userNameError+passwordError;
+            
+            setRegistrationError(error)             
+                return
+                })
+            }
+            if(response.status === 201){
+                
+                return response.json()
+            }
+            })
+        .then((response)=> {
+            const user = {
+                id: response.id,
+                username: response.username,
+                email: response.email,
+            }
+
+
+            setUser(user)
+           
+            console.log(`user_ID_ ${user.id}`);
+            console.log(`user_from_API: ${response.id}`)
+            console.log(`email_from_API: ${response.email}`)
+            console.log(`user_from_API: ${response.username}`)
+            console.log(`user_from_API: ${response.password}`)
+            alert("Регистрация выполнена успешно. Сейчас можно выполнить вход. Надеюсь, вы запомнили логин и пароль.")
+            navigate("/login")
+        }).catch((error)=> console.log(error))
+        .finally(() => setRegistrationLoading(false))
+
+         
     }
 
-    const response = await UserRegistration({userEmail, userPassword });
-    
-    if (response.status === 201) {
-        alert(`Пользователь успешно зарегистрирован`);
-    }
-    
-    if (response.status === 400) {
-        alert(`произошла ошибка: ${response.email}, ${response.password}`);
-    }
-    if (response.status === 500) {
-        alert(`Ошибка соединения с сервером. Попробуйте чутка позже.`);
-    }
-    //  setIsUserRegOK(true);
+   
 
-     
-  
-    
-}
+
 // Сбрасываем ошибку если пользователь меняет данные на форме или меняется режим формы
 useEffect(() => {
     setRegistrationError(null);
   }, [userEmail, userPassword, confirmPassword]);
+
+
 
 return (
 <S.loginPage >
@@ -75,11 +126,12 @@ return (
         </S.loginBoxInputArea>
         <S.loginBoxButton>
         
-            <S.loginButton onClick={() => userRegistration()}>
+
+            <S.loginButton disabled={true} onClick={() => userRegistration()}>
                 Зарегистрироваться
             </S.loginButton>
-       
-           
+
+
         </S.loginBoxButton>
 
         </S.loginBox>
