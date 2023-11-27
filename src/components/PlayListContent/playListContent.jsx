@@ -29,13 +29,7 @@ useEffect(()=>{
   setLoading(true)
   getPlayList().then((lists)=>{
     setAllTracks(lists);
-    // let trackIds = []
-    // lists.forEach(function(item, i, arr){
-    // trackIds.push(item.id)
-  
-    // })
-
-    // dispatch(nextTrack(trackIds, lists))
+    
 
 
   }).catch((error)=> setError(error.message)).finally(()=>setLoading(false));
