@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED} from "../types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING} from "../types/index";
 
 
 export const setCurrentTrack = (id, content, isPlayingTrack, allTracks) => ({
@@ -29,6 +29,11 @@ export const toggleSuffled = (isSuffled) => ({
     
   });
 
-
+  export const allTrakcksLoading = ( {allTracks}) => ({
+    type: ALL_TRACKS_LOADING,
+    payload: {
+      allTracks,
+    },
+  });
   
 

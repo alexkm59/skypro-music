@@ -8,6 +8,7 @@ import {Favorites} from "./pages/favoritesPage/favorites";
 import {Category} from "./pages/categoryPage/category";
 import {ProtectedRoute} from './components/protected-route';
 
+
 export const AppRoutes = ({token, isLoading, setLoading, userToken, setUserToken, isPlaying, setIsPlaying}) => {
   
   
@@ -31,8 +32,20 @@ export const AppRoutes = ({token, isLoading, setLoading, userToken, setUserToken
         isPlaying ={isPlaying}
         setIsPlaying = {setIsPlaying}
          />
-      </ProtectedRoute>
-      } />
+      </ProtectedRoute>} />
+
+      <Route path="/favorites" element={<ProtectedRoute isAllowed = {Boolean(userToken)}>
+        <Favorites 
+        
+        isLoading={isLoading}
+        setLoading={setLoading}
+        isPlaying ={isPlaying}
+        setIsPlaying = {setIsPlaying}
+         />
+      </ProtectedRoute>} />
+
+
+
       <Route path="/favorites" element={<ProtectedRoute isAllowed ={Boolean(token)}>
       <Favorites />
       </ProtectedRoute>

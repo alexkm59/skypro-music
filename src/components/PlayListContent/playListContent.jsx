@@ -14,41 +14,44 @@ import {nextTrack, setCurrentTrack} from "../../store/actions/creators/index"
 
 export function PlayListContent ({isLoading, setLoading, isPlaying, setIsPlaying}) {
 
-
 const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
-const [error, setError] = useState (null);
+// const [error, setError] = useState (null);
 
 const dispatch = useDispatch();
 
 const currentTrack = useSelector((state) => state.player.currentTrack.content);
 const isCurrentTrackPlaying = useSelector((state) => state.player.isPlayingTrack);
+const baseAllTracks = useSelector((state) => state.player.tracks);
+
+// console.log(`baseAllTracks --> ${baseAllTracks}`);
+// if (baseAllTracks === undefined){
+//   baseAllTracks = [1,2,3,4,5,6,7,8,9]
+// }
+
+// получение треков логично вынести на страницу mainPage. на странице "мои треки" можно сделать аналогичную выборку - запрос в api
+// useEffect(()=>{
+//   setLoading(true)
+//   getPlayList().then((lists)=>{
+//     setAllTracks(lists);
 
 
-
-useEffect(()=>{
-  setLoading(true)
-  getPlayList().then((lists)=>{
-    setAllTracks(lists);
-    
-
-
-  }).catch((error)=> setError(error.message)).finally(()=>setLoading(false));
-}, []);
-if(error){
-  return(
-    <div>
-      Ошибка при получении треков: {error}
-    </div>
-  )
-}
+//   }).catch((error)=> setError(error.message)).finally(()=>setLoading(false));
+// }, []);
+// if(error){
+//   return(
+//     <div>
+//       Ошибка при получении треков: {error}
+//     </div>
+//   )
+// }
 
 
 
 
 const handleCurrentTrackId = (oneTrack) => {
   const isPlayingTrack = true;
-  dispatch (setCurrentTrack(oneTrack.id, oneTrack, isPlayingTrack, allTracks));
-  
+  // dispatch (setCurrentTrack(oneTrack.id, oneTrack, isPlayingTrack, allTracks));
+  dispatch (setCurrentTrack(oneTrack.id, oneTrack, isPlayingTrack, baseAllTracks));
 }
 
 
@@ -78,7 +81,7 @@ const handleCurrentTrackId = (oneTrack) => {
 
 return(
   <>
-  {allTracks.map((oneTrack) => {
+  {baseAllTracks.map((oneTrack) => {
     
     return(
       

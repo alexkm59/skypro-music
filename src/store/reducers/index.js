@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED } from "../actions/types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING } from "../actions/types/index";
 
 // 1.
 const initialState = {
@@ -11,6 +11,17 @@ const initialState = {
 
 export default function playerReducer(state = initialState, action) {
   switch (action.type) {
+
+    case ALL_TRACKS_LOADING: {
+      const {allTracks } = action.payload;
+      return {
+        
+       ...state, 
+       tracks: allTracks,
+        };
+      }
+    
+
     
     case SET_CURRENT_TRACK: {
       
