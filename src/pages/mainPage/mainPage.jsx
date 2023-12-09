@@ -13,12 +13,14 @@ import {Sidebar} from '../../components/sidebar/sidebar';
 import { useDispatch, useSelector } from "react-redux";
 import { playerSelector } from "../../store/selectors/index";
 import { getPlayList } from '../../api';
-import { allTrakcksLoading, setCurrentTrack } from '../../store/actions/creators';
+import { allTrakcksLoading, setCurrentTrack, setPage } from '../../store/actions/creators';
 
 export const MinePage =({isLoading, setLoading, isPlaying, setIsPlaying}) => {
 const dispatch = useDispatch();  
 const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
 const [error, setError] = useState (null);
+
+dispatch (setPage({newPage: "mine"}));
 
 useEffect(()=>{
   setLoading(true)

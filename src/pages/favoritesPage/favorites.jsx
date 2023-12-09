@@ -9,7 +9,7 @@
 // )
 // }
 
-import {React} from 'react';
+import {React, useContext, useEffect, useState} from 'react';
 import {PlayerControls} from "../../components/Player/player";
 import {navMenu} from '../../components/navigation/navigation';
 import {search} from '../../components/search/search';
@@ -19,26 +19,50 @@ import {loginArea} from '../../components/LoginArea/loginArea';
 import {PlayListContent} from '../../components/PlayListContent/playListContent';
 import {Sidebar} from '../../components/sidebar/sidebar';
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { playerSelector } from "../../store/selectors/index";
+import { getFavoriteTracks, getTokenAPI } from '../../api';
+import { userContext } from '../../Context/auth';
+import { allTrakcksLoading, setPage } from '../../store/actions/creators';
 // Страница мои треки
 export const Favorites = ({isLoading, setLoading, isPlaying, setIsPlaying}) => {
    
-    // моковые данные для страницы
-
-    const myAllTracks = [
-        { "id": 8,
-        "name": "Chase",
-        "author": "Alexander Nakarada",
-        "release_date": "2005-06-11",
-        "genre": "Классическая музыка",
-        "duration_in_seconds": 205,
-        "album": "Chase",
-        "logo": null,
-        "track_file": "https://skypro-music-api.skyeng.tech/media/music_files/Alexander_Nakarada_-_Chase.mp3"}
-    ]
+   
 
 const currentTrackId = useSelector(state => state.player.id);
+const [favoritTracks, setFavoritTracks] = useState ([]);
+const [error, setError] = useState (null);
+
+const {user} = useContext(userContext);
+const dispatch = useDispatch(); 
+
+dispatch (setPage({newPage: "favorite"}));
+
+useEffect(()=>{
+  setLoading(true)
+  console.log(user);
+  getTokenAPI({userEmail: user.username, userPassword: user.username})
+  .then((response)=>{
+      console.log(`token ${response.access}`);
+      getFavoriteTracks(response.access)
+      .then((lists)=>{
+        setFavoritTracks(lists)
+      console.log(`my favorite tracks ${lists}`);
+      // dispatch (allTrakcksLoading({allTracks: lists}));
+      
+    })
+  })
+
+  .catch((error)=> setError(error.message)).finally(()=>setLoading(false));
+}, []);
+if(error){
+  return(
+    <div>
+      Ошибка при получении треков: {error}
+    </div>
+  )
+}
+
 
      return (
 

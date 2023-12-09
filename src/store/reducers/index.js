@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING } from "../actions/types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE } from "../actions/types/index";
 
 // 1.
 const initialState = {
@@ -6,7 +6,7 @@ const initialState = {
   isPlayingTrack: null,
   tracks: [],
   isSuffled: false,
-  
+  currentPage: "main",
 };
 
 export default function playerReducer(state = initialState, action) {
@@ -21,6 +21,14 @@ export default function playerReducer(state = initialState, action) {
         };
       }
     
+      case SET_PAGE: {
+        const {newPage } = action.payload;
+        return {
+          
+         ...state, 
+         currentPage: newPage,
+          };
+        }
 
     
     case SET_CURRENT_TRACK: {
@@ -33,7 +41,7 @@ export default function playerReducer(state = initialState, action) {
        ...state, 
        currentTrack: {content},
        isPlayingTrack: isPlayingTrack,
-       tracks: allTracks
+      //  tracks: allTracks
         };
       }
       
@@ -42,11 +50,9 @@ export default function playerReducer(state = initialState, action) {
         let content = state.tracks[currentTrackIndex + 1];
         const suffled = state.isSuffled;
         
-
       if(!content){
         return state;
       }  
-      
       
       if (suffled){
         let allIds = [];
@@ -60,10 +66,8 @@ export default function playerReducer(state = initialState, action) {
       }
 
         return {
-         
          ...state,
          currentTrack: {content}
-       
           };
         }
 

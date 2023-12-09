@@ -1,13 +1,13 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING} from "../types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE} from "../types/index";
 
 
-export const setCurrentTrack = (id, content, isPlayingTrack, allTracks) => ({
+export const setCurrentTrack = (id, content, isPlayingTrack) => ({
   type: SET_CURRENT_TRACK,
   payload: {
     id,
     content,
     isPlayingTrack,
-    allTracks
+    // allTracks
   },
 });
 
@@ -36,4 +36,9 @@ export const toggleSuffled = (isSuffled) => ({
     },
   });
   
-
+export const setPage = ({newPage}) => ({
+  type: SET_PAGE,
+  payload: {
+    newPage,
+  },
+})
