@@ -1,9 +1,10 @@
 import {React, useState, useEffect, useContext} from 'react';
 import * as S from './loginPage.styled';
 import {Link, useNavigate} from 'react-router-dom';
-import {UserLoginAPI} from "../../api"
+import {UserLoginAPI, getFavoriteTracks, getTokenAPI} from "../../api"
 import {userContext} from "../../Context/auth"
-
+import { useDispatch, useSelector } from "react-redux";
+import { favoriteTrakcksLoading } from '../../store/actions/creators';
 
 
 
@@ -14,6 +15,7 @@ export const LoginPage = ({setUserToken})  => {
     const [loginError, setLoginError] = useState(null);
     
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const {setUser} = useContext(userContext);
 
@@ -100,6 +102,24 @@ const userLogin = () => {
         // Заглушка определения токена для перехода на страницу
         setUserToken(true)
         
+        getTokenAPI({userEmail: user.username, userPassword: user.username})
+        .then((response)=>{
+            console.log(`token ${response.access}`);
+
+            getFavoriteTracks(response.access)
+            .then((list) => {
+            //   setFavoritTracks(lists)
+            console.log(`my favorite tracks ${JSON.stringify(list)}`);
+            // dispatch (allTrakcksLoading({allTracks: lists}));
+      
+            // .then((lists)=>{
+              //   setFavoritTracks(lists)
+              // console.log(`my favorite tracks ${lists}`);
+              dispatch(favoriteTrakcksLoading({allfavoriteTracks: list}));
+            
+          })
+        })
+
         navigate("/")
         
     }).catch((error)=> console.log(error))

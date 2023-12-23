@@ -87,7 +87,7 @@ export async function getPlayList() {
       },
     })
       
-    const data = await Response;
-    console.log(`getFavoriteTracks ${data}`);
+    const data = await Response.json();
+    console.log(`getFavoriteTracks ${JSON.stringify(data)}`);
     return data;
     }

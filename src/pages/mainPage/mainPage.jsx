@@ -38,7 +38,7 @@ if(error){
   )
 }
 
-
+const baseAllTracks = useSelector(state => state.player.tracks);
 
 
 
@@ -83,6 +83,7 @@ const currentTrackId = useSelector(state => state.player.id);
               setLoading={setLoading}
               isPlaying = {isPlaying}
               setIsPlaying = {setIsPlaying}
+              baseAllTracks={baseAllTracks}
 
               />
               {/* )

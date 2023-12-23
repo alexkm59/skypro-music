@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE} from "../types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING} from "../types/index";
 
 
 export const setCurrentTrack = (id, content, isPlayingTrack) => ({
@@ -42,3 +42,10 @@ export const setPage = ({newPage}) => ({
     newPage,
   },
 })
+
+export const favoriteTrakcksLoading = ( {allfavoriteTracks}) => ({
+  type: FAVORITE_TRACKS_LOADING,
+  payload: {
+    allfavoriteTracks,
+  },
+});

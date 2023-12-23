@@ -23,45 +23,51 @@ import { useDispatch, useSelector } from "react-redux";
 import { playerSelector } from "../../store/selectors/index";
 import { getFavoriteTracks, getTokenAPI } from '../../api';
 import { userContext } from '../../Context/auth';
-import { allTrakcksLoading, setPage } from '../../store/actions/creators';
+import { allTrakcksLoading, favoriteTrakcksLoading, setPage } from '../../store/actions/creators';
 // Страница мои треки
 export const Favorites = ({isLoading, setLoading, isPlaying, setIsPlaying}) => {
    
    
 
 const currentTrackId = useSelector(state => state.player.id);
-const [favoritTracks, setFavoritTracks] = useState ([]);
+// const [favoritTracks, setFavoritTracks] = useState ([]);
 const [error, setError] = useState (null);
 
 const {user} = useContext(userContext);
 const dispatch = useDispatch(); 
 
 dispatch (setPage({newPage: "favorite"}));
+const favoriteTracks = useSelector(state => state.player.favoriteTracks);
+console.log(favoriteTracks);
+// useEffect(()=>{
+//   setLoading(true)
+//   console.log(user);
+  // getTokenAPI({userEmail: user.username, userPassword: user.username})
+  // .then((response)=>{
+  //     console.log(`token ${response.access}`);
+  //     getFavoriteTracks(response.access)
+  //     .then((list) => {
+  //     //   setFavoritTracks(lists)
+  //     console.log(`my favorite tracks ${list}`);
+  //     // dispatch (allTrakcksLoading({allTracks: lists}));
 
-useEffect(()=>{
-  setLoading(true)
-  console.log(user);
-  getTokenAPI({userEmail: user.username, userPassword: user.username})
-  .then((response)=>{
-      console.log(`token ${response.access}`);
-      getFavoriteTracks(response.access)
-      .then((lists)=>{
-        setFavoritTracks(lists)
-      console.log(`my favorite tracks ${lists}`);
-      // dispatch (allTrakcksLoading({allTracks: lists}));
+  //     // .then((lists)=>{
+  //       //   setFavoritTracks(lists)
+  //       // console.log(`my favorite tracks ${lists}`);
+  //       dispatch(favoriteTrakcksLoading({allfavoriteTracks: list}));
       
-    })
-  })
+  //   })
+  // })
 
-  .catch((error)=> setError(error.message)).finally(()=>setLoading(false));
-}, []);
-if(error){
-  return(
-    <div>
-      Ошибка при получении треков: {error}
-    </div>
-  )
-}
+  // .catch((error)=> setError(error.message)).finally(()=>setLoading(false));
+// }, []);
+// if(error){
+//   return(
+//     <div>
+//       Ошибка при получении треков: {error}
+//     </div>
+//   )
+// }
 
 
      return (
@@ -97,7 +103,13 @@ if(error){
               <div className="content__playlist playlist">
                
              
-              {/* <PlayListContent  /> */}
+              <PlayListContent  
+              isLoading={isLoading}
+              setLoading={setLoading}
+              isPlaying = {isPlaying}
+              setIsPlaying = {setIsPlaying}
+              baseAllTracks={favoriteTracks}
+              />
                
               
               {/* /* ---Компонент плейлиста конец */}

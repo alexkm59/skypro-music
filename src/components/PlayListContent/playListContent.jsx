@@ -12,16 +12,40 @@ import {nextTrack, setCurrentTrack} from "../../store/actions/creators/index"
 
 
 
-export function PlayListContent ({isLoading, setLoading, isPlaying, setIsPlaying}) {
+export function PlayListContent ({isLoading, setLoading, isPlaying, setIsPlaying, baseAllTracks}) {
 
-const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
+// const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
 // const [error, setError] = useState (null);
 
 const dispatch = useDispatch();
 
 const currentTrack = useSelector((state) => state.player.currentTrack.content);
 const isCurrentTrackPlaying = useSelector((state) => state.player.isPlayingTrack);
-const baseAllTracks = useSelector((state) => state.player.tracks);
+// const baseAllTracks = useSelector((state) => state.player.tracks);
+const favoriteTracks = useSelector((state) => state.player.favoriteTracks);
+const currentPage = useSelector((state) => state.player.currentPage);
+const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
+let currentTracksList = [];
+
+// useEffect(() => {
+//   ((currentPage === "mine") ? (currentTracksList = baseAllTracks) : (currentTracksList =  favoriteTracks));
+//   console.log(currentPage);
+//   console.log(`currentTracksList ${currentTracksList}`);
+// }, [currentPage]);
+
+// useEffect(() => {
+//   console.log(currentPage);
+//   if (currentPage == 'favorite'){
+//     currentTracksList = favoriteTracks;
+
+//   }
+//   else{
+//     currentTracksList = baseAllTracks;
+//     console.log(currentTracksList);
+//   }
+// }, [currentPage]);
+
+
 
 // console.log(`baseAllTracks --> ${baseAllTracks}`);
 // if (baseAllTracks === undefined){
@@ -81,7 +105,8 @@ const handleCurrentTrackId = (oneTrack) => {
 
 return(
   <>
-  {baseAllTracks.map((oneTrack) => {
+  {
+  baseAllTracks.map((oneTrack) => {
     
     return(
       
