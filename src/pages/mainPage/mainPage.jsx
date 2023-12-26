@@ -39,6 +39,10 @@ if(error){
 }
 
 const baseAllTracks = useSelector(state => state.player.tracks);
+// if(baseAllTracks){
+//   console.log(baseAllTracks[0].stared_user);
+// }
+
 
 
 

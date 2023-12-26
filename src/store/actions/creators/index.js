@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING} from "../types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN} from "../types/index";
 
 
 export const setCurrentTrack = (id, content, isPlayingTrack) => ({
@@ -35,6 +35,13 @@ export const toggleSuffled = (isSuffled) => ({
       allTracks,
     },
   });
+  export const setAccessToken = ( {accessToken}) => ({
+    type: SET_ACCESS_TOKEN,
+    payload: {
+      accessToken,
+    },
+  });
+
   
 export const setPage = ({newPage}) => ({
   type: SET_PAGE,

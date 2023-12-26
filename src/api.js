@@ -86,8 +86,43 @@ export async function getPlayList() {
         Authorization: `Bearer ${accessToken}`,
       },
     })
+    const data = await Response;
+    // const data = await Response.json();
+    // console.log(`getFavoriteTracks ${JSON.stringify(data)}`);
+    return data;
+    }
+
+
+    // https://skypro-music-api.skyeng.tech/catalog/track/<id>/favorite/
+
+    export async function likeTrackApi(userAccessToken, trackId) {
+      const accessToken = userAccessToken;
+
+      const Response = await fetch(`https://skypro-music-api.skyeng.tech/catalog/track/${trackId}/favorite/`, {
+      method: "POST",
       
-    const data = await Response.json();
-    console.log(`getFavoriteTracks ${JSON.stringify(data)}`);
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    const data = await Response;
+    // const data = await Response.json();
+    // console.log(`likedTracks ${JSON.stringify(data)}`);
+    return data;
+    }
+
+    export async function deleteLikeTrackApi(userAccessToken, trackId) {
+      const accessToken = userAccessToken;
+
+      const Response = await fetch(`https://skypro-music-api.skyeng.tech/catalog/track/${trackId}/favorite/`, {
+      method: "DELETE",
+      
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    const data = await Response;
+    // const data = await Response.json();
+    // console.log(`likedTracks ${JSON.stringify(data)}`);
     return data;
     }
