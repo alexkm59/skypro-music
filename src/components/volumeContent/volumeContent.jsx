@@ -1,13 +1,24 @@
 import React from 'react';
 import * as Styled from "./volumeContent.styled"
-export function VolumeContent({currentTrack, volume, setVolume}){
+import { useSelector } from "react-redux";
+import { playerSelector } from "../../store/selectors/index";  
 
+export function VolumeContent({volume, setVolume}){
   
+  // const currentTrack = useSelector(playerSelector);
+  // console.log(`---> ${currentTrack.id}`);
 
+  const currentTrackId = useSelector(state => state.player.id);
+ 
+
+
+
+  // const currentTrackId = useSelector(state => state.player.currentTrack.content.id);
+  // console.log(currentTrackId);
 
 return(
 <>
-{currentTrack ? (
+{(currentTrackId) ? (
     <Styled.VolumeContent>
     <Styled.VolumeImage>
       <Styled.VolumeSvg alt="volume">

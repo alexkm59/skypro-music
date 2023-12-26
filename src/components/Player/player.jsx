@@ -3,21 +3,39 @@ import * as Styled from './player.styled';
 import {VolumeContent} from '../volumeContent/volumeContent';
 import {ProgressBar} from '../ProgressBar/progressBar';
 import {TrackPlayInfo} from '../trackPlay/trackPlay';
+import { useSelector } from "react-redux";
+import { playerSelector } from "../../store/selectors/index";
+import { useDispatch } from "react-redux";
+import {autoNextTrack, nextTrack, prevTrack, setCurrentTrack, toggleSuffled} from "../../store/actions/creators/index"
 
-
-export function PlayerControls({currentTrack, isLoading}) {
+export function PlayerControls({isLoading, isPlaying, setIsPlaying}) {
 
     // const [isPaused, setIsPaused] = useState (false);
     const [isRepeated, setIsRepeated] = useState (false);
     const[isShuffled, setIsShuffled] = useState (false);
-    const [isPlaying, setIsPlaying] = useState(true);
+    // const [isPlaying, setIsPlaying] = useState(true);
     const audioRef = useRef(null);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const [volume, setVolume] = useState(0.4);
+    
+
+
+    const currentTrack = useSelector((state) => state.player.currentTrack.content);
+    const isSuffled = useSelector((state) => state.player.isSuffled);
+    
+ 
+    
+    useEffect (() =>{
+      console.log(currentTrack.track_file);
+
+      },[currentTrack])
+
+    const dispatch = useDispatch();
 
     useEffect (() =>{
     const ref = audioRef.current;
+
     const timeUpdateEvent = () => {
         if(ref.currentTime && ref.duration) {
             setCurrentTime(ref.currentTime);
@@ -44,35 +62,67 @@ export function PlayerControls({currentTrack, isLoading}) {
 
 const setRepeat = ()=>{
     if (!isRepeated){
-        setIsRepeated(true);   
+        setIsRepeated(true);
+        
     }
     else{
         setIsRepeated(false);
     }
 }
 
-const setShuffle = ()=>{
+const handleShuffle = ()=>{
     if (!isShuffled){
-        setIsShuffled(true);   
+        setIsShuffled(true);
+        dispatch(toggleSuffled(true)) 
     }
     else{
         setIsShuffled(false);
+        dispatch(toggleSuffled(false))
     }
 }
 
 const handleStart = () => {
     audioRef.current.play();
     setIsPlaying(true);
+    const isPlayingTrack = true;
+    dispatch (setCurrentTrack(currentTrack.id, currentTrack, isPlayingTrack));
   };
 
   const handleStop = () => {
     audioRef.current.pause();
     setIsPlaying(false);
+    const isPlayingTrack = false;
+    dispatch (setCurrentTrack(currentTrack.id, currentTrack, isPlayingTrack));
   };
 
   const togglePlay = isPlaying ? handleStop : handleStart;
 
- 
+  const handleNextTrack = () => {
+    
+    dispatch(nextTrack())
+
+  };
+
+  const handlePrevTrack = () => {
+    
+    dispatch(prevTrack())
+
+  };
+
+// Переключаем на следующий трек при окончании текущего
+useEffect (() =>{
+if (audioRef.current.ended) {
+  
+  
+
+if(audioRef.current.ended === true) {
+  
+  dispatch(nextTrack())
+}
+
+}
+},[currentTime])
+
 
   
     return (
@@ -80,10 +130,11 @@ const handleStart = () => {
         
         <div className="bar">
         <div className="timeLineBar">
-            {(currentTime % 60) < 10 ?  (`${Math.floor(currentTime / 60)}.0${Math.floor(currentTime % 60)}/${(duration/60).toFixed(2)}`) : (`${Math.floor(currentTime / 60)}.${Math.floor(currentTime % 60)}/${(duration/60).toFixed(2)}`)}
+            {(currentTime % 60) < 10 ?  (`${Math.floor(currentTime / 60)}.0${Math.floor(currentTime % 60)}/${(duration/60).toFixed(2)}`) : (`${Math.floor(currentTime / 60)}.${Math.floor(currentTime % 60)}/${Math.floor(duration / 60)}.${Math.floor(duration % 60)}`)}
+        {/* {currentTime === duration ? handleNextTrack() : null} */}
         </div>
           <div className="bar__content">
-             <ProgressBar audioRef={audioRef} duration={duration} currentTrack={currentTrack} currentTime={currentTime}/>
+             <ProgressBar audioRef={audioRef}  duration={duration} currentTime={currentTime}/>
             <div className="bar__player-block">
               <div className="bar__player player">
                 {/* --- Замена плеера на компонент ---- */}
@@ -93,7 +144,7 @@ const handleStart = () => {
           </audio>
 
             <Styled.PlayerControls>
-            <Styled.PlayerBtn btnPrev={true} onClick={()=> alert(`Функция пока не реализована, но скоро!`)} >
+            <Styled.PlayerBtn btnPrev={true} onClick={()=> handlePrevTrack()} >
                 <Styled.PlayerBtnPrevSvg alt="prev">
                     <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
                 </Styled.PlayerBtnPrevSvg>
@@ -115,10 +166,13 @@ const handleStart = () => {
 
 
             <Styled.PlayerBtnNext >
-                <Styled.PlayerBtnNextSvg alt="next" onClick={()=> alert(`Функция пока не реализована, но скоро!`)}>
+                <Styled.PlayerBtnNextSvg alt="next" onClick={() => handleNextTrack () }>
                     <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
                 </Styled.PlayerBtnNextSvg>
             </Styled.PlayerBtnNext>
+
+
+
             <Styled.PlayerBtn btnPrev={true} onClick={()=>setRepeat()} className="_btn-icon">
                 <Styled.PlayerBtnRepeatSvg alt="repeat">
                     {/* <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use> */}
@@ -133,11 +187,9 @@ const handleStart = () => {
                 </Styled.PlayerBtnRepeatSvg>
             </Styled.PlayerBtn>
             <Styled.PlayerBtnShuffle className="_btn-icon">
-                <Styled.PlayerBtnRepeatSvg onClick={()=>{setShuffle()
-                alert(`Функция пока не реализована!`);
-                }} alt="shuffle">
+                <Styled.PlayerBtnRepeatSvg onClick={()=>handleShuffle()} alt="shuffle">
                     {/* <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use> */}
-                    {isShuffled ? (<svg xmlns="http://www.w3.org/2000/svg" width="19" height="12" viewBox="0 0 19 18" fill="none">
+                    {isSuffled ? (<svg xmlns="http://www.w3.org/2000/svg" width="19" height="12" viewBox="0 0 19 18" fill="none">
   <path d="M19 15L14 12.1132V17.8868L19 15ZM9.66317 12.0833L9.20863 12.2916L9.66317 12.0833ZM6.83683 5.91673L6.3823 6.12505L6.83683 5.91673ZM0 3.5H2.29151V2.5H0V3.5ZM6.3823 6.12505L9.20863 12.2916L10.1177 11.8749L7.29137 5.7084L6.3823 6.12505ZM14.2085 15.5H14.5V14.5H14.2085V15.5ZM9.20863 12.2916C10.1047 14.2466 12.0579 15.5 14.2085 15.5V14.5C12.449 14.5 10.8508 13.4745 10.1177 11.8749L9.20863 12.2916ZM2.29151 3.5C4.05105 3.5 5.64918 4.52552 6.3823 6.12505L7.29137 5.7084C6.39533 3.75341 4.44205 2.5 2.29151 2.5V3.5Z" fill="#fff" stroke="#fff"/>
   <path d="M19 3L14 5.88675V0.113249L19 3ZM9.66317 5.91673L9.20863 5.7084L9.66317 5.91673ZM6.83683 12.0833L6.3823 11.8749L6.83683 12.0833ZM0 14.5H2.29151V15.5H0V14.5ZM6.3823 11.8749L9.20863 5.7084L10.1177 6.12505L7.29137 12.2916L6.3823 11.8749ZM14.2085 2.5H14.5V3.5H14.2085V2.5ZM9.20863 5.7084C10.1047 3.75341 12.0579 2.5 14.2085 2.5V3.5C12.449 3.5 10.8508 4.52552 10.1177 6.12505L9.20863 5.7084ZM2.29151 14.5C4.05105 14.5 5.64918 13.4745 6.3823 11.8749L7.29137 12.2916C6.39533 14.2466 4.44205 15.5 2.29151 15.5V14.5Z" fill="#fff" stroke="#fff"/>
 </svg>):(<svg xmlns="http://www.w3.org/2000/svg" width="19" height="12" viewBox="0 0 19 18" fill="none">
@@ -153,7 +205,7 @@ const handleStart = () => {
                 <div className="player__track-play track-play">
                   {/* --- Компонент проигрываемого трека начало */}
                   <TrackPlayInfo
-                  currentTrack={currentTrack}
+                  // currentTrack={currentTrack}
                   isLoading={isLoading}
                   // author="Ты та..." album="Баста" 
                   />
@@ -185,7 +237,7 @@ const handleStart = () => {
               <div className="bar__volume-block volume">
                 {/* ---Компонент Volume */}
                 <VolumeContent
-                currentTrack={currentTrack}
+                
                 volume={volume}
                 setVolume={setVolume}
                 />

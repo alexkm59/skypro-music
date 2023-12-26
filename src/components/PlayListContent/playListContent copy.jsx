@@ -3,35 +3,20 @@ import React, {useState, useEffect} from 'react';
 import Skeleton, {SkeletonTheme} from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import * as Styled from './playListContent.styled';
-import {getPlayList} from '../../api';
-import { useSelector } from "react-redux";
-import { playerSelector } from "../../store/selectors/index";
-import { useDispatch } from "react-redux";
-import {nextTrack, setCurrentTrack} from "../../store/actions/creators/index"
+import {getPlayList} from '../../api'
 
-
-
-
-export function PlayListContent ({isLoading, setLoading, isPlaying, setIsPlaying}) {
+export function PlayListContent ({isLoading, setLoading, currentTrack, setCurrentTrack, isPlaying, setIsPlaying}) {
 
 
 const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
 const [error, setError] = useState (null);
-
-const dispatch = useDispatch();
-
-const currentTrack = useSelector((state) => state.player.currentTrack.content);
-const isCurrentTrackPlaying = useSelector((state) => state.player.isPlayingTrack);
-
-
+const [currentTrackId, setCurrentTrackId] = useState ();
 
 useEffect(()=>{
   setLoading(true)
   getPlayList().then((lists)=>{
     setAllTracks(lists);
     
-
-
   }).catch((error)=> setError(error.message)).finally(()=>setLoading(false));
 }, []);
 if(error){
@@ -42,38 +27,29 @@ if(error){
   )
 }
 
+const handleCurrentTrackId = ({id}) => {
+ 
+    // setCurrentTrackId (id);
 
+    console.log(`currentTrack ID = ${id}`);
+    setCurrentTrackId (id);
+    console.log(`setCurrentTrack = ${currentTrackId}`);
 
-
-const handleCurrentTrackId = (oneTrack) => {
-  const isPlayingTrack = true;
-  dispatch (setCurrentTrack(oneTrack.id, oneTrack, isPlayingTrack, allTracks));
-  
 }
 
 
-  const setPlayItemImage = (oneTrack) => {
+// useEffect(()=>{
+//   if(currentTrack !== null){
+//     setCurrentTrackId (currentTrack.id);
+//     console.log(`currentTrack ID effect = ${currentTrackId}`);
+//   }
+    
+// }, [currentTrack]);
+
+
+ 
     
 
-    if (isLoading){
-      return <Skeleton/>;
-    }
-
-    if((isCurrentTrackPlaying == true) && (currentTrack?.id == oneTrack?.id)){
-      return <Styled.BlinkingDot  alt="music"> </Styled.BlinkingDot>
-       
-    }
-    if((isCurrentTrackPlaying == false) && (currentTrack?.id == oneTrack?.id)){
-      return <Styled.PauseDot  /> 
-       
-    }
-    else{
-      return <Styled.TrackTitleSvg className="track__title-svg" alt="music"> <use xlinkHref="img/icon/sprite.svg#icon-note"></use> </Styled.TrackTitleSvg>;
-
-    }
-   
-    }
-    
 
 
 return(
@@ -87,13 +63,18 @@ return(
                       <Styled.TrackTitle>
                       
                         <Styled.TrackTitleImage >
-                          
-{/* вызываем отрисовку значка позиции трека */}
-{setPlayItemImage (oneTrack)}
+                          {/* {!isLoading ? <Styled.TrackTitleSvg className="track__title-svg" alt="music">
+                            <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                          </Styled.TrackTitleSvg> : <Skeleton/> } */}
+{/* isPlaying && сurrentTrack */}
 
-                                               
-                           
+                          {!isLoading ? ( isPlaying ? (<Styled.BlinkingDot className="track__title-svg" alt="music">
+                            {/* <use xlinkHref="img/icon/sprite.svg#icon-note"></use> */}
+                          </Styled.BlinkingDot>) : (<Styled.TrackTitleSvg className="track__title-svg" alt="music">
+                          <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                          </Styled.TrackTitleSvg>)
                           
+                          ) : (<Skeleton/>) }
                           
                         </Styled.TrackTitleImage>
                         <div className="track__title-text">
@@ -102,9 +83,9 @@ return(
                         <SkeletonTheme baseColor="#313131" highlightColor="#fff" height={20} width={356}>
                           {!isLoading ? <Styled.TrackTitleLink  onClick={()=> {
                             setIsPlaying (true);
-                            // setCurrentTrack(oneTrack);
+                            setCurrentTrack(oneTrack);
                             
-                            handleCurrentTrackId(oneTrack);
+                            handleCurrentTrackId({id: oneTrack.id});
                             
                           }}                  
 

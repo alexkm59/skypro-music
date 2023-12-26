@@ -1,12 +1,11 @@
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import * as Styled from "./trackPlay.styled"
-export function TrackPlayInfo ({currentTrack, isLoading}){
+import { useSelector } from "react-redux";
+
+export function TrackPlayInfo ({isLoading}){
     
-    // const  [isLoading, setLoading] = useState(false);
-    // setTimeout(()=>{
-    //   setLoading(true)
-    // },4000)
+  const currentTrack = useSelector((state) => state.player.currentTrack.content);    
 
 
 return(

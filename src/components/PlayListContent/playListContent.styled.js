@@ -1,4 +1,17 @@
 import  styled  from 'styled-components';
+// const blinkAnimation = keyframes`
+//     0% {
+//     opacity: 0;
+//   }
+//   50% {
+//     opacity: 1;
+//   }
+//   100% {
+//     opacity: 0;
+//   }
+//   `;
+  
+
 
 export const PlaylistItem = styled.div`
     width: 100%;
@@ -112,3 +125,34 @@ font-style: normal;
     text-align: right;
     color: #696969;
 ` 
+export const BlinkingDot = styled.div`
+width: 16px;
+  height: 16px;
+  background-color: #b672ff;
+  border-radius: 8px;
+  display: block;
+  animation: bubble_out 0.6s ease-in-out infinite both;
+  @keyframes bubble_out {
+  0%,
+  to {
+    transform: scale(0.5);
+  }
+  25%{
+    transform: scale(0.75);
+  }
+  
+  50% {
+    transform: scale(1);
+  }
+  75%{
+    transform: scale(0.75);
+  }
+
+}
+  `
+export const PauseDot = styled.div`
+  width: 12px;
+  height: 12px;
+  background-color: #b672ff;
+  border-radius: 8px;
+  display: block;`

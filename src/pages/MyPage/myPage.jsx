@@ -1,19 +1,17 @@
-
 import {React} from 'react';
 import {PlayerControls} from "../../components/Player/player";
 import {navMenu} from '../../components/navigation/navigation';
 import {search} from '../../components/search/search';
 import {Filter} from '../../components/filter/filter';
 import {loginArea} from '../../components/LoginArea/loginArea';
-// import {VolumeContent} from '../../components/volumeContent/volumeContent';
+
 import {PlayListContent} from '../../components/PlayListContent/playListContent';
 import {Sidebar} from '../../components/sidebar/sidebar';
-// import {TrackPlayInfo} from '../../components/trackPlay/trackPlay';
-// import{ProgressBar} from "../../components/ProgressBar/progressBar"
+
 import { useSelector } from "react-redux";
 import { playerSelector } from "../../store/selectors/index";
-
-export const MinePage =({isLoading, setLoading, isPlaying, setIsPlaying}) => {
+// Страница мои треки
+export const MyPage =({isLoading, setLoading, isPlaying, setIsPlaying}) => {
    
 
 
@@ -51,8 +49,7 @@ const currentTrackId = useSelector(state => state.player.id);
               {/* ---Компонент плейлиста */}
               <div className="content__playlist playlist">
                
-               {/* {allTracks.map((oneTrack) => {
-               return( */}
+             
               <PlayListContent 
               isLoading={isLoading}
               setLoading={setLoading}
@@ -60,20 +57,7 @@ const currentTrackId = useSelector(state => state.player.id);
               setIsPlaying = {setIsPlaying}
 
               />
-              {/* )
-              })} */}
-
-               {/* <PlayListContent trackName="Guilt" trackAuthor="Nero" album="Weloome Reality" trackTime="4.44" />
-               <PlayListContent trackName="Elektro" trackAuthor="Dynoro, Outwork, Mr. Gee" album="Elektro" trackTime="2.22" />
-               <PlayListContent trackName="I’m Fire" trackAuthor="Ali Bakgor" album="I’m Fire" trackTime="2.22" />
-               <PlayListContent trackName="Non Stop" trackAuthor="Стоункат, Psychopath" album="Weloome Reality" trackTime="4.12" />
-               <PlayListContent trackName="Run Run" trackAuthor="Jaded, Will Clarke, AR/CO" album="Run Run" trackTime="2.54" />
-               <PlayListContent trackName="Eyes on Fire" trackAuthor="Blue Foundation, Zeds Dead" album="Eyes on Fire" trackTime="5.20" />
-               <PlayListContent trackName="Mucho Bien" trackAuthor="HYBIT, Mr. Black, Offer Nissim, Hi Profile" album="Mucho Bien" trackTime="3.41" />
-               <PlayListContent trackName="Knives n Cherries" trackAuthor="minthaze" album="Captivating" trackTime="1.48" />
-               <PlayListContent trackName="How Deep Is Your Love" trackAuthor="Calvin Harris, Disciples" album="How Deep Is Your Love" trackTime="3.32" />
-               <PlayListContent trackName="Morena" trackAuthor="Tom Boxer" album="Soundz Made in Romania" trackTime="3.36" /> */}
-              {/* ---Компонент плейлиста конец*/}
+              
               </div>
             </div>
           </div>
