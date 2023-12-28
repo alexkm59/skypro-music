@@ -63,6 +63,17 @@ const handleCurrentTrackId = (oneTrack) => {
 
     const getFavoriteTracksList = () =>{
       getFavoriteTracks(userAccessToken)
+      .then((response) => {
+        if(response.status === 401){
+            navigate("/login")         
+            return
+        }
+        else{
+            
+            return response.json()
+        }
+
+    })
         .then((list) => {
         //   setFavoritTracks(lists)
         console.log(`my favorite tracks ${JSON.stringify(list)}`);
@@ -104,12 +115,19 @@ const handleDislike = (oneTrackId) => {
         
         return response.json()
     }
-
 })
   .then(getFavoriteTracksList)
- 
- }
+//   .then((response) => {  
+//     response.json()
+//     console.log(response.json());
+//   })
+//   .then((list) => {
+//     //   setFavoritTracks(lists)
+//     console.log(`my favorite tracks ${JSON.stringify(list)}`);
+//       dispatch(favoriteTrakcksLoading({allfavoriteTracks: list}));
 
+//  })
+}
 const toggleLike = (oneTrackId) =>{
   let favoriteTracksId = []
   for (let i = 0; i < favoriteTracks.length; i++) {
