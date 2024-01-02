@@ -15,31 +15,54 @@ export const Category = ({isLoading, setLoading, isPlaying, setIsPlaying})  => {
  const dispatch = useDispatch(); 
 
  dispatch (setPage({newPage: "category"}));
- const favoriteTracks = useSelector(state => state.player.favoriteTracks);
- let title = 0;
+ const allTracks = useSelector(state => state.player.tracks);
+
+ let title = null;
  const categoryNumber = Number(params.id);
- console.log(`categoryNumber: ${params.id}`);
- console.log(categoryNumber + 4);
- 
+ let categoryTracks = []
  switch (categoryNumber) {
-
-    case 1: 
-       title = "Классическая музыка";
-      break; 
-
-      case 2: 
-        title = "Электронная музыка";
-        break;
-        
-        case 3: 
-        title = "Рок музыка";
-        break; 
+    case 1: {
+            title = "Классическая музыка";
             
+            for (let i = 0; i < allTracks.length; i++) {
+                if (allTracks[i].genre == title) {
+                    categoryTracks.push(allTracks[i])
+                }
+            }
+            console.log(categoryTracks);
+            // return categoryTracks;
+            break;
+        }
+
+       
+      case 2: {
+        title = "Электронная музыка";
+        for (let i = 0; i < allTracks.length; i++) {
+            if (allTracks[i].genre == title) {
+                categoryTracks.push(allTracks[i])
+            }
+        }
+        // return categoryTracks;
+        break;
+      }
+        case 3: {
+        title = "Рок музыка";
+
+        for (let i = 0; i < allTracks.length; i++) {
+            if (allTracks[i].genre == title) {
+                categoryTracks.push(allTracks[i])
+            }
+        }
+        // return categoryTracks;
+        break;
+        }  
     }
  
     const hederText = title;
-    
-    return (
+   const categoryTracksList = categoryTracks;
+   console.log(categoryTracksList);
+
+return (
 
 
 <div className="container">
@@ -75,7 +98,7 @@ export const Category = ({isLoading, setLoading, isPlaying, setIsPlaying})  => {
               setLoading={setLoading}
               isPlaying = {isPlaying}
               setIsPlaying = {setIsPlaying}
-              baseAllTracks={favoriteTracks}
+              baseAllTracks={categoryTracksList}
               />
                
               {/* /* ---Компонент плейлиста конец */}
