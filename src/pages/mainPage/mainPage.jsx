@@ -114,9 +114,13 @@ const currentTrackId = useSelector(state => state.player.id);
             <div className="sidebar__block">
               <div className="sidebar__list">
                 {/* ---Компонент сайдбар начало */}
-                <Sidebar img="img/playlist01.png" id="1"/>
+                {/* <Sidebar img="img/playlist01.png" id="1"/>
                 <Sidebar img="img/playlist02.png" id="2"/>
-                <Sidebar img="img/playlist03.png" id="3"/>
+                <Sidebar img="img/playlist03.png" id="3"/> */}
+
+                <Sidebar src="https://skypro-web-developer.github.io/webdev-react-skypro-music-examples/img/playlist-classic.png" id="1"/>
+                <Sidebar src="https://skypro-web-developer.github.io/webdev-react-skypro-music-examples/img/playlist-electro.png" id="2"/>
+                <Sidebar src="https://skypro-web-developer.github.io/webdev-react-skypro-music-examples/img/playlist-rock.png" id="3"/>
                 {/* ---Компонент сайдбар конец */}
               </div>
             </div>
