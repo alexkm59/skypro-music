@@ -1,9 +1,10 @@
 import {React, useState, useEffect, useContext} from 'react';
 import * as S from './loginPage.styled';
 import {Link, useNavigate} from 'react-router-dom';
-import {UserLoginAPI} from "../../api"
+import {UserLoginAPI, getFavoriteTracks, getTokenAPI} from "../../api"
 import {userContext} from "../../Context/auth"
-
+import { useDispatch, useSelector } from "react-redux";
+import { favoriteTrakcksLoading, setAccessToken } from '../../store/actions/creators';
 
 
 
@@ -14,6 +15,7 @@ export const LoginPage = ({setUserToken})  => {
     const [loginError, setLoginError] = useState(null);
     
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const {setUser} = useContext(userContext);
 
@@ -46,7 +48,7 @@ const userLogin = () => {
             response.json().then((regErrors)=> {
                 console.log(`email_from_API: ${regErrors.email}`)
                 console.log(`user_from_API: ${regErrors.username}`)
-                console.log(`user_from_API: ${regErrors.password}`)  
+                console.log(`password_from_API: ${regErrors.password}`)  
                 const emailError = regErrors.email ? regErrors.email : "";
                 const passwordError = regErrors.password ? regErrors.password : "";
                 const error = emailError+passwordError;
@@ -76,6 +78,7 @@ const userLogin = () => {
 
         })
     .then((response)=> {
+        console.log(response);
         const user = {
             id: response.id,
             username: response.username,
@@ -94,12 +97,42 @@ const userLogin = () => {
         localStorage.setItem('currentUserId', user.id);
         localStorage.setItem('currentUserName', user.username);
         localStorage.setItem('currentUserEmail', user.email);
+        localStorage.setItem('currentUserPassword', user.password);
 
         alert("Вход выполнен успешно.")
 
         // Заглушка определения токена для перехода на страницу
         setUserToken(true)
         
+        getTokenAPI({userEmail: user.username, userPassword: userPassword})
+        .then((response)=>{
+            console.log(`token ${response.access}`);
+            dispatch(setAccessToken({accessToken: response.access}))
+            getFavoriteTracks(response.access)
+            .then((response) => {
+                if(response.status === 401){
+                    navigate("/login")         
+                    return
+                }
+                else{
+                    
+                    return response.json()
+                }
+
+            })
+            .then((list) => {
+            //   setFavoritTracks(lists)
+            console.log(`my favorite tracks ${JSON.stringify(list)}`);
+            // dispatch (allTrakcksLoading({allTracks: lists}));
+      
+            // .then((lists)=>{
+              //   setFavoritTracks(lists)
+              // console.log(`my favorite tracks ${lists}`);
+              dispatch(favoriteTrakcksLoading({allfavoriteTracks: list}));
+            
+          })
+        })
+
         navigate("/")
         
     }).catch((error)=> console.log(error))

@@ -1,5 +1,5 @@
 
-import {React} from 'react';
+import {React, useEffect, useState} from 'react';
 import {PlayerControls} from "../../components/Player/player";
 import {navMenu} from '../../components/navigation/navigation';
 import {search} from '../../components/search/search';
@@ -10,11 +10,40 @@ import {PlayListContent} from '../../components/PlayListContent/playListContent'
 import {Sidebar} from '../../components/sidebar/sidebar';
 // import {TrackPlayInfo} from '../../components/trackPlay/trackPlay';
 // import{ProgressBar} from "../../components/ProgressBar/progressBar"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { playerSelector } from "../../store/selectors/index";
+import { getPlayList } from '../../api';
+import { allTrakcksLoading, setCurrentTrack, setPage } from '../../store/actions/creators';
 
 export const MinePage =({isLoading, setLoading, isPlaying, setIsPlaying}) => {
-   
+const dispatch = useDispatch();  
+const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
+const [error, setError] = useState (null);
+
+dispatch (setPage({newPage: "mine"}));
+
+useEffect(()=>{
+  setLoading(true)
+  getPlayList().then((lists)=>{
+    setAllTracks(lists);
+    dispatch (allTrakcksLoading({allTracks: lists}));
+    
+  }).catch((error)=> setError(error.message)).finally(()=>setLoading(false));
+}, []);
+if(error){
+  return(
+    <div>
+      Ошибка при получении треков: {error}
+    </div>
+  )
+}
+
+const baseAllTracks = useSelector(state => state.player.tracks);
+// if(baseAllTracks){
+//   console.log(baseAllTracks[0].stared_user);
+// }
+
+
 
 
 const currentTrackId = useSelector(state => state.player.id);
@@ -58,6 +87,7 @@ const currentTrackId = useSelector(state => state.player.id);
               setLoading={setLoading}
               isPlaying = {isPlaying}
               setIsPlaying = {setIsPlaying}
+              baseAllTracks={baseAllTracks}
 
               />
               {/* )
@@ -93,7 +123,7 @@ const currentTrackId = useSelector(state => state.player.id);
           </div>
         </main>
         
-            {currentTrackId ? <PlayerControls isLoading={isLoading} isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>:null}
+            {/* {currentTrackId ? <PlayerControls isLoading={isLoading} isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>:null} */}
             
         <footer className="footer"></footer>
 </div>

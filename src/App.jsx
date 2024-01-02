@@ -6,7 +6,8 @@ import {useNavigate} from 'react-router-dom';
 // import Cookies from 'js-cookie'
 // import{MinePage} from './pages/mainPage/mainPage'
 // import{LoginPage} from './pages/loginPage/login'
-
+import {PlayerControls} from "./components/Player/player";
+import { useSelector } from "react-redux";
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
     }
     );
     const navigate = useNavigate();
-
+    const currentTrackId = useSelector(state => state.player.id);
 
 const username = localStorage.getItem('currentUserName')
 console.log(`user from local ${username}`);
@@ -52,7 +53,7 @@ console.log(userToken);
  
 return (
   <userContext.Provider value={{ user, setUser}}>
- <div className="wrapper">
+  <div className="wrapper">
   
   <AppRoutes 
   isLoading={isLoading}
@@ -65,6 +66,10 @@ return (
   setIsPlaying = {setIsPlaying}
   />
   
+  <div>
+  {currentTrackId ? <PlayerControls isLoading={isLoading} isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>:null}
+  </div>
+
 </div>
 
   </userContext.Provider>
