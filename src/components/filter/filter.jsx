@@ -36,7 +36,7 @@ function FilterList(activeFilter, allTracks){
              return( 
               
              
-                  <Styled.ModalContentText key={element} href="#"  > {element} onClick = {addFilter(element)} </ Styled.ModalContentText>
+                  <Styled.ModalContentText key={element} href="#" onClick = {addFilter(element)} > {element}  </ Styled.ModalContentText>
             
                  )
             })}
