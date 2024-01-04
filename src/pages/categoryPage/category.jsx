@@ -78,7 +78,7 @@ return (
             
             <h2 className="centerblock__h2">{hederText}</h2>
             {/* ---Компонент фильтра  */}
-            {Filter()}
+            {/* {Filter()} */}
             {/* ---Компонент фильтра конец */}
             <div className="centerblock__content">
               <div className="content__title playlist-title">
