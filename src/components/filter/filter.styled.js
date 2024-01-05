@@ -108,3 +108,15 @@ line-height: 24px;
 text-decoration-line: underline;
 }
  `
+
+export const ModalContentTextColor = styled.a`
+ background-color: rgba(0, 0, 0, 0);
+ color: #B672FF;
+ font-variant-numeric: lining-nums proportional-nums;
+ font-family: StratosSkyeng;
+ font-size: 20px;
+ font-style: normal;
+ font-weight: 400;
+ line-height: 24px;
+ padding-top: 16px;
+ `
