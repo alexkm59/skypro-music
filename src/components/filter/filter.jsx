@@ -171,7 +171,7 @@ const unique = (arr)=> {
     
     const addFilter = (element, activeFilter, activeFilterAuthor, setActiveFilterAuthor) => {
       console.log(`Выбрали элемент ${element}`);
-      
+      console.log(`activeFilter ${activeFilter}`);
       // for (let i = 0; i < activeFilterAuthor.length; i++) {
       //   favoriteTracksId.push(favoriteTracks[i].id)
       // }
@@ -208,12 +208,20 @@ const unique = (arr)=> {
    
   
           return (
+            <>
         <Styled.Modal >
-             <Styled.ModalContent className='addFilter'>
+             <Styled.ModalContent>
+              
               { unicTracksAuthors.map((element)=> {
                return( 
                 (checkInFiltr(element, activeFilter, activeFilterAuthor, setActiveFilterAuthor)) ? 
-                    (<Styled.ModalContentTextColor key={element}  onClick = {() => addFilter(element, activeFilter, activeFilterAuthor, setActiveFilterAuthor)}>{element} </Styled.ModalContentTextColor>) : 
+                    (<>
+                    <Styled.ModalContentTextColor key={element}  onClick = {() => addFilter(element, activeFilter, activeFilterAuthor, setActiveFilterAuthor)}>{element} 
+                        {/* <Styled.ModalContentNumber>1</Styled.ModalContentNumber> */}
+                    </Styled.ModalContentTextColor>
+                    
+                    </>
+                    ) : 
                     (<Styled.ModalContentText  key={element}  onClick = {() => { 
                       addFilter(element, activeFilter, activeFilterAuthor, setActiveFilterAuthor)
                       
@@ -226,8 +234,14 @@ const unique = (arr)=> {
               <Styled.ModalContentText href="#" >Nero</Styled.ModalContentText>
               <Styled.ModalContentText href="#" >Hero</Styled.ModalContentText>
               <Styled.ModalContentText href="#" >Третий</Styled.ModalContentText> */}
+              
             </Styled.ModalContent>
-          </Styled.Modal> )
+            
+          </Styled.Modal> 
+        
+          
+          </>
+          )
       
     }
   
@@ -280,11 +294,15 @@ const unique = (arr)=> {
   return(
     <Styled.CenterblockFilter>
               <Styled.FilterTitle>Искать по:</Styled.FilterTitle>
-              
+              <>
               <Styled.FilterButton
               onClick={()=>( activeFilter !== 'author' ? setActiveFilter('author'): setActiveFilter())}> исполнителю 
               {activeFilter === 'author' && FilterList(activeFilter, allTracks, activeFilterAuthor, setActiveFilterAuthor)}
+              {/* <Styled.ModalContentNumber>1</Styled.ModalContentNumber> */}
               </Styled.FilterButton>
+              {(activeFilterAuthor.length > 0) ? (<Styled.ModalContentNumber>{activeFilterAuthor.length}</Styled.ModalContentNumber>) : (null)}
+              </>
+
 
               <Styled.FilterButton
                onClick={()=>( activeFilter !== 'year' ? setActiveFilter('year'): setActiveFilter())}> году выпуска

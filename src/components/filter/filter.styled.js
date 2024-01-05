@@ -64,7 +64,7 @@ export const FilterButton = styled.div`
     overflow-y: scroll;
     position: absolute;
     opacity: 0.8;
-    position: absolute;
+    position: relative;
     z-index: 1;
     &::-webkit-scrollbar{
       width: 6px;
@@ -120,3 +120,21 @@ export const ModalContentTextColor = styled.a`
  line-height: 24px;
  padding-top: 16px;
  `
+export const ModalContentNumber = styled.div`
+    color: white;
+    background-color: rgb(173, 97, 255);
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    right: 23px;
+    top: -14px;
+    font-family: StratosSkyeng;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 13px;
+`
