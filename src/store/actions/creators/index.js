@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN} from "../types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN, SET_FILTER_ACTIVE, SET_FILTER_TRACKS} from "../types/index";
 
 
 export const setCurrentTrack = (id, content, isPlayingTrack) => ({
@@ -29,12 +29,29 @@ export const toggleSuffled = (isSuffled) => ({
     
   });
 
+  export const toggleFilterActive = (isActive) => ({
+    type: SET_FILTER_ACTIVE,
+    payload: {
+      isActive,
+    },
+      
+    });
+
+    export const filtredTrakcksLoading = ( {NewAllTracks}) => ({
+      type: SET_FILTER_TRACKS,
+      payload: {
+        NewAllTracks,
+      },
+    });
+
+
   export const allTrakcksLoading = ( {allTracks}) => ({
     type: ALL_TRACKS_LOADING,
     payload: {
       allTracks,
     },
   });
+
   export const setAccessToken = ( {accessToken}) => ({
     type: SET_ACCESS_TOKEN,
     payload: {

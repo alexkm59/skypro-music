@@ -19,6 +19,7 @@ export const MinePage =({isLoading, setLoading, isPlaying, setIsPlaying}) => {
 const dispatch = useDispatch();  
 const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
 const [error, setError] = useState (null);
+const isFilterActive = useSelector(state => state.player.isFilterActive);
 
 dispatch (setPage({newPage: "mine"}));
 
@@ -38,10 +39,15 @@ if(error){
   )
 }
 
-const baseAllTracks = useSelector(state => state.player.tracks);
-// if(baseAllTracks){
-//   console.log(baseAllTracks[0].stared_user);
-// }
+let baseAllTracks = []
+if(isFilterActive){
+   baseAllTracks = useSelector(state => state.player.filtredTracks);
+}
+else{
+   baseAllTracks = useSelector(state => state.player.tracks);
+}
+
+
 
 
 

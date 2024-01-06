@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN } from "../actions/types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN, SET_FILTER_ACTIVE, SET_FILTER_TRACKS } from "../actions/types/index";
 
 // 1.
 const initialState = {
@@ -8,7 +8,9 @@ const initialState = {
   isSuffled: false,
   currentPage: "mine",
   favoriteTracks:[],
-  accessToken: null
+  accessToken: null,
+  isFilterActive: false,
+  filtredTracks: [],
 };
 
 export default function playerReducer(state = initialState, action) {
@@ -23,6 +25,25 @@ export default function playerReducer(state = initialState, action) {
         };
       }
     
+      case SET_FILTER_ACTIVE: {
+        const {isActive} = action.payload;
+        return {
+          
+         ...state, 
+         isFilterActive: isActive,
+          };
+        }
+        
+        case SET_FILTER_TRACKS: {
+          const {NewAllTracks } = action.payload;
+          return {
+            
+           ...state, 
+           filtredTracks: NewAllTracks,
+            };
+          }
+
+
       case FAVORITE_TRACKS_LOADING: {
         const { allfavoriteTracks } = action.payload;
         return {

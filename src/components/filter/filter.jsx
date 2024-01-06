@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import * as Styled from './filter.styled'
 import { useSelector, useDispatch } from "react-redux";
+import { allTrakcksLoading, filtredTrakcksLoading, toggleFilterActive } from '../../store/actions/creators';
 
 
 // функция поиска уникальных значений в массиве
@@ -134,7 +135,7 @@ const unique = (arr)=> {
   const  [activeFilter, setActiveFilter] = useState();
   const [activeFilterAuthor, setActiveFilterAuthor] = useState([])
   const allTracks = useSelector((state) => state.player.tracks);
-
+  const dispatch = useDispatch(); 
   console.log(activeFilterAuthor);
 
   const FilterList = (activeFilter, allTracks, activeFilterAuthor, setActiveFilterAuthor) =>{
@@ -151,8 +152,7 @@ const unique = (arr)=> {
     
    const handleRemoveFilter = (element, activeFilter, activeFilterAuthor, setActiveFilterAuthor) => {
       const activeFilterAuthorArr = activeFilterAuthor;
-      console.log(activeFilterAuthorArr);
-      console.log(activeFilterAuthorArr.indexOf(element));
+      
       
       if(activeFilterAuthorArr.indexOf(element)>= 0){
         const activeFilterAuthorIndex = activeFilterAuthorArr.indexOf(element);
@@ -170,23 +170,44 @@ const unique = (arr)=> {
     
     
     const addFilter = (element, activeFilter, activeFilterAuthor, setActiveFilterAuthor) => {
-      console.log(`Выбрали элемент ${element}`);
+     
       console.log(`activeFilter ${activeFilter}`);
-      // for (let i = 0; i < activeFilterAuthor.length; i++) {
-      //   favoriteTracksId.push(favoriteTracks[i].id)
-      // }
-    // includes возвращает true или false
-    if (activeFilterAuthor) {
-      const isInFiltr = activeFilterAuthor.includes(element);
       
-      isInFiltr ? handleRemoveFilter(element, activeFilter, activeFilterAuthor, setActiveFilterAuthor) : handleAddFilter(element, activeFilter, activeFilterAuthor, setActiveFilterAuthor);
+    
+
+    if (activeFilterAuthor) {
+      // includes возвращает true или false
+      const isInFilter = activeFilterAuthor.includes(element);
+      
+      isInFilter ? handleRemoveFilter(element, activeFilter, activeFilterAuthor, setActiveFilterAuthor) : handleAddFilter(element, activeFilter, activeFilterAuthor, setActiveFilterAuthor);
   
+      
+
+      if (activeFilterAuthor.length === 0){
+        dispatch(toggleFilterActive(false));
+      }
+      else{
+        dispatch(toggleFilterActive(true));
+      }
+
+
+      const NewAllTracks = []
+      for (let i = 0; i < activeFilterAuthor.length; i++) {
+        for(let j = 0; j < allTracks.length; j++){
+          if(allTracks[j].author === activeFilterAuthor[i]){
+            NewAllTracks.push(allTracks[j])
+          }
+        }
+    }
+      
+    console.log(`NewAllTracks ${NewAllTracks}`);
+    dispatch (filtredTrakcksLoading({NewAllTracks}));
     }
       
       }
 
       const checkInFiltr = (element, activeFilter, activeFilterAuthor, setActiveFilterAuthor) => {
-        console.log(`зашли в функцию проверки фильтра`);
+        
         console.log(activeFilterAuthor);
         if (activeFilterAuthor) {
           // includes возвращает true или false
