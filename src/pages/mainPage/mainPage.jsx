@@ -15,11 +15,25 @@ import { playerSelector } from "../../store/selectors/index";
 import { getPlayList } from '../../api';
 import { allTrakcksLoading, setCurrentTrack, setPage } from '../../store/actions/creators';
 
+
+const sortFunction =(Arr)=>{
+  let sortArray = []
+  sortArray = Arr.sort(function (a, b){
+      if(a.release_date && b.release_date){
+        return ((a.release_date).slice(0,4) - (b.release_date).slice(0,4));
+      }    
+    })
+    
+return sortArray;
+}
+
 export const MinePage =({isLoading, setLoading, isPlaying, setIsPlaying}) => {
 const dispatch = useDispatch();  
 const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
 const [error, setError] = useState (null);
-const isFilterActive = useSelector(state => state.player.isFilterActive);
+const isAuthorFilterActive = useSelector(state => state.player.isAuthorFilterActive);
+const isGenreFilterActive = useSelector(state => state.player.isGenreFilterActive);
+const sortFilter = useSelector(state => state.player.sortFilter);
 
 dispatch (setPage({newPage: "mine"}));
 
@@ -40,11 +54,22 @@ if(error){
 }
 
 let baseAllTracks = []
-if(isFilterActive){
+if(isAuthorFilterActive || isGenreFilterActive){
    baseAllTracks = useSelector(state => state.player.filtredTracks);
 }
 else{
-   baseAllTracks = useSelector(state => state.player.tracks);
+   const checkAllTracks = useSelector(state => state.player.tracks);
+   if(sortFilter == "По-умолчанию"){
+    baseAllTracks = checkAllTracks;
+  }
+      
+   if(sortFilter == "Сначала новые"){
+        // console.log((baseAllTracks[16].release_date).slice(0,4) - (baseAllTracks[18].release_date).slice(0,4));
+        
+        baseAllTracks = sortFunction(checkAllTracks);
+        
+      }
+  
 }
 
 

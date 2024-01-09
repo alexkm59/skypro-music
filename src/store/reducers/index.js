@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN, SET_FILTER_ACTIVE, SET_FILTER_TRACKS } from "../actions/types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN, SET_FILTER_ACTIVE, SET_FILTER_TRACKS, SET_AUTHOR_FILTER, SET_GENRE_FILTER, SET_SORT_FILTER } from "../actions/types/index";
 
 // 1.
 const initialState = {
@@ -9,8 +9,10 @@ const initialState = {
   currentPage: "mine",
   favoriteTracks:[],
   accessToken: null,
-  isFilterActive: false,
+  isAuthorFilterActive: false,
+  isGenreFilterActive: false,
   filtredTracks: [],
+  sortFilter: "По-умолчанию",
 };
 
 export default function playerReducer(state = initialState, action) {
@@ -24,16 +26,36 @@ export default function playerReducer(state = initialState, action) {
        tracks: allTracks,
         };
       }
-    
-      case SET_FILTER_ACTIVE: {
+
+      case SET_SORT_FILTER: {
+        const {filter} = action.payload;
+        return {
+         ...state, 
+         sortFilter: filter,
+          };
+        }
+
+
+
+      case SET_AUTHOR_FILTER: {
         const {isActive} = action.payload;
         return {
           
          ...state, 
-         isFilterActive: isActive,
+         isAuthorFilterActive: isActive,
           };
         }
         
+        case SET_GENRE_FILTER: {
+          const {isActive} = action.payload;
+          return {
+            
+           ...state, 
+           isGenreFilterActive: isActive,
+            };
+          }
+
+
         case SET_FILTER_TRACKS: {
           const {NewAllTracks } = action.payload;
           return {
