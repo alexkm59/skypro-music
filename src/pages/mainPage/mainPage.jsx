@@ -15,10 +15,25 @@ import { playerSelector } from "../../store/selectors/index";
 import { getPlayList } from '../../api';
 import { allTrakcksLoading, setCurrentTrack, setPage } from '../../store/actions/creators';
 
+
+const sortFunction =(Arr)=>{
+  let sortArray = []
+  sortArray = Arr.sort(function (a, b){
+      if(a.release_date && b.release_date){
+        return ((a.release_date).slice(0,4) - (b.release_date).slice(0,4));
+      }    
+    })
+    
+return sortArray;
+}
+
 export const MinePage =({isLoading, setLoading, isPlaying, setIsPlaying}) => {
 const dispatch = useDispatch();  
 const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
 const [error, setError] = useState (null);
+const isAuthorFilterActive = useSelector(state => state.player.isAuthorFilterActive);
+const isGenreFilterActive = useSelector(state => state.player.isGenreFilterActive);
+const sortFilter = useSelector(state => state.player.sortFilter);
 
 dispatch (setPage({newPage: "mine"}));
 
@@ -38,10 +53,26 @@ if(error){
   )
 }
 
-const baseAllTracks = useSelector(state => state.player.tracks);
-// if(baseAllTracks){
-//   console.log(baseAllTracks[0].stared_user);
-// }
+let baseAllTracks = []
+if(isAuthorFilterActive || isGenreFilterActive){
+   baseAllTracks = useSelector(state => state.player.filtredTracks);
+}
+else{
+   const checkAllTracks = useSelector(state => state.player.tracks);
+   if(sortFilter == "По-умолчанию"){
+    baseAllTracks = checkAllTracks;
+  }
+      
+   if(sortFilter == "Сначала новые"){
+        // console.log((baseAllTracks[16].release_date).slice(0,4) - (baseAllTracks[18].release_date).slice(0,4));
+        
+        baseAllTracks = sortFunction(checkAllTracks);
+        
+      }
+  
+}
+
+
 
 
 
@@ -114,9 +145,13 @@ const currentTrackId = useSelector(state => state.player.id);
             <div className="sidebar__block">
               <div className="sidebar__list">
                 {/* ---Компонент сайдбар начало */}
-                <Sidebar img="img/playlist01.png" id="1"/>
+                {/* <Sidebar img="img/playlist01.png" id="1"/>
                 <Sidebar img="img/playlist02.png" id="2"/>
-                <Sidebar img="img/playlist03.png" id="3"/>
+                <Sidebar img="img/playlist03.png" id="3"/> */}
+
+                <Sidebar src="https://skypro-web-developer.github.io/webdev-react-skypro-music-examples/img/playlist-classic.png" id="1"/>
+                <Sidebar src="https://skypro-web-developer.github.io/webdev-react-skypro-music-examples/img/playlist-electro.png" id="2"/>
+                <Sidebar src="https://skypro-web-developer.github.io/webdev-react-skypro-music-examples/img/playlist-rock.png" id="3"/>
                 {/* ---Компонент сайдбар конец */}
               </div>
             </div>

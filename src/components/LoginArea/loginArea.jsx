@@ -17,7 +17,7 @@ return(
                 
                 navigate("/login")}}>
                 <svg alt="logout">
-                  <use xlinkHref="img/icon/sprite.svg#logout"></use>
+                  <use xlinkHref="/img/icon/sprite.svg#logout"></use>
                 </svg>
               </Styled.sidebarIcon>
 </Styled.sidebarPersonal>

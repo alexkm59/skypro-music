@@ -7,14 +7,14 @@ export function Sidebar (props) {
     const  [isLoading, setLoading] = useState(false);
     setTimeout(()=>{
       setLoading(true)
-    },4000)
+    },3000)
 return(
     
                 <Styled.SidebarItem>
                   <SkeletonTheme baseColor="#313131" highlightColor="#fff" height={150} width={250}>
                   {/* <a className="sidebar__link" href="#"> */}
                   <Link to={`/category/${props.id}`}>
-                  {isLoading ? <Styled.SidebarLink> <Styled.SidebarImg src={props.img} alt="day's playlist"/></Styled.SidebarLink> : <Skeleton/> }
+                  {isLoading ? <Styled.SidebarLink> <Styled.SidebarImg src={props.src} alt="day's playlist"/></Styled.SidebarLink> : <Skeleton/> }
                   </Link>
                   
                   

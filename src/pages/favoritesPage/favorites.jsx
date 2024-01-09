@@ -1,14 +1,3 @@
-// import React from 'react';
-// import * as S from '../not-found/notFound.styled';
-
-// export const Favorites = ()  => {
-// return (
-// <S.notFoundPage>
-//     <h1>Favorites Page</h1>
-// </S.notFoundPage>
-// )
-// }
-
 import {React, useContext, useEffect, useState} from 'react';
 import {PlayerControls} from "../../components/Player/player";
 import {navMenu} from '../../components/navigation/navigation';
@@ -39,35 +28,7 @@ const dispatch = useDispatch();
 dispatch (setPage({newPage: "favorite"}));
 const favoriteTracks = useSelector(state => state.player.favoriteTracks);
 console.log(favoriteTracks);
-// useEffect(()=>{
-//   setLoading(true)
-//   console.log(user);
-  // getTokenAPI({userEmail: user.username, userPassword: user.username})
-  // .then((response)=>{
-  //     console.log(`token ${response.access}`);
-  //     getFavoriteTracks(response.access)
-  //     .then((list) => {
-  //     //   setFavoritTracks(lists)
-  //     console.log(`my favorite tracks ${list}`);
-  //     // dispatch (allTrakcksLoading({allTracks: lists}));
 
-  //     // .then((lists)=>{
-  //       //   setFavoritTracks(lists)
-  //       // console.log(`my favorite tracks ${lists}`);
-  //       dispatch(favoriteTrakcksLoading({allfavoriteTracks: list}));
-      
-  //   })
-  // })
-
-  // .catch((error)=> setError(error.message)).finally(()=>setLoading(false));
-// }, []);
-// if(error){
-//   return(
-//     <div>
-//       Ошибка при получении треков: {error}
-//     </div>
-//   )
-// }
 
 
      return (
@@ -121,15 +82,15 @@ console.log(favoriteTracks);
             {/* ---Компонент логирования */}
             {loginArea()}
             {/* ---Компонент логирования конец*/}
-            <div className="sidebar__block">
-              <div className="sidebar__list">
+            {/* <div className="sidebar__block">
+              <div className="sidebar__list"> */}
                 {/* ---Компонент сайдбар начало */}
-                <Sidebar img="img/playlist01.png" id="1"/>
+                {/* <Sidebar img="img/playlist01.png" id="1"/>
                 <Sidebar img="img/playlist02.png" id="2"/>
-                <Sidebar img="img/playlist03.png" id="3"/>
+                <Sidebar img="img/playlist03.png" id="3"/> */}
                 {/* ---Компонент сайдбар конец */}
-              </div>
-            </div>
+              {/* </div>
+            </div> */}
           </div>
         </main>
         

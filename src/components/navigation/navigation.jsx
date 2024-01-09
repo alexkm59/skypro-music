@@ -20,7 +20,7 @@ if (isVisible === false){
   return(
     <Styled.MainNav>  
             <Styled.NavLogo>
-              <Styled.LogoImage src="img/logo.png" alt="logo" />
+              <Styled.LogoImage src="/img/logo.png" alt="logo" />
             </Styled.NavLogo> 
             <Styled.NavBurger onClick={navMenuClick}> 
               <Styled.NavBurgerLine></Styled.NavBurgerLine>
@@ -32,7 +32,7 @@ if (isVisible === false){
   return(
         <Styled.MainNav>
       <Styled.NavLogo>
-        <Styled.LogoImage  src="img/logo.png" alt="logo" />
+        <Styled.LogoImage  src="/img/logo.png" alt="logo" />
       </Styled.NavLogo>
       <Styled.NavBurger onClick={navMenuClick}>
         <Styled.NavBurgerLine></Styled.NavBurgerLine>
