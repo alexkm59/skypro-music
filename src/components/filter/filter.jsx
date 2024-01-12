@@ -225,11 +225,7 @@ if(activeFilterAuthor.length > 0 && activeFilterGenre.length == 0){
       console.log(`NewAllTracks ${NewAllTracks}`);
       dispatch (filtredTrakcksLoading({NewAllTracks}));
 
-
-
-
     }
-
 
 }
 

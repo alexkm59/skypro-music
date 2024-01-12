@@ -15,17 +15,30 @@ import { playerSelector } from "../../store/selectors/index";
 import { getPlayList } from '../../api';
 import { allTrakcksLoading, setCurrentTrack, setPage } from '../../store/actions/creators';
 
-
-const sortFunction =(Arr)=>{
-  let sortArray = []
-  sortArray = Arr.sort(function (a, b){
+// Функция фильтра для Сначала старые
+const sortFunctionOlfFirst =(Arr)=>{
+  let sortArray1 = [...Arr];
+  let sortArray2 = [];
+  sortArray2 = sortArray1.sort(function (a, b){
       if(a.release_date && b.release_date){
         return ((a.release_date).slice(0,4) - (b.release_date).slice(0,4));
       }    
     })
-    
-return sortArray;
+return sortArray2;
 }
+
+// Функция фильтра для Сначала новые
+const sortFunctionNewFirst =(Arr)=>{
+  let sortArray1 = [...Arr];
+  let sortArray2 = [];
+  sortArray2 = sortArray1.sort(function (a, b){
+      if(a.release_date && b.release_date){
+        return ((b.release_date).slice(0,4) - (a.release_date).slice(0,4));
+      }    
+    })
+return sortArray2;
+}
+
 
 export const MinePage =({isLoading, setLoading, isPlaying, setIsPlaying}) => {
 const dispatch = useDispatch();  
@@ -63,13 +76,13 @@ else{
     baseAllTracks = checkAllTracks;
   }
       
-   if(sortFilter == "Сначала новые"){
-        // console.log((baseAllTracks[16].release_date).slice(0,4) - (baseAllTracks[18].release_date).slice(0,4));
-        
-        baseAllTracks = sortFunction(checkAllTracks);
-        
+   if(sortFilter == "Сначала старые"){
+        baseAllTracks = sortFunctionOlfFirst(checkAllTracks);
       }
-  
+   if(sortFilter == "Сначала новые"){
+        baseAllTracks = sortFunctionNewFirst(checkAllTracks);
+      }
+
 }
 
 
