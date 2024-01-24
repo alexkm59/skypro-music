@@ -99,7 +99,7 @@ const userLogin = () => {
         localStorage.setItem('currentUserEmail', user.email);
         localStorage.setItem('currentUserPassword', user.password);
 
-        alert("Вход выполнен успешно.")
+        // alert("Вход выполнен успешно.")
 
         // Заглушка определения токена для перехода на страницу
         setUserToken(true)

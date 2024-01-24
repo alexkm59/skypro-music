@@ -17,6 +17,120 @@ const unique = (arr) => {
 
 
 
+
+// const FilterList = (activeFilter, allTracks, activeFilterAuthor, setActiveFilterAuthor) =>{
+  
+
+
+//   function handleAddFilter (element, activeFilter) {
+//     const activeFilterAuthorArr = activeFilterAuthor;
+//     activeFilterAuthorArr.push(element);
+//     setActiveFilterAuthor (activeFilterAuthorArr);
+//     console.log(`activeFilterAuthor ${activeFilterAuthorArr}`);
+//   }
+  
+//   function handleRemoveFilter (element, activeFilter, activeFilterAuthor, setActiveFilterAuthor) {
+//     const activeFilterAuthorArr = activeFilterAuthor;
+//     activeFilterAuthorArr.push(element);
+//     setActiveFilterAuthor (activeFilterAuthorArr);
+//     console.log(`activeFilterAuthor ${activeFilterAuthor}`);
+//   }
+
+  
+  
+//   const addFilter = (element, activeFilter, activeFilterAuthor, setActiveFilterAuthor) => {
+//     console.log(`Выбрали элемент ${element}`);
+    
+//     // for (let i = 0; i < activeFilterAuthor.length; i++) {
+//     //   favoriteTracksId.push(favoriteTracks[i].id)
+//     // }
+//   // includes возвращает true или false
+//   if (activeFilterAuthor) {
+//     const isInFiltre = activeFilterAuthor.includes(element);
+    
+//     isInFiltre ? handleRemoveFilter(element, activeFilter) : handleAddFilter(element, activeFilter);
+
+//   }
+    
+//     }
+  
+
+//   if (activeFilter === 'author'){
+//        const tracksAuthors = [];
+//        for (let i = 0; i < allTracks.length; i++) {
+//       tracksAuthors.push(allTracks[i].author)
+//   }
+//   const unicTracksAuthors = unique(tracksAuthors);
+  
+ 
+
+//         return (
+//       <Styled.Modal >
+//            <Styled.ModalContent >
+//             { unicTracksAuthors.map((element)=> {
+//              return( 
+              
+             
+//                   <Styled.ModalContentText key={element} href="#" onClick = {() => addFilter(element, activeFilter, activeFilterAuthor, setActiveFilterAuthor)} > {element}  </ Styled.ModalContentText>
+            
+//                  )
+//             })}
+//             {/* <Styled.ModalContentText href="#" >Nero</Styled.ModalContentText>
+//             <Styled.ModalContentText href="#" >Третий</Styled.ModalContentText>
+//             <Styled.ModalContentText href="#" >Nero</Styled.ModalContentText>
+//             <Styled.ModalContentText href="#" >Hero</Styled.ModalContentText>
+//             <Styled.ModalContentText href="#" >Третий</Styled.ModalContentText> */}
+//           </Styled.ModalContent>
+//         </Styled.Modal> )
+    
+//   }
+
+
+//     if (activeFilter === 'year'){
+//       const tracksYears = [];
+//        for (let i = 0; i < allTracks.length; i++) {
+//         let year = String (allTracks[i].release_date).slice(0,4)
+        
+//         tracksYears.push(year);
+//   }
+//   const unicTracksYears = unique(tracksYears);
+  
+//       return(
+//       <Styled.Modal>
+//         <Styled.ModalContent>
+//         { unicTracksYears.map((element)=> {
+//              return( <Styled.ModalContentText key={element} href="#" >{element}</Styled.ModalContentText>
+             
+             
+//              )
+//             })}
+//         </Styled.ModalContent>
+//       </Styled.Modal>
+//         )
+//       }
+
+//       if (activeFilter === 'genre'){
+//         const tracksGenre = [];
+//        for (let i = 0; i < allTracks.length; i++) {
+//         tracksGenre.push(allTracks[i].genre)
+//   }
+//   const unicGanre = unique(tracksGenre);
+  
+  
+//         return(
+//         <Styled.Modal>
+//           <Styled.ModalContent>
+//           { unicGanre.map((element)=> {
+//              return( <Styled.ModalContentText key={element} href="#" >{element}</Styled.ModalContentText> )
+//             })}
+//           </Styled.ModalContent>
+//         </Styled.Modal>
+//           )
+//         }  
+
+// }
+
+
  export const Filter = () => {
   const [activeFilter, setActiveFilter] = useState();
   const [activeFilterAuthor, setActiveFilterAuthor] = useState([]);
@@ -30,59 +144,96 @@ const unique = (arr) => {
   const dispatch = useDispatch(); 
   console.log(activeFilterAuthor);
   console.log(activeFilterGenre);
-  // let workTracksArr = [];
- 
+
 
 // функция фильтрации
 const setAuthorGanreFilter = (activeFilterAuthor, activeFilterGenre) => {
   
-  let workTracksArr = [];
-  
-  console.log(resultFilterTracks);
-  if(resultFilterTracks.length > 0){
-    // workTracksArr = resultFilterTracks;
-    workTracksArr = allTracks;
-  }
-  else{
-     workTracksArr = allTracks;
-  }
-
-  console.log(workTracksArr);
-  if(activeFilterAuthor.length > 0){ 
     
-    let NewAllTracks = [];
-
-    for (let i = 0; i < activeFilterAuthor.length; i++) {
-      for(let j = 0; j <  workTracksArr.length; j++){
-        if( workTracksArr[j].author === activeFilterAuthor[i]){
-         NewAllTracks.push(workTracksArr[j]);
-        }
-      }
-    }
-    
-      console.log(NewAllTracks);
-      dispatch (filtredTrakcksLoading({NewAllTracks}));
-      workTracksArr = NewAllTracks;
-  }
-
-
-    if(activeFilterGenre.length > 0){
-      
+if(activeFilterAuthor.length > 0 && activeFilterGenre.length == 0){
+      console.log(`activeFilterAuthor.length > 0`);
+      let checkArrayTracks = [];
+      isGenreFilterActive ? ( checkArrayTracks = allTracks) : (checkArrayTracks = allTracks);
+       
       let NewAllTracks = [];
-      for (let i = 0; i < activeFilterGenre.length; i++) {
-        for(let j = 0; j < workTracksArr.length; j++){
-          if(workTracksArr[j].genre === activeFilterGenre[i]){
-            NewAllTracks.push(workTracksArr[j])
+
+      for (let i = 0; i < activeFilterAuthor.length; i++) {
+        for(let j = 0; j < checkArrayTracks.length; j++){
+          if(checkArrayTracks[j].author === activeFilterAuthor[i]){
+            NewAllTracks.push(checkArrayTracks[j])
           }
         }
       }
       
         console.log(`NewAllTracks ${NewAllTracks}`);
         dispatch (filtredTrakcksLoading({NewAllTracks}));
-        workTracksArr = NewAllTracks;
+
+    }
+    
+    
+    if(activeFilterGenre.length > 0 && activeFilterAuthor.length == 0){
+      console.log(`activeFilterGenre.length > 0`);
+      let checkArrayTracks = [];
+      isAuthorFilterActive ? ( checkArrayTracks = allTracks) : (checkArrayTracks = allTracks);
+       
+      let NewAllTracks = [];
+      console.log(checkArrayTracks);
+      console.log(isAuthorFilterActive);
+
+
+      for (let i = 0; i < activeFilterGenre.length; i++) {
+        for(let j = 0; j < checkArrayTracks.length; j++){
+          if(checkArrayTracks[j].genre === activeFilterGenre[i]){
+            NewAllTracks.push(checkArrayTracks[j])
+          }
+        }
+      }
+      
+        console.log(`NewAllTracks ${NewAllTracks}`);
+        dispatch (filtredTrakcksLoading({NewAllTracks}));
+
     }
           
+    if(activeFilterGenre.length > 0 && activeFilterAuthor.length > 0){
+      console.log(`activeFilterGenre.length > 0  иии activeFilterAuthor.length >0`);
+      let checkArrayTracks = [];
+      isGenreFilterActive ? ( checkArrayTracks = allTracks) : (checkArrayTracks = allTracks);
+       
+      let AuthorNewAllTracks = [];
+
+      for (let i = 0; i < activeFilterAuthor.length; i++) {
+        for(let j = 0; j < checkArrayTracks.length; j++){
+          if(checkArrayTracks[j].author === activeFilterAuthor[i]){
+            AuthorNewAllTracks.push(checkArrayTracks[j])
+          }
+        }
+      }
+     
+      let NewAllTracks = [];
+      for (let i = 0; i < activeFilterGenre.length; i++) {
+        for(let j = 0; j < AuthorNewAllTracks.length; j++){
+          if(AuthorNewAllTracks[j].genre === activeFilterGenre[i]){
+            NewAllTracks.push(AuthorNewAllTracks[j])
+          }
+        }
+        
+      }
+      
+      console.log(`NewAllTracks ${NewAllTracks}`);
+      dispatch (filtredTrakcksLoading({NewAllTracks}));
+
+    }
     
+    
+    if(activeFilterGenre.length == 0 && activeFilterAuthor.length == 0){
+      dispatch (filtredTrakcksLoading({allTracks}));
+
+    }
+
+
+
+
+
   }
 
 

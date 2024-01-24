@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN, SET_FILTER_TRACKS, SET_AUTHOR_FILTER, SET_GENRE_FILTER, SET_SORT_FILTER} from "../types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN, SET_FILTER_TRACKS, SET_AUTHOR_FILTER, SET_GENRE_FILTER, SET_SORT_FILTER, SET_SERTCH_FILTER} from "../types/index";
 
 
 export const setCurrentTrack = (id, content, isPlayingTrack) => ({
@@ -51,6 +51,13 @@ export const toggleSuffled = (isSuffled) => ({
       },
         
       });
+
+      export const sertchTraks = ({NewAllTracks})=>({
+      type: SET_SERTCH_FILTER,
+      payload: {
+        NewAllTracks,
+      },
+      })
 
 
     export const filtredTrakcksLoading = ( {NewAllTracks}) => ({

@@ -47,6 +47,7 @@ const [error, setError] = useState (null);
 const isAuthorFilterActive = useSelector(state => state.player.isAuthorFilterActive);
 const isGenreFilterActive = useSelector(state => state.player.isGenreFilterActive);
 const sortFilter = useSelector(state => state.player.sortFilter);
+const serchTracks = useSelector((state) => state.player.filtredTracks);
 
 dispatch (setPage({newPage: "mine"}));
 
@@ -66,10 +67,24 @@ if(error){
   )
 }
 
+console.log(allTracks);
 let baseAllTracks = []
+
 if(isAuthorFilterActive || isGenreFilterActive){
-   baseAllTracks = useSelector(state => state.player.filtredTracks);
-}
+  //  baseAllTracks = useSelector(state => state.player.filtredTracks);
+   const checkAllTracks = useSelector(state => state.player.filtredTracks);
+   if(sortFilter == "По-умолчанию"){
+    baseAllTracks = checkAllTracks;
+  }
+      
+   if(sortFilter == "Сначала старые"){
+        baseAllTracks = sortFunctionOlfFirst(checkAllTracks);
+      }
+   if(sortFilter == "Сначала новые"){
+        baseAllTracks = sortFunctionNewFirst(checkAllTracks);
+      }
+
+  }
 else{
    const checkAllTracks = useSelector(state => state.player.tracks);
    if(sortFilter == "По-умолчанию"){
@@ -84,7 +99,10 @@ else{
       }
 
 }
-
+// console.log(serchTracks);
+// if(serchTracks.length > 0){
+//   baseAllTracks = serchTracks;
+// }
 
 
 

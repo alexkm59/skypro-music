@@ -26,6 +26,7 @@ const isCurrentTrackPlaying = useSelector((state) => state.player.isPlayingTrack
 const favoriteTracks = useSelector((state) => state.player.favoriteTracks);
 const userAccessToken = useSelector((state) => state.player.accessToken);
 
+
 const currentPage = useSelector((state) => state.player.currentPage);
 const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
 let currentTracksList = [];
@@ -156,6 +157,7 @@ const likedTrackCheck =(oneTrackId) =>{
 return(
   <>
   {
+    
   baseAllTracks.map((oneTrack) => {
     
     return(

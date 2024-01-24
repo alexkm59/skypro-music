@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN, SET_FILTER_ACTIVE, SET_FILTER_TRACKS, SET_AUTHOR_FILTER, SET_GENRE_FILTER, SET_SORT_FILTER } from "../actions/types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN, SET_FILTER_ACTIVE, SET_FILTER_TRACKS, SET_AUTHOR_FILTER, SET_GENRE_FILTER, SET_SORT_FILTER, SET_SERTCH_FILTER } from "../actions/types/index";
 
 // 1.
 const initialState = {
@@ -55,6 +55,14 @@ export default function playerReducer(state = initialState, action) {
             };
           }
 
+        case SET_SERTCH_FILTER:{
+          const {NewAllTracks } = action.payload;
+          return {
+            
+            ...state, 
+            filtredTracks: NewAllTracks,
+             };
+        }
 
         case SET_FILTER_TRACKS: {
           const {NewAllTracks } = action.payload;
