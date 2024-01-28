@@ -13,7 +13,7 @@ import {Sidebar} from '../../components/sidebar/sidebar';
 import { useDispatch, useSelector } from "react-redux";
 import { playerSelector } from "../../store/selectors/index";
 import { getPlayList } from '../../api';
-import { allTrakcksLoading, setCurrentTrack, setPage } from '../../store/actions/creators';
+import { allTrakcksLoading, filtredTrakcksLoading, setCurrentTrack, setPage } from '../../store/actions/creators';
 
 // Функция фильтра для Сначала старые
 const sortFunctionOlfFirst =(Arr)=>{
@@ -47,7 +47,8 @@ const [error, setError] = useState (null);
 const isAuthorFilterActive = useSelector(state => state.player.isAuthorFilterActive);
 const isGenreFilterActive = useSelector(state => state.player.isGenreFilterActive);
 const sortFilter = useSelector(state => state.player.sortFilter);
-const serchTracks = useSelector((state) => state.player.filtredTracks);
+const isSerchActive = useSelector((state) => state.player.isSearchActive);
+const searchTracks = useSelector((state)=>state.player.searchTracks);
 
 dispatch (setPage({newPage: "mine"}));
 
@@ -67,44 +68,114 @@ if(error){
   )
 }
 
-console.log(allTracks);
 let baseAllTracks = []
 
 if(isAuthorFilterActive || isGenreFilterActive){
   //  baseAllTracks = useSelector(state => state.player.filtredTracks);
    const checkAllTracks = useSelector(state => state.player.filtredTracks);
-   if(sortFilter == "По-умолчанию"){
-    baseAllTracks = checkAllTracks;
-  }
+  
+   if (isSerchActive){
+        
+    console.log(`зашли в поиск по поиску`);
+    let NewAllTracks = [];
+    console.log(searchTracks.length);
       
-   if(sortFilter == "Сначала старые"){
-        baseAllTracks = sortFunctionOlfFirst(checkAllTracks);
-      }
-   if(sortFilter == "Сначала новые"){
-        baseAllTracks = sortFunctionNewFirst(checkAllTracks);
-      }
+    if(searchTracks.length > 0){
 
-  }
-else{
-   const checkAllTracks = useSelector(state => state.player.tracks);
-   if(sortFilter == "По-умолчанию"){
-    baseAllTracks = checkAllTracks;
-  }
-      
-   if(sortFilter == "Сначала старые"){
-        baseAllTracks = sortFunctionOlfFirst(checkAllTracks);
+      for (let i = 0; i < searchTracks.length; i++) {
+        for(let j = 0; j <  checkAllTracks.length; j++){
+          if( checkAllTracks[j].id === searchTracks[i].id){
+           NewAllTracks.push(searchTracks[i]);
+          }
+        }
       }
-   if(sortFilter == "Сначала новые"){
-        baseAllTracks = sortFunctionNewFirst(checkAllTracks);
+      baseAllTracks = NewAllTracks;
+    }else{
+      baseAllTracks = [];
+    }
+
+    console.log(NewAllTracks);
+    console.log(baseAllTracks);
+      
+  
+      if(sortFilter == "Сначала старые"){
+        baseAllTracks = sortFunctionOlfFirst(NewAllTracks);
+      }
+      if(sortFilter == "Сначала новые"){
+        baseAllTracks = sortFunctionNewFirst(NewAllTracks);
       }
 
 }
-// console.log(serchTracks);
-// if(serchTracks.length > 0){
-//   baseAllTracks = serchTracks;
-// }
+else{
+  if(sortFilter == "По-умолчанию"){
+    baseAllTracks = checkAllTracks;
+  }
+  
+  if(sortFilter == "Сначала старые"){
+    baseAllTracks = sortFunctionOlfFirst(checkAllTracks);
+  }
+  if(sortFilter == "Сначала новые"){
+    baseAllTracks = sortFunctionNewFirst(checkAllTracks);
+  }
+
+}
 
 
+  }
+else{
+  const checkAllTracks = useSelector(state => state.player.tracks);
+  if (isSerchActive){
+        
+          console.log(`зашли в поиск по поиску без фильтров`);
+          let NewAllTracks = [];
+          console.log(searchTracks.length);
+            
+          if(searchTracks.length > 0){
+
+            for (let i = 0; i < searchTracks.length; i++) {
+              for(let j = 0; j <  checkAllTracks.length; j++){
+                if( checkAllTracks[j].id === searchTracks[i].id){
+                 NewAllTracks.push(searchTracks[i]);
+                }
+              }
+            }
+            baseAllTracks = NewAllTracks;
+          }else{
+            baseAllTracks = [];
+          }
+    
+          console.log(NewAllTracks);
+          console.log(baseAllTracks);
+            
+        
+            if(sortFilter == "Сначала старые"){
+              baseAllTracks = sortFunctionOlfFirst(NewAllTracks);
+            }
+            if(sortFilter == "Сначала новые"){
+              baseAllTracks = sortFunctionNewFirst(NewAllTracks);
+            }
+
+      }
+      else{
+        if(sortFilter == "По-умолчанию"){
+          baseAllTracks = checkAllTracks;
+        }
+        
+        if(sortFilter == "Сначала старые"){
+          baseAllTracks = sortFunctionOlfFirst(checkAllTracks);
+        }
+        if(sortFilter == "Сначала новые"){
+          baseAllTracks = sortFunctionNewFirst(checkAllTracks);
+        }
+
+      }
+
+
+  
+
+      
+
+}
 
 
 

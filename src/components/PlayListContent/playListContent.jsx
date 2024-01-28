@@ -158,7 +158,7 @@ return(
   <>
   {
     
-  baseAllTracks.map((oneTrack) => {
+  baseAllTracks.length > 0 ? baseAllTracks.map((oneTrack) => {
     
     return(
       
@@ -229,7 +229,8 @@ return(
   
   )
   
-  })}
+  }) : (<div>Ничего не найдено</div>)}
+ 
  </>
 )
  

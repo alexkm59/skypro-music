@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Styled from './search.styled';
 import { useDispatch, useSelector } from "react-redux";
-import { filtredTrakcksLoading, sertchTraks } from '../../store/actions/creators';
+import { filtredTrakcksLoading, sertchTraks, toggleSearch } from '../../store/actions/creators';
 export function search () {
   const allTracks = useSelector((state) => state.player.tracks);
   const dispatch = useDispatch();
@@ -10,11 +10,19 @@ export function search () {
   // Функция поиска
 const sertchFinction = (str) =>{
   let sertchTracksName=[];
+  console.log(str.length);
+  if (str.length > 0){
+    dispatch(toggleSearch(true));
+  }else{
+    dispatch(toggleSearch(false));
+  }
+
   for (let i = 0; i < allTracks?.length; i++){
     if(allTracks[i].name.toLowerCase().includes(str)){
       sertchTracksName.push(allTracks[i].name.toLowerCase());
     }
   }
+  
   console.log(sertchTracksName);
   
 
@@ -25,7 +33,7 @@ const sertchFinction = (str) =>{
 console.log(checkArrayTracks);
     for (let i = 0; i < sertchTracksName.length; i++) {
       for(let j = 0; j < checkArrayTracks.length; j++){
-        if(checkArrayTracks[j].name.toLowerCase() == sertchTracksName[i].toLowerCase()){
+        if(checkArrayTracks[j].name.toLowerCase() === sertchTracksName[i].toLowerCase()){
           NewAllTracks.push(checkArrayTracks[j])
         }
       }
@@ -34,6 +42,9 @@ console.log(checkArrayTracks);
       console.log(NewAllTracks);
       dispatch (sertchTraks({NewAllTracks}));
 
+  }else{
+    let NewAllTracks = [];
+    dispatch (sertchTraks({NewAllTracks}));
   }
 
   
@@ -47,7 +58,7 @@ console.log(checkArrayTracks);
               <Styled.SearchSvg>
                 <use xlinkHref="img/icon/sprite.svg#icon-search"></use>
               </Styled.SearchSvg>
-              <Styled.SearchText type="search" placeholder="Поиск" name="search" onInput={(event)=> sertchFinction(event.target.value)}/>
+              <Styled.SearchText type="search" placeholder="Поиск" name="search" onChange={(event)=> sertchFinction(event.target.value)}/>
             </Styled.CenterblockSearch>
 )
 

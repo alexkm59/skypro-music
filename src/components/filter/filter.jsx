@@ -30,8 +30,8 @@ const unique = (arr) => {
   const dispatch = useDispatch(); 
   console.log(activeFilterAuthor);
   console.log(activeFilterGenre);
-  // let workTracksArr = [];
- 
+  const isSerchActive = useSelector((state) => state.player.isSearchActive);
+  const searchTracks = useSelector((state)=>state.player.searchTracks);
 
 // функция фильтрации
 const setAuthorGanreFilter = (activeFilterAuthor, activeFilterGenre) => {
@@ -81,7 +81,24 @@ const setAuthorGanreFilter = (activeFilterAuthor, activeFilterGenre) => {
         dispatch (filtredTrakcksLoading({NewAllTracks}));
         workTracksArr = NewAllTracks;
     }
-          
+    //  console.log(isSerchActive);
+    
+    //  if(isSerchActive){
+    //   console.log(`зашли в поиск по поиску`);
+    //   let NewAllTracks = [];
+    //   console.log(searchTracks.length);
+    //     for (let i = 0; i < searchTracks.length; i++) {
+    //       console.log(workTracksArr[i]);
+    //       if (searchTracks[i]?.id === workTracksArr[i]?.id){
+    //           NewAllTracks.push(searchTracks[i])
+    //       }
+    //     }
+    //   console.log(NewAllTracks);
+    //     dispatch (filtredTrakcksLoading({NewAllTracks}));
+    //     // workTracksArr = NewAllTracks;
+
+    // }
+
     
   }
 
