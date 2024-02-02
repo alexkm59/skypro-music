@@ -46,12 +46,18 @@ export const AppRoutes = ({token, isLoading, setLoading, userToken, setUserToken
 
 
 
-      <Route path="/favorites" element={<ProtectedRoute isAllowed ={Boolean(token)}>
+      {/* <Route path="/favorites" element={<ProtectedRoute isAllowed ={Boolean(token)}>
       <Favorites />
       </ProtectedRoute>
-      } />
-      <Route path="/category/:id" element={<ProtectedRoute isAllowed ={Boolean(token)}>
-      <Category />
+      } /> */}
+      <Route path="/category/:id" element={<ProtectedRoute isAllowed ={Boolean(userToken)}>
+      <Category 
+       isLoading={isLoading}
+       setLoading={setLoading}
+       isPlaying ={isPlaying}
+       setIsPlaying = {setIsPlaying}
+      
+      />
       </ProtectedRoute>
      } />
 

@@ -1,4 +1,4 @@
-import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN } from "../actions/types/index";
+import { SET_CURRENT_TRACK, NEXT_TRACK, PREV_TRACK, TOGGLE_SUFFLED, ALL_TRACKS_LOADING, SET_PAGE, FAVORITE_TRACKS_LOADING, SET_ACCESS_TOKEN, SET_FILTER_ACTIVE, SET_FILTER_TRACKS, SET_AUTHOR_FILTER, SET_GENRE_FILTER, SET_SORT_FILTER, SET_SERTCH_FILTER, TOGGLE_SEARCH } from "../actions/types/index";
 
 // 1.
 const initialState = {
@@ -8,7 +8,13 @@ const initialState = {
   isSuffled: false,
   currentPage: "mine",
   favoriteTracks:[],
-  accessToken: null
+  accessToken: null,
+  isAuthorFilterActive: false,
+  isGenreFilterActive: false,
+  filtredTracks: [],
+  sortFilter: "По-умолчанию",
+  isSearchActive: false,
+  searchTracks:[],
 };
 
 export default function playerReducer(state = initialState, action) {
@@ -22,7 +28,62 @@ export default function playerReducer(state = initialState, action) {
        tracks: allTracks,
         };
       }
-    
+
+      case SET_SORT_FILTER: {
+        const {filter} = action.payload;
+        return {
+         ...state, 
+         sortFilter: filter,
+          };
+        }
+
+        case TOGGLE_SEARCH:{
+          const {isSearch} = action.payload;    
+          return { 
+          ...state,
+          isSearchActive: isSearch,
+        
+            };
+
+        }
+
+      case SET_AUTHOR_FILTER: {
+        const {isActive} = action.payload;
+        return {
+          
+         ...state, 
+         isAuthorFilterActive: isActive,
+          };
+        }
+        
+        case SET_GENRE_FILTER: {
+          const {isActive} = action.payload;
+          return {
+            
+           ...state, 
+           isGenreFilterActive: isActive,
+            };
+          }
+
+        case SET_SERTCH_FILTER:{
+          const {NewAllTracks } = action.payload;
+          return {
+            
+            ...state, 
+            searchTracks: NewAllTracks,
+             };
+        }
+
+        case SET_FILTER_TRACKS: {
+          const {NewAllTracks } = action.payload;
+          return {
+            
+           ...state, 
+           filtredTracks: NewAllTracks,
+            };
+          }
+
+
       case FAVORITE_TRACKS_LOADING: {
         const { allfavoriteTracks } = action.payload;
         return {

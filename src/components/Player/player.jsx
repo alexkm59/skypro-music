@@ -6,7 +6,9 @@ import {TrackPlayInfo} from '../trackPlay/trackPlay';
 import { useSelector } from "react-redux";
 import { playerSelector } from "../../store/selectors/index";
 import { useDispatch } from "react-redux";
-import {autoNextTrack, nextTrack, prevTrack, setCurrentTrack, toggleSuffled} from "../../store/actions/creators/index"
+import {autoNextTrack, favoriteTrakcksLoading, nextTrack, prevTrack, setCurrentTrack, toggleSuffled} from "../../store/actions/creators/index"
+import {deleteLikeTrackApi, getFavoriteTracks, likeTrackApi} from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 export function PlayerControls({isLoading, isPlaying, setIsPlaying}) {
 
@@ -18,13 +20,90 @@ export function PlayerControls({isLoading, isPlaying, setIsPlaying}) {
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
     const [volume, setVolume] = useState(0.4);
-    
-
+    const favoriteTracks = useSelector((state) => state.player.favoriteTracks);
+    const userAccessToken = useSelector((state) => state.player.accessToken);
 
     const currentTrack = useSelector((state) => state.player.currentTrack.content);
     const isSuffled = useSelector((state) => state.player.isSuffled);
     
- 
+    const navigate = useNavigate();
+
+
+ // проверяем лайкнут или нет трек для отрисовки значка лайка
+  const likedTrackCheck =(oneTrackId) =>{
+  let favoriteTracksId = []
+  for (let i = 0; i < favoriteTracks.length; i++) {
+    favoriteTracksId.push(favoriteTracks[i].id)
+  }
+  const isLikedId = favoriteTracksId.includes(oneTrackId);
+  return isLikedId;
+}
+
+const getFavoriteTracksList = () =>{
+  getFavoriteTracks(userAccessToken)
+  .then((response) => {
+    if(response.status === 401){
+        navigate("/login")         
+        return
+    }
+    else{
+        
+        return response.json()
+    }
+
+})
+    .then((list) => {
+    //   setFavoritTracks(lists)
+    console.log(`my favorite tracks ${JSON.stringify(list)}`);
+      dispatch(favoriteTrakcksLoading({allfavoriteTracks: list}));
+    
+  })
+}
+
+
+const handleLike = (oneTrackId) => {
+  likeTrackApi(userAccessToken, oneTrackId)
+  .then((response) => {
+    if(response.status === 401){
+        navigate("/login")         
+        return
+    }
+    else{
+        return response.json()
+    }
+})
+  .then(getFavoriteTracksList)
+}
+
+const handleDislike = (oneTrackId) => {
+  deleteLikeTrackApi(userAccessToken, oneTrackId)
+  .then((response) => {
+    if(response.status === 401){
+        navigate("/login")         
+        return
+    }
+    else{
+        return response.json()
+    }
+})
+  .then(getFavoriteTracksList)
+}
+
+
+const toggleLike = () =>{
+  
+// includes возвращает true или false
+  const isLiked = likedTrackCheck(currentTrack.id);
+
+   isLiked ? handleDislike(currentTrack.id) : handleLike(currentTrack.id);
+  
+}
+
+
+
+
+
+
     
     useEffect (() =>{
       console.log(currentTrack.track_file);
@@ -215,19 +294,30 @@ if(audioRef.current.ended === true) {
                   
                 {/* --- Компонент проигрываемого трека конец */}
                  
-                  <div className="track-play__like-dis">
-                  <div className="track-play__like _btn-icon">
+                
+
+                  <div className="track-play__like-dis" onClick={toggleLike}>
+                 
+                  {likedTrackCheck(currentTrack.id) ? (
+                    <div className="track-play__like _btn-icon">
                     <svg className="track-play__like-svg" alt="like">
                       <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
                     </svg>
-                  </div>
+                  </div> ) : (
+                  
                   <div className="track-play__dislike _btn-icon">
-                    <svg className="track-play__dislike-svg" alt="dislike">
-                      <use
-                        xlinkHref="img/icon/sprite.svg#icon-dislike"
-                      ></use>
-                    </svg>
+                  <svg className="track-play__dislike-svg" alt="dislike">
+                    <use
+                      xlinkHref="img/icon/sprite.svg#icon-dislike"
+                    ></use>
+                  </svg>
                   </div>
+
+                  )}
+
+                  
+                 
+                
                 </div>
                 
                   
@@ -255,11 +345,4 @@ if(audioRef.current.ended === true) {
 
 }
 
-
-
-
-     
-      
-
-
-                
+             

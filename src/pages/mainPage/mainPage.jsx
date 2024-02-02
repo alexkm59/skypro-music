@@ -13,12 +13,42 @@ import {Sidebar} from '../../components/sidebar/sidebar';
 import { useDispatch, useSelector } from "react-redux";
 import { playerSelector } from "../../store/selectors/index";
 import { getPlayList } from '../../api';
-import { allTrakcksLoading, setCurrentTrack, setPage } from '../../store/actions/creators';
+import { allTrakcksLoading, filtredTrakcksLoading, setCurrentTrack, setPage } from '../../store/actions/creators';
+
+// Функция фильтра для Сначала старые
+const sortFunctionOlfFirst =(Arr)=>{
+  let sortArray1 = [...Arr];
+  let sortArray2 = [];
+  sortArray2 = sortArray1.sort(function (a, b){
+      if(a.release_date && b.release_date){
+        return ((a.release_date).slice(0,4) - (b.release_date).slice(0,4));
+      }    
+    })
+return sortArray2;
+}
+
+// Функция фильтра для Сначала новые
+const sortFunctionNewFirst =(Arr)=>{
+  let sortArray1 = [...Arr];
+  let sortArray2 = [];
+  sortArray2 = sortArray1.sort(function (a, b){
+      if(a.release_date && b.release_date){
+        return ((b.release_date).slice(0,4) - (a.release_date).slice(0,4));
+      }    
+    })
+return sortArray2;
+}
+
 
 export const MinePage =({isLoading, setLoading, isPlaying, setIsPlaying}) => {
 const dispatch = useDispatch();  
 const [allTracks, setAllTracks] = useState ([1,2,3,4,5,6,7,8,9]);
 const [error, setError] = useState (null);
+const isAuthorFilterActive = useSelector(state => state.player.isAuthorFilterActive);
+const isGenreFilterActive = useSelector(state => state.player.isGenreFilterActive);
+const sortFilter = useSelector(state => state.player.sortFilter);
+const isSerchActive = useSelector((state) => state.player.isSearchActive);
+const searchTracks = useSelector((state)=>state.player.searchTracks);
 
 dispatch (setPage({newPage: "mine"}));
 
@@ -38,11 +68,114 @@ if(error){
   )
 }
 
-const baseAllTracks = useSelector(state => state.player.tracks);
-// if(baseAllTracks){
-//   console.log(baseAllTracks[0].stared_user);
-// }
+let baseAllTracks = []
 
+if(isAuthorFilterActive || isGenreFilterActive){
+  //  baseAllTracks = useSelector(state => state.player.filtredTracks);
+   const checkAllTracks = useSelector(state => state.player.filtredTracks);
+  
+   if (isSerchActive){
+        
+    console.log(`зашли в поиск по поиску`);
+    let NewAllTracks = [];
+    console.log(searchTracks.length);
+      
+    if(searchTracks.length > 0){
+
+      for (let i = 0; i < searchTracks.length; i++) {
+        for(let j = 0; j <  checkAllTracks.length; j++){
+          if( checkAllTracks[j].id === searchTracks[i].id){
+           NewAllTracks.push(searchTracks[i]);
+          }
+        }
+      }
+      baseAllTracks = NewAllTracks;
+    }else{
+      baseAllTracks = [];
+    }
+
+    console.log(NewAllTracks);
+    console.log(baseAllTracks);
+      
+  
+      if(sortFilter == "Сначала старые"){
+        baseAllTracks = sortFunctionOlfFirst(NewAllTracks);
+      }
+      if(sortFilter == "Сначала новые"){
+        baseAllTracks = sortFunctionNewFirst(NewAllTracks);
+      }
+
+}
+else{
+  if(sortFilter == "По-умолчанию"){
+    baseAllTracks = checkAllTracks;
+  }
+  
+  if(sortFilter == "Сначала старые"){
+    baseAllTracks = sortFunctionOlfFirst(checkAllTracks);
+  }
+  if(sortFilter == "Сначала новые"){
+    baseAllTracks = sortFunctionNewFirst(checkAllTracks);
+  }
+
+}
+
+
+  }
+else{
+  const checkAllTracks = useSelector(state => state.player.tracks);
+  if (isSerchActive){
+        
+          console.log(`зашли в поиск по поиску без фильтров`);
+          let NewAllTracks = [];
+          console.log(searchTracks.length);
+            
+          if(searchTracks.length > 0){
+
+            for (let i = 0; i < searchTracks.length; i++) {
+              for(let j = 0; j <  checkAllTracks.length; j++){
+                if( checkAllTracks[j].id === searchTracks[i].id){
+                 NewAllTracks.push(searchTracks[i]);
+                }
+              }
+            }
+            baseAllTracks = NewAllTracks;
+          }else{
+            baseAllTracks = [];
+          }
+    
+          console.log(NewAllTracks);
+          console.log(baseAllTracks);
+            
+        
+            if(sortFilter == "Сначала старые"){
+              baseAllTracks = sortFunctionOlfFirst(NewAllTracks);
+            }
+            if(sortFilter == "Сначала новые"){
+              baseAllTracks = sortFunctionNewFirst(NewAllTracks);
+            }
+
+      }
+      else{
+        if(sortFilter == "По-умолчанию"){
+          baseAllTracks = checkAllTracks;
+        }
+        
+        if(sortFilter == "Сначала старые"){
+          baseAllTracks = sortFunctionOlfFirst(checkAllTracks);
+        }
+        if(sortFilter == "Сначала новые"){
+          baseAllTracks = sortFunctionNewFirst(checkAllTracks);
+        }
+
+      }
+
+
+  
+
+      
+
+}
 
 
 
@@ -114,9 +247,13 @@ const currentTrackId = useSelector(state => state.player.id);
             <div className="sidebar__block">
               <div className="sidebar__list">
                 {/* ---Компонент сайдбар начало */}
-                <Sidebar img="img/playlist01.png" id="1"/>
+                {/* <Sidebar img="img/playlist01.png" id="1"/>
                 <Sidebar img="img/playlist02.png" id="2"/>
-                <Sidebar img="img/playlist03.png" id="3"/>
+                <Sidebar img="img/playlist03.png" id="3"/> */}
+
+                <Sidebar src="https://skypro-web-developer.github.io/webdev-react-skypro-music-examples/img/playlist-classic.png" id="1"/>
+                <Sidebar src="https://skypro-web-developer.github.io/webdev-react-skypro-music-examples/img/playlist-electro.png" id="2"/>
+                <Sidebar src="https://skypro-web-developer.github.io/webdev-react-skypro-music-examples/img/playlist-rock.png" id="3"/>
                 {/* ---Компонент сайдбар конец */}
               </div>
             </div>
